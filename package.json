@@ -1,9 +1,21 @@
 {
+  "description": "A snowpack plugin to use Rollup",
+  "homepage": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle",
+  "bugs": {
+    "url": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/issues",
+    "email": "konnor7414@gmail.com"
+  },
+  "engines": { "node": ">= 10" },
+  "author": "Konnor Rogers <konnor7414@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle.git"
+  },
   "license": "MIT",
   "scripts": {
     "build": "pika build",
     "deploy": "pika publish",
-    "version": "npm run build"
+    "version": "yarn run build"
   },
   "@pika/pack": {
     "pipeline": [
@@ -15,11 +27,13 @@
       ]
     ]
   },
+  "peerDependencies": {
+    "snowpack": "^2.6.4"
+  },
   "devDependencies": {
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.9.2",
     "@pika/plugin-ts-standard-pkg": "^0.9.2",
-    "snowpack": "^2.6.4",
     "typescript": "^3.9.7"
   }
 }
