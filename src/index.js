@@ -1,20 +1,9 @@
-import { rollup, InputOption, OutputOptions } from 'rollup';
-import type { SnowpackPluginFactory } from "snowpack";
-
+const rollup = require("rollup")
 const fs = require("fs")
 
-interface RollupBuild {
-  inputOptions: InputOption;
-  outputOptions: OutputOptions;
-}
+const inputOptions = {}
 
-interface ManifestData {
-  [fileName: string]: string;
-}
-
-const inputOptions: InputOption = {}
-
-const outputOptions: OutputOptions = {
+const outputOptions = {
   format: "es",
   plugins: [],
   assetFileNames: "assets/[name]-[hash][extname]",
@@ -23,11 +12,11 @@ const outputOptions: OutputOptions = {
   entryFileNames: "[name].js",
 }
 
-async function rollupBuild({inputOptions, outputOptions}: RollupBuild) {
-  const bundle = await rollup(inputOptions)
+async function rollupBuild({inputOptions, outputOptions}) {
+  const bundle = await rollup.rollup(inputOptions)
   const { output } = await bundle.generate(outputOptions)
 
-  const manifestData: ManifestData = {};
+  const manifestData = {};
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
     let name;
@@ -46,24 +35,24 @@ async function rollupBuild({inputOptions, outputOptions}: RollupBuild) {
   await fs.write(manifestJSON)
 }
 
-const plugin: SnowpackPluginFactory = (config, options) => {
-  config.buildOptions.minify = false // Rollup will handle this
+const plugin = (snowpackConfig, pluginOptions) => {
+  snowpackConfig.buildOptions.minify = false // Rollup will handle this
 
   return {
     name: "snowpack-plugin-rollup-bundle",
     input: ["*"],
     async optimize({ buildDirectory }) {
-      const buildOptions = config.buildOptions || {};
-      let baseUrl = buildOptions.baseUrl || "/";
+      const buildOptions = snowpackConfig.buildOptions || {};
 
       let extendConfig = (cfg) => cfg;
-      if (typeof options.extendConfig === "function") {
-        extendConfig = options.extendConfig;
-      } else if (typeof options.extendConfig === "object") {
-        extendConfig = (cfg) => ({ ...cfg, ...options.extendConfig });
+      if (typeof pluginOptions.extendConfig === "function") {
+        extendConfig = pluginOptions.extendConfig;
+      } else if (typeof pluginOptions.extendConfig === "object") {
+        extendConfig = (cfg) => ({ ...cfg, ...pluginOptions.extendConfig });
       }
 
       const extendedConfig = extendConfig({
+        ...snowpackConfig,
         outputOptions: {
           ...outputOptions,
           dir: buildDirectory
@@ -74,7 +63,7 @@ const plugin: SnowpackPluginFactory = (config, options) => {
         }
       })
 
-      rollupBuild(extendedConfig)
+      await rollupBuild(extendedConfig)
     }
   }
 };
