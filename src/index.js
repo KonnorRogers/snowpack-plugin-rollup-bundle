@@ -1,7 +1,9 @@
 const rollup = require("rollup")
 const fs = require("fs")
 
-const inputOptions = {}
+const inputOptions = {
+  index: "index.js"
+}
 
 const outputOptions = {
   format: "es",
@@ -52,7 +54,6 @@ const plugin = (snowpackConfig, pluginOptions) => {
       }
 
       const extendedConfig = extendConfig({
-        ...snowpackConfig,
         outputOptions: {
           ...outputOptions,
           dir: buildDirectory
