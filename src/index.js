@@ -1,8 +1,8 @@
-const rollup = require("rollup")
-const fs = require("fs")
-const path = require("path")
+const rollup = require("rollup");
+const fs = require("fs");
+const path = require("path");
 
-const inputOptions = {}
+const inputOptions = {};
 
 const outputOptions = {
   format: "es",
@@ -11,22 +11,20 @@ const outputOptions = {
   chunkFileNames: "[name]-[hash].js",
   compact: true,
   entryFileNames: "[name].js",
-}
+};
 
 function findEntryFiles(dir) {
   let entryFiles;
-  entryFiles = fs.readdirSync(dir, (err, _files) => {
-    if (err) {
-      throw `Unable to scan directory: ${dir}\n\n + ${err}`
-    }
-  }).map(file => path.join("public", "snowpacks", "packs", file))
+  entryFiles = fs
+    .readdirSync(dir, { withFileTypes: true })
+    .map((file) => path.join("public", "snowpacks", "packs", file));
 
-  return entryFiles
+  return entryFiles;
 }
 
-async function rollupBuild({inputOptions, outputOptions}) {
-  const bundle = await rollup.rollup(inputOptions)
-  const { output } = await bundle.generate(outputOptions)
+async function rollupBuild({ inputOptions, outputOptions }) {
+  const bundle = await rollup.rollup(inputOptions);
+  const { output } = await bundle.generate(outputOptions);
 
   const manifestData = {};
   for (const chunkOrAsset of output) {
@@ -36,19 +34,19 @@ async function rollupBuild({inputOptions, outputOptions}) {
     if (chunkOrAsset.type === "asset") {
       name = chunkOrAsset.source;
     } else {
-      name = chunkOrAsset.name
+      name = chunkOrAsset.name;
     }
 
     manifestData[name] = fileName;
   }
 
-  await bundle.write(outputOptions)
+  await bundle.write(outputOptions);
   const manifestJSON = JSON.stringify(manifestData);
-  fs.writeSync(manifestJSON)
+  fs.writeSync(manifestJSON);
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
-  snowpackConfig.buildOptions.minify = false // Rollup will handle this
+  snowpackConfig.buildOptions.minify = false; // Rollup will handle this
 
   return {
     name: "snowpack-plugin-rollup-bundle",
@@ -67,21 +65,21 @@ const plugin = (snowpackConfig, pluginOptions) => {
         ...snowpackConfig,
         outputOptions: {
           ...outputOptions,
-          dir: `${buildDirectory}/snowpacks`
+          dir: `${buildDirectory}/snowpacks`,
         },
 
         inputOptions: {
           ...inputOptions,
-          input: "public/snowpacks/packs/application.js"
+          input: "public/snowpacks/packs/application.js",
           // input: findEntryFiles(path.join(buildDirectory, "snowpacks", "packs"))
-        }
-      })
+        },
+      });
 
-      console.log(extendedConfig)
+      console.log(extendedConfig);
 
-      await rollupBuild(extendedConfig)
-    }
-  }
+      await rollupBuild(extendedConfig);
+    },
+  };
 };
 
 export default plugin;
