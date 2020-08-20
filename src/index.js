@@ -60,7 +60,7 @@ const plugin = (snowpackConfig, pluginOptions) => {
         },
 
         inputOptions: {
-          ...inputOptions
+          ...inputOptions,
         }
       })
 
