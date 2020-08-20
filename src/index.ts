@@ -66,7 +66,7 @@ const plugin: SnowpackPluginFactory = (config, options) => {
       const extendedConfig = extendConfig({
         outputOptions: {
           ...outputOptions,
-          dir: `${buildDirectory}/manifest.json`
+          dir: buildDirectory
         },
 
         inputOptions: {
