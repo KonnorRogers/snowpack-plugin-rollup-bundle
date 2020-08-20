@@ -1,5 +1,6 @@
 const rollup = require("rollup")
 const fs = require("fs")
+const path = require("path")
 
 const inputOptions = {}
 
@@ -10,6 +11,17 @@ const outputOptions = {
   chunkFileNames: "[name]-[hash].js",
   compact: true,
   entryFileNames: "[name].js",
+}
+
+function findEntryFiles(dir) {
+  let entryFiles;
+  entryFiles = fs.readdirSync(dir, (err, _files) => {
+    if (err) {
+      throw `Unable to scan directory: ${dir}\n\n + ${err}`
+    }
+  }).map(file => path.join("public", "snowpacks", "packs", file))
+
+  return entryFiles
 }
 
 async function rollupBuild({inputOptions, outputOptions}) {
@@ -32,7 +44,7 @@ async function rollupBuild({inputOptions, outputOptions}) {
 
   await bundle.write(outputOptions)
   const manifestJSON = JSON.stringify(manifestData);
-  await fs.write(manifestJSON)
+  fs.writeSync(manifestJSON)
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
@@ -55,13 +67,17 @@ const plugin = (snowpackConfig, pluginOptions) => {
         ...snowpackConfig,
         outputOptions: {
           ...outputOptions,
-          dir: buildDirectory
+          dir: `${buildDirectory}/snowpacks`
         },
 
         inputOptions: {
-          ...inputOptions
+          ...inputOptions,
+          input: "public/snowpacks/packs/application.js"
+          // input: findEntryFiles(path.join(buildDirectory, "snowpacks", "packs"))
         }
       })
+
+      console.log(extendedConfig)
 
       await rollupBuild(extendedConfig)
     }
