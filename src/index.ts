@@ -1,103 +1,82 @@
-
-import { InputOption, OutputOptions } from 'rollup';
+import { rollup, InputOption, OutputOptions } from 'rollup';
 import type { SnowpackPluginFactory } from "snowpack";
 
-const rollup = import("rollup")
+const fs = require("fs")
 
-const inputOptions: InputOption = {
-  // external,
-  // input, // conditionally required
-  // plugins: []
-
-  // // advanced input options
-  // cache,
-  // onwarn,
-  // preserveEntrySignatures,
-  // strictDeprecations,
-
-  // // danger zone
-  // acorn,
-  // acornInjectPlugins,
-  // context,
-  // moduleContext,
-  // preserveSymlinks,
-  // shimMissingExports,
-  // treeshake,
-
-  // // experimental
-  // experimentalCacheExpiry,
-  // perf
+interface RollupBuild {
+  inputOptions: InputOption;
+  outputOptions: OutputOptions;
 }
 
+interface ManifestData {
+  [fileName: string]: string;
+}
+
+const inputOptions: InputOption = {}
+
 const outputOptions: OutputOptions = {
-  // core output options
-  // dir: buildDirectory,
-  format: "es", // required, esmodules
+  format: "es",
   plugins: [],
-  // advanced output options
   assetFileNames: "assets/[name]-[hash][extname]",
   chunkFileNames: "[name]-[hash].js",
   compact: true,
-  // entryFileNames,
-  // extend,
-  // externalLiveBindings,
-  // footer,
-  // hoistTransitiveImports,
-  // inlineDynamicImports,
-  // interop,
-  // intro,
-  // manualChunks,
-  // minifyInternalExports,
-  // outro,
-  // paths,
-  // preserveModules,
-  // sourcemap,
-  // sourcemapExcludeSources,
-  // sourcemapFile,
-  // sourcemapPathTransform,
-
-  // // danger zone
-  // amd,
-  // esModule,
-  // exports,
-  // freeze,
-  // indent,
-  // namespaceToStringTag,
-  // noConflict,
-  // preferConst,
-  // strict,
-  // systemNullSetters
+  entryFileNames: "[name].js",
 }
 
-//async function rollupBuild({inputOptions, outputOptions}) {
-//  const bundle = await rollup.rollup(inputOptions)
-//  const { output } = await bundle.generate(outputOptions)
+async function rollupBuild({inputOptions, outputOptions}: RollupBuild) {
+  const bundle = await rollup(inputOptions)
+  const { output } = await bundle.generate(outputOptions)
 
-//  for (const chunkOrAsset of output) {
-//    if (chunkOrAsset.type === "asset") {
-//      // assets
-//      // fileName: string,              // the asset file name
-//      // source: string | Uint8Array    // the asset source
-//      // type: 'asset'                  // signifies that this is an asset
-//      //
-//    } else {
-//     // chunks
-//    }
-//  }
+  const manifestData: ManifestData = {};
+  for (const chunkOrAsset of output) {
+    const fileName = chunkOrAsset.fileName;
+    let name;
 
-//  await bundle.write(outputOptions)
-//}
+    if (chunkOrAsset.type === "asset") {
+      name = chunkOrAsset.source;
+    } else {
+      name = chunkOrAsset.name
+    }
 
-//const plugin: SnowpackPluginFactory = (config, options) => {
-//  config.buildOptions.minify = false // Rollup will handle this
+    manifestData[name] = fileName;
+  }
 
-//  return {
-//    name: "snowpack-plugin-rollup-bundle",
-//    input: ["*"],
-//    async optimize({ buildDirectory }) {
+  await bundle.write(outputOptions)
+  const manifestJSON = JSON.stringify(manifestData);
+  await fs.write(manifestJSON)
+}
 
-//    }
-//  }
-//};
+const plugin: SnowpackPluginFactory = (config, options) => {
+  config.buildOptions.minify = false // Rollup will handle this
 
-//export default plugin;
+  return {
+    name: "snowpack-plugin-rollup-bundle",
+    input: ["*"],
+    async optimize({ buildDirectory }) {
+      const buildOptions = config.buildOptions || {};
+      let baseUrl = buildOptions.baseUrl || "/";
+
+      let extendConfig = (cfg) => cfg;
+      if (typeof options.extendConfig === "function") {
+        extendConfig = options.extendConfig;
+      } else if (typeof options.extendConfig === "object") {
+        extendConfig = (cfg) => ({ ...cfg, ...options.extendConfig });
+      }
+
+      const extendedConfig = extendConfig({
+        outputOptions: {
+          ...outputOptions,
+          dir: `${buildDirectory}/manifest.json`
+        },
+
+        inputOptions: {
+          ...inputOptions
+        }
+      })
+
+      rollupBuild(extendedConfig)
+    }
+  }
+};
+
+export default plugin;
