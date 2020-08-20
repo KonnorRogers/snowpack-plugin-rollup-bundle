@@ -1,4 +1,5 @@
 {
+  "name": "snowpack-plugin-rollup-bundle",
   "description": "A snowpack plugin to use Rollup",
   "homepage": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle",
   "bugs": {
@@ -13,6 +14,8 @@
   },
   "license": "MIT",
   "scripts": {
+    "check": "tsc --noEmit",
+    "check:watch": "tsc --noEmit --watch",
     "build": "pika build",
     "deploy": "pika publish",
     "version": "yarn run build"
