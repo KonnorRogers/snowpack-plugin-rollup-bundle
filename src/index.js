@@ -1,6 +1,8 @@
 const rollup = require("rollup");
 const fs = require("fs");
 const path = require("path");
+const process = require("process");
+const cwd = process.cwd();
 
 const inputOptions = {};
 
@@ -13,14 +15,14 @@ const outputOptions = {
   entryFileNames: "[name].js",
 };
 
-function findEntryFiles(dir) {
-  let entryFiles;
-  entryFiles = fs
-    .readdirSync(dir, { withFileTypes: true })
-    .map((file) => path.join("public", "snowpacks", "packs", file));
+// function findEntryFiles(dir) {
+//   let entryFiles;
+//   entryFiles = fs
+//     .readdirSync(dir, { withFileTypes: true })
+//     .map((file) => path.join("public", "snowpacks", "packs", file));
 
-  return entryFiles;
-}
+//   return entryFiles;
+// }
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
@@ -42,10 +44,8 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   await bundle.write(outputOptions);
   const manifestJSON = JSON.stringify(manifestData);
-  fs.writeFileSync(
-    path.join("public", "snowpacks", "manifest.json"),
-    manifestJSON
-  );
+  console.log(manifestJSON);
+  fs.writeFileSync(path.join(outputOptions.dir, "manifest.json"), manifestJSON);
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
@@ -73,11 +73,15 @@ const plugin = (snowpackConfig, pluginOptions) => {
 
         inputOptions: {
           ...inputOptions,
-          input: findEntryFiles(
-            path.join(buildDirectory, "snowpacks", "packs")
-          ),
         },
       });
+
+      extendedConfig.inputOptions.input = path.resolve(
+        cwd,
+        "public",
+        "snowpacks",
+        "packs"
+      );
 
       console.log(extendedConfig);
 
