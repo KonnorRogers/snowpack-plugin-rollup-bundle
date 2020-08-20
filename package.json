@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "eslint --fix && prettier --fix **/*.js && pika build",
+    "build": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*.js && pika build",
     "deploy": "pika publish",
     "version": "yarn run build"
   },

@@ -42,7 +42,10 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   await bundle.write(outputOptions);
   const manifestJSON = JSON.stringify(manifestData);
-  fs.writeSync(manifestJSON);
+  fs.writeFileSync(
+    path.join("public", "snowpacks", "manifest.json"),
+    manifestJSON
+  );
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
@@ -52,7 +55,7 @@ const plugin = (snowpackConfig, pluginOptions) => {
     name: "snowpack-plugin-rollup-bundle",
     input: ["*"],
     async optimize({ buildDirectory }) {
-      const buildOptions = snowpackConfig.buildOptions || {};
+      // const buildOptions = snowpackConfig.buildOptions || {};
 
       let extendConfig = (cfg) => cfg;
       if (typeof pluginOptions.extendConfig === "function") {
@@ -70,8 +73,9 @@ const plugin = (snowpackConfig, pluginOptions) => {
 
         inputOptions: {
           ...inputOptions,
-          input: "public/snowpacks/packs/application.js",
-          // input: findEntryFiles(path.join(buildDirectory, "snowpacks", "packs"))
+          input: findEntryFiles(
+            path.join(buildDirectory, "snowpacks", "packs")
+          ),
         },
       });
 
