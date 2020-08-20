@@ -6,7 +6,9 @@
     "url": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/issues",
     "email": "konnor7414@gmail.com"
   },
-  "engines": { "node": ">= 10" },
+  "engines": {
+    "node": ">= 10"
+  },
   "author": "Konnor Rogers <konnor7414@gmail.com>",
   "repository": {
     "type": "git",
@@ -14,8 +16,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "check": "tsc --noEmit",
-    "check:watch": "tsc --noEmit --watch",
     "build": "pika build",
     "deploy": "pika publish",
     "version": "yarn run build"
@@ -23,7 +23,7 @@
   "@pika/pack": {
     "pipeline": [
       [
-        "@pika/plugin-ts-standard-pkg"
+        "@pika/plugin-standard-pkg"
       ],
       [
         "@pika/plugin-build-node"
@@ -31,12 +31,15 @@
     ]
   },
   "peerDependencies": {
-    "snowpack": "^2.6.4"
+    "rollup": "^2.26.4",
+    "snowpack": "^2.8.0"
   },
   "devDependencies": {
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.9.2",
-    "@pika/plugin-ts-standard-pkg": "^0.9.2",
-    "typescript": "^3.9.7"
-  }
+    "@pika/plugin-standard-pkg": "^0.9.2",
+    "rollup": "^2.26.4",
+    "snowpack": "^2.8.0"
+  },
+  "version": "0.0.2"
 }
