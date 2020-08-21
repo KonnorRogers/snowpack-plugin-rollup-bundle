@@ -1,8 +1,6 @@
 const rollup = require("rollup");
 const fs = require("fs");
 const path = require("path");
-const process = require("process");
-const cwd = process.cwd();
 
 const inputOptions = {};
 
@@ -50,7 +48,10 @@ async function rollupBuild({ inputOptions, outputOptions }) {
     fs.mkdirSync(outputOptions.dir, { recursive: true });
   }
 
-  fs.writeFileSync(path.join(outputOptions.dir, "manifest.json"), manifestJSON);
+  fs.writeFileSync(
+    path.join(outputOptions.dir, "packs", "manifest.json"),
+    manifestJSON
+  );
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
@@ -69,7 +70,7 @@ const plugin = (snowpackConfig, pluginOptions) => {
         extendConfig = (cfg) => ({ ...cfg, ...pluginOptions.extendConfig });
       }
 
-      const extendedConfig = extendConfig({
+      const extendedConfig = await extendConfig({
         ...snowpackConfig,
         outputOptions: {
           ...outputOptions,
@@ -82,10 +83,10 @@ const plugin = (snowpackConfig, pluginOptions) => {
       });
 
       extendedConfig.inputOptions.input = path.resolve(
-        cwd,
-        "src",
-        "snowpacker",
-        "packs"
+        "public",
+        "snowpacks",
+        "packs",
+        "application.js"
       );
 
       console.log(extendedConfig);
