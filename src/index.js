@@ -15,14 +15,14 @@ const outputOptions = {
   entryFileNames: "[name].js",
 };
 
-// function findEntryFiles(dir) {
-//   let entryFiles;
-//   entryFiles = fs
-//     .readdirSync(dir, { withFileTypes: true })
-//     .map((file) => path.join("public", "snowpacks", "packs", file));
+function findEntryFiles(dir) {
+  let entryFiles;
+  entryFiles = fs
+    .readdirSync(dir, { withFileTypes: true })
+    .map((file) => path.join("public", "snowpacks", "packs", file));
 
-//   return entryFiles;
-// }
+  return entryFiles;
+}
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
@@ -45,6 +45,11 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   await bundle.write(outputOptions);
   const manifestJSON = JSON.stringify(manifestData);
   console.log(manifestJSON);
+
+  if (!fs.existsSync(outputOptions.dir)) {
+    fs.mkdirSync(outputOptions.dir, { recursive: true })
+  }
+
   fs.writeFileSync(path.join(outputOptions.dir, "manifest.json"), manifestJSON);
 }
 
