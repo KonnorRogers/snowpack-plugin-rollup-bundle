@@ -7,20 +7,11 @@ const inputOptions = {};
 const outputOptions = {
   format: "es",
   plugins: [],
-  assetFileNames: "assets/[name]-[hash][extname]",
-  chunkFileNames: "[name]-[hash].js",
+  assetFileNames: "assets/[name].[hash][extname]",
+  chunkFileNames: "[name].[hash].js",
   compact: true,
-  entryFileNames: "[name].js",
+  entryFileNames: "[name].[hash].js",
 };
-
-// function findEntryFiles(dir) {
-//   let entryFiles;
-//   entryFiles = fs
-//     .readdirSync(dir, { withFileTypes: true })
-//     .map((file) => path.join("public", "snowpacks", "packs", file));
-
-//   return entryFiles;
-// }
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
@@ -34,7 +25,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
     if (chunkOrAsset.type === "asset") {
       name = chunkOrAsset.source;
     } else {
-      name = chunkOrAsset.name;
+      name = `${chunkOrAsset.name}.js`;
     }
 
     manifestData[name] = fileName;
@@ -42,27 +33,26 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   await bundle.write(outputOptions);
   const manifestJSON = JSON.stringify(manifestData);
-  console.log(manifestJSON);
+
+  Object.keys(manifestData).forEach((file) => {
+    fs.unlinkSync(path.resolve(outputOptions.dir, file));
+  });
 
   if (!fs.existsSync(outputOptions.dir)) {
     fs.mkdirSync(outputOptions.dir, { recursive: true });
   }
 
   fs.writeFileSync(
-    path.join(outputOptions.dir, "packs", "manifest.json"),
+    path.resolve(outputOptions.dir, "manifest.json"),
     manifestJSON
   );
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
-  snowpackConfig.buildOptions.minify = false; // Rollup will handle this
-
   return {
     name: "snowpack-plugin-rollup-bundle",
     input: ["*"],
     async optimize({ buildDirectory }) {
-      // const buildOptions = snowpackConfig.buildOptions || {};
-
       let extendConfig = (cfg) => cfg;
       if (typeof pluginOptions.extendConfig === "function") {
         extendConfig = pluginOptions.extendConfig;
@@ -74,22 +64,14 @@ const plugin = (snowpackConfig, pluginOptions) => {
         ...snowpackConfig,
         outputOptions: {
           ...outputOptions,
-          dir: `${buildDirectory}/snowpacks`,
+          dir: buildDirectory,
         },
 
         inputOptions: {
           ...inputOptions,
+          input: fs.readdirSync(buildDirectory),
         },
       });
-
-      extendedConfig.inputOptions.input = path.resolve(
-        "public",
-        "snowpacks",
-        "packs",
-        "application.js"
-      );
-
-      console.log(extendedConfig);
 
       await rollupBuild(extendedConfig);
     },
