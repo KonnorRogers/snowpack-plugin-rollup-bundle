@@ -1,12 +1,14 @@
 import JS from "../javascript";
-import { consumer } from "../channels";
+import * as channels from "../channels";
 import "../stylesheets/index.css";
 
 document.addEventListener("DOMContentLoaded", () => {
   const div = document.createElement("div");
   div.innerText = "Hello from index";
-  document.appendChild(div);
 
-  JS.append();
-  consumer.append();
+  const body = document.querySelector("body")
+  body.appendChild(div);
+
+  JS.append(body);
+  channels.consumer.append(body);
 });

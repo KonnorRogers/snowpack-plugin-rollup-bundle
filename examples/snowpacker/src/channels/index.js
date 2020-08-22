@@ -4,6 +4,6 @@
 
 import consumer from "./consumer"
 
-export const { consumer };
+export { consumer };
 
 

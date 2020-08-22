@@ -1,8 +1,8 @@
 const js = {
-  append: () => {
+  append: (element) => {
     const div = document.createElement("div")
     div.innerText = "hello from javascript"
-    document.appendChild(div)
+    element.appendChild(div)
   }
 }
 
