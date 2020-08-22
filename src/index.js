@@ -1,6 +1,13 @@
-const rollup = require("rollup");
-const fs = require("fs");
-const path = require("path");
+// const rollup = require("rollup");
+// const fs = require("fs");
+// const path = require("path");
+
+import rollup from "rollup";
+import path from "path";
+import fs from "fs";
+// import alias from "@rollup/plugin-alias";
+// import { nodeResolve } from "@rollup/plugin-node-resolve";
+// import styles from "rollup-plugin-styles";
 
 const inputOptions = {};
 
