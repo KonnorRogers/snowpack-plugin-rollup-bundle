@@ -20,9 +20,10 @@ const installOptions = {
 // }
 const devOptions = {
   out: "dist",
+  open: "none"
 }
 const buildOptions = {
-  clean: true
+  clean: true,
 }
 
 module.exports = {
