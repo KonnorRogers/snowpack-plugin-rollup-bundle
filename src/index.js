@@ -5,19 +5,51 @@
 import rollup from "rollup";
 import path from "path";
 import fs from "fs";
-// import alias from "@rollup/plugin-alias";
-// import { nodeResolve } from "@rollup/plugin-node-resolve";
-// import styles from "rollup-plugin-styles";
 
-const inputOptions = {};
+// plugins
+import alias from "@rollup/plugin-alias";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import styles from "rollup-plugin-styles";
+import image from '@rollup/plugin-image';
+import json from '@rollup/plugin-json';
+import { terser } from "rollup-plugin-terser";
 
-const outputOptions = {
-  format: "es",
-  plugins: [],
-  assetFileNames: "assets/[name].[hash][extname]",
-  chunkFileNames: "[name].[hash].js",
-  compact: true,
-  entryFileNames: "[name].[hash].js",
+const defaultInputOptions = (buildDirectory) => {
+  return {
+    input: fs.readdirSync(buildDirectory),
+    plugins: [
+      nodeResolve(),
+      image(),
+      json(),
+      styles({
+        mode: "extract",
+      }),
+      alias({
+        entries: [
+          {
+            find: "/__snowpack__",
+            replacement: path.join(buildDirectory, "__snowpack__"),
+          },
+          {
+            find: "/web_modules",
+            replacement: path.join(buildDirectory, "web_modules"),
+          },
+        ],
+      }),
+    ],
+  };
+};
+
+const defaultOutputOptions = (buildDirectory) => {
+  return {
+    format: "es",
+    plugins: [terser()],
+    assetFileNames: "assets/[name].[hash][extname]",
+    chunkFileNames: "[name].[hash].js",
+    compact: true,
+    entryFileNames: "[name].[hash].js",
+    dir: buildDirectory,
+  };
 };
 
 async function rollupBuild({ inputOptions, outputOptions }) {
@@ -56,10 +88,14 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
+  snowpackConfig.buildOptions.minify = false; // Let rollup handle this
+  snowpackConfig.buildOptions.clean = true;
   return {
     name: "snowpack-plugin-rollup-bundle",
-    input: ["*"],
     async optimize({ buildDirectory }) {
+      const inputOptions = defaultInputOptions(buildDirectory);
+      const outputOptions = defaultOutputOptions(buildDirectory);
+
       let extendConfig = (cfg) => cfg;
       if (typeof pluginOptions.extendConfig === "function") {
         extendConfig = pluginOptions.extendConfig;
@@ -71,12 +107,10 @@ const plugin = (snowpackConfig, pluginOptions) => {
         ...snowpackConfig,
         outputOptions: {
           ...outputOptions,
-          dir: buildDirectory,
         },
 
         inputOptions: {
           ...inputOptions,
-          input: fs.readdirSync(buildDirectory),
         },
       });
 

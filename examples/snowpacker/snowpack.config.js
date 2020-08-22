@@ -7,9 +7,9 @@ const proxy = { /* ... */ }
 const plugins = [ "snowpack-plugin-rollup-bundle" ]
 const installOptions = {
   NODE_ENV: true,
-  // rollup: {
-  //   plugins: [require('rollup-plugin-node-polyfills')()],
-  // },
+  rollup: {
+    plugins: [require('rollup-plugin-node-polyfills')()],
+  },
 }
 
 const alias = {
