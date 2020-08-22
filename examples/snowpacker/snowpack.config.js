@@ -4,7 +4,7 @@ const mount = {
 }
 
 const proxy = { /* ... */ }
-const plugins = [] // "snowpack-plugin-rollup-bundle" ]
+const plugins = [ "snowpack-plugin-rollup-bundle" ]
 const installOptions = {
   NODE_ENV: true,
   // rollup: {
@@ -12,12 +12,13 @@ const installOptions = {
   // },
 }
 
-// const alias = {
-//   "@channels": "./src/channels",
-//   "@js": "./src/javascript",
-//   "@css": "./src/stylesheets",
-//   "@assets": "./src/assets"
-// }
+const alias = {
+  "@channels": "./src/channels",
+  "@js": "./src/javascript",
+  "@css": "./src/stylesheets",
+  "@assets": "./src/assets"
+}
+
 const devOptions = {
   out: "dist",
   open: "none"
@@ -28,7 +29,7 @@ const buildOptions = {
 
 module.exports = {
   mount,
-  // alias,
+  alias,
   proxy,
   plugins: plugins,
   installOptions,

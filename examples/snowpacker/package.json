@@ -6,6 +6,9 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "snowpack": "^2.8.0"
+    "rollup": "^2.26.5",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "snowpack": "^2.8.0",
+    "snowpack-plugin-rollup-bundle": "file:../../pkg/dist-node"
   }
 }
