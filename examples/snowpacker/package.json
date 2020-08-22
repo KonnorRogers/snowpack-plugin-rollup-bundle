@@ -1,0 +1,12 @@
+{
+  "name": "snowpacker-structure",
+  "version": "1.0.0",
+  "description": "A snowpacker file structure example",
+  "main": "dist/index.js",
+  "author": "Konnor Rogers",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "snowpack": "^2.8.0"
+  }
+}
