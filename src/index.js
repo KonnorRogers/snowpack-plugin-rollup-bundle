@@ -3,37 +3,39 @@ const fs = require("fs");
 const path = require("path");
 
 // plugins
-// import alias from "@rollup/plugin-alias";
-// import { nodeResolve } from "@rollup/plugin-node-resolve";
-// import commonjs from "@rollup/plugin-commonjs";
-// import styles from "rollup-plugin-styles";
-// import image from "@rollup/plugin-image";
-// import json from "@rollup/plugin-json";
+import alias from "@rollup/plugin-alias";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import styles from "rollup-plugin-styles";
+import image from "@rollup/plugin-image";
+import json from "@rollup/plugin-json";
+import multi from '@rollup/plugin-multi-entry';
 import { terser } from "rollup-plugin-terser";
 
 const defaultInputOptions = (buildDirectory) => {
   return {
-    input: buildDirectory,
+    input: `${buildDirectory}/**/*`,
     plugins: [
-      // nodeResolve(),
-      // commonjs(),
-      // image(),
-      // json(),
-      // styles({
-      //   mode: "extract",
-      // }),
-      // alias({
-      //   entries: [
-      //     {
-      //       find: "/__snowpack__",
-      //       replacement: path.relative(buildDirectory, "__snowpack__"),
-      //     },
-      //     {
-      //       find: "/web_modules",
-      //       replacement: path.relative(buildDirectory, "web_modules"),
-      //     },
-      //   ],
-      // }),
+      nodeResolve(),
+      commonjs(),
+      image(),
+      json(),
+      styles({
+        mode: "extract",
+      }),
+      multi(),
+      alias({
+        entries: [
+          {
+            find: "/__snowpack__",
+            replacement: path.relative(buildDirectory, "__snowpack__"),
+          },
+          {
+            find: "/web_modules",
+            replacement: path.relative(buildDirectory, "web_modules"),
+          },
+        ],
+      }),
     ],
   };
 };
