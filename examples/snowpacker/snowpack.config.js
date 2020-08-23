@@ -13,13 +13,20 @@ const plugins = [
     "snowpack-plugin-rollup-bundle",
     {
       extendConfig: (config) => {
-        const entryFileDir = path.resolve("dist", "packs");
-        config.outputOptions.dir = entryFileDir
-        config.inputOptions.input = fs
-          .readdirSync(entryFileDir)
-          .map((file) => path.join(entryFileDir, file));
+        // const entryFileDir = path.resolve("dist", "packs")
+        // config.outputOptions.dir = config.bui
+        const buildDir = config.outputOptions.dir;
 
-        return config
+        const entryDir = "packs"
+        config.outputOptions.dir = path.resolve(buildDir, entryDir)
+        const files = []
+        fs.readdirSync(path.resolve(buildDir, entryDir)).forEach(file => {
+          files.push(path.relative(process.cwd(), path.join(buildDir, entryDir, file)))
+        })
+        console.log(files)
+        config.inputOptions.input = files;
+
+        return config;
       },
     },
   ],

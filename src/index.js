@@ -3,36 +3,37 @@ const fs = require("fs");
 const path = require("path");
 
 // plugins
-import alias from "@rollup/plugin-alias";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import styles from "rollup-plugin-styles";
-import image from "@rollup/plugin-image";
-import json from "@rollup/plugin-json";
+// import alias from "@rollup/plugin-alias";
+// import { nodeResolve } from "@rollup/plugin-node-resolve";
+// import commonjs from "@rollup/plugin-commonjs";
+// import styles from "rollup-plugin-styles";
+// import image from "@rollup/plugin-image";
+// import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
 
 const defaultInputOptions = (buildDirectory) => {
   return {
+    input: buildDirectory,
     plugins: [
-      nodeResolve(),
-      commonjs(),
-      image(),
-      json(),
-      styles({
-        mode: "extract",
-      }),
-      alias({
-        entries: [
-          {
-            find: "/__snowpack__",
-            replacement: path.relative(buildDirectory, "__snowpack__"),
-          },
-          {
-            find: "/web_modules",
-            replacement: path.relative(buildDirectory, "web_modules"),
-          },
-        ],
-      }),
+      // nodeResolve(),
+      // commonjs(),
+      // image(),
+      // json(),
+      // styles({
+      //   mode: "extract",
+      // }),
+      // alias({
+      //   entries: [
+      //     {
+      //       find: "/__snowpack__",
+      //       replacement: path.relative(buildDirectory, "__snowpack__"),
+      //     },
+      //     {
+      //       find: "/web_modules",
+      //       replacement: path.relative(buildDirectory, "web_modules"),
+      //     },
+      //   ],
+      // }),
     ],
   };
 };
@@ -70,9 +71,9 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   await bundle.write(outputOptions);
   const manifestJSON = JSON.stringify(manifestData);
 
-  Object.keys(manifestData).forEach((file) => {
-    fs.unlinkSync(path.resolve(outputOptions.dir, file));
-  });
+  // Object.keys(manifestData).forEach((file) => {
+  //   fs.unlinkSync(path.resolve(file));
+  // });
 
   if (!fs.existsSync(outputOptions.dir)) {
     fs.mkdirSync(outputOptions.dir, { recursive: true });
