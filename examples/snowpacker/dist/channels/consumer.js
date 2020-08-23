@@ -1,1 +1,10 @@
-const t={append:n=>{const e=document.createElement("div");e.dataset.testId="consumer",e.innerText="hello from channels",n.appendChild(e)}};export default t;
+const consumer = {
+  append: (element) => {
+    const div = document.createElement("div")
+    div.dataset.testId = "consumer"
+    div.innerText = "hello from channels"
+    element.appendChild(div)
+  }
+}
+
+export default consumer

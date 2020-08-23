@@ -9,7 +9,6 @@ import commonjs from "@rollup/plugin-commonjs";
 import styles from "rollup-plugin-styles";
 import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
-import multi from "@rollup/plugin-multi-entry";
 import { terser } from "rollup-plugin-terser";
 
 const defaultInputOptions = (buildDirectory) => {
@@ -23,7 +22,6 @@ const defaultInputOptions = (buildDirectory) => {
       styles({
         mode: "extract",
       }),
-      multi(),
       alias({
         entries: [
           {

@@ -17,14 +17,9 @@ const plugins = [
         // config.outputOptions.dir = config.bui
         const buildDir = config.outputOptions.dir;
 
-        const entryDir = "packs"
-        config.outputOptions.dir = path.resolve(buildDir, entryDir)
-        const files = []
-        fs.readdirSync(path.resolve(buildDir, entryDir)).forEach(file => {
-          files.push(path.relative(process.cwd(), path.join(buildDir, entryDir, file)))
-        })
-        console.log(files)
-        config.inputOptions.input = files;
+        const dirs = ["packs", "channels", "stylesheets", "javascript"];
+        const dirGlobs = dirs.map((dir) => `${buildDir}/${dir}/**/*.js`);
+        config.inputOptions.input = dirGlobs;
 
         return config;
       },

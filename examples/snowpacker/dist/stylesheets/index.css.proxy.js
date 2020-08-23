@@ -1,10 +1,9 @@
-const code=`body {
-  background: blue;
-  color: white;
-}
 
-div {
-  width: 50%;
-  margin: 2rem auto;
-}
-`,styleEl=document.createElement("style"),codeEl=document.createTextNode(code);styleEl.type="text/css",styleEl.appendChild(codeEl),document.head.appendChild(styleEl);
+const code = "body {\n  background: blue;\n  color: white;\n}\n\ndiv {\n  width: 50%;\n  margin: 2rem auto;\n}\n";
+
+const styleEl = document.createElement("style");
+const codeEl = document.createTextNode(code);
+styleEl.type = 'text/css';
+
+styleEl.appendChild(codeEl);
+document.head.appendChild(styleEl);

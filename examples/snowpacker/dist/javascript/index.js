@@ -1,1 +1,9 @@
-const n={append:t=>{const e=document.createElement("div");e.innerText="hello from javascript",t.appendChild(e)}};export default n;
+const js = {
+  append: (element) => {
+    const div = document.createElement("div")
+    div.innerText = "hello from javascript"
+    element.appendChild(div)
+  }
+}
+
+export default js
