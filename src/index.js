@@ -1,24 +1,21 @@
-// const rollup = require("rollup");
-// const fs = require("fs");
-// const path = require("path");
-
-import rollup from "rollup";
-import path from "path";
-import fs from "fs";
+const rollup = require("rollup");
+const fs = require("fs");
+const path = require("path");
 
 // plugins
 import alias from "@rollup/plugin-alias";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 import styles from "rollup-plugin-styles";
-import image from '@rollup/plugin-image';
-import json from '@rollup/plugin-json';
+import image from "@rollup/plugin-image";
+import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
 
 const defaultInputOptions = (buildDirectory) => {
   return {
-    input: fs.readdirSync(buildDirectory),
     plugins: [
       nodeResolve(),
+      commonjs(),
       image(),
       json(),
       styles({
@@ -28,11 +25,11 @@ const defaultInputOptions = (buildDirectory) => {
         entries: [
           {
             find: "/__snowpack__",
-            replacement: path.join(buildDirectory, "__snowpack__"),
+            replacement: path.relative(buildDirectory, "__snowpack__"),
           },
           {
             find: "/web_modules",
-            replacement: path.join(buildDirectory, "web_modules"),
+            replacement: path.relative(buildDirectory, "web_modules"),
           },
         ],
       }),
@@ -105,12 +102,11 @@ const plugin = (snowpackConfig, pluginOptions) => {
 
       const extendedConfig = await extendConfig({
         ...snowpackConfig,
-        outputOptions: {
-          ...outputOptions,
-        },
-
         inputOptions: {
           ...inputOptions,
+        },
+        outputOptions: {
+          ...outputOptions,
         },
       });
 

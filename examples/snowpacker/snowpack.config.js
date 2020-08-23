@@ -1,31 +1,50 @@
-// import { nodeResolve } from  "@rollup/plugin-node-resolve"
-const mount = {
-  "src": "/"
-}
+const fs = require("fs");
+const path = require("path");
 
-const proxy = { /* ... */ }
-const plugins = [ "snowpack-plugin-rollup-bundle" ]
+const mount = {
+  src: "/",
+};
+
+const proxy = {
+  /* ... */
+};
+const plugins = [
+  [
+    "snowpack-plugin-rollup-bundle",
+    {
+      extendConfig: (config) => {
+        const entryFileDir = path.resolve("dist", "packs");
+        config.outputOptions.dir = entryFileDir
+        config.inputOptions.input = fs
+          .readdirSync(entryFileDir)
+          .map((file) => path.join(entryFileDir, file));
+
+        return config
+      },
+    },
+  ],
+];
 const installOptions = {
   NODE_ENV: true,
   rollup: {
-    plugins: [require('rollup-plugin-node-polyfills')()],
+    plugins: [require("rollup-plugin-node-polyfills")()],
   },
-}
+};
 
 const alias = {
   "@channels": "./src/channels",
   "@js": "./src/javascript",
   "@css": "./src/stylesheets",
-  "@assets": "./src/assets"
-}
+  "@assets": "./src/assets",
+};
 
 const devOptions = {
   out: "dist",
-  open: "none"
-}
+  open: "none",
+};
 const buildOptions = {
   clean: true,
-}
+};
 
 module.exports = {
   mount,
@@ -34,5 +53,5 @@ module.exports = {
   plugins: plugins,
   installOptions,
   devOptions,
-  buildOptions
-}
+  buildOptions,
+};
