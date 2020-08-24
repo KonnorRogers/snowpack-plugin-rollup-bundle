@@ -1,9 +1,9 @@
 const rollup = require("rollup");
-// const fs = require("fs");
-// const path = require("path");
-// const crypto = require("crypto")
+const fs = require("fs");
+const path = require("path");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
+import { generateManifest } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
@@ -14,6 +14,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 const plugin = (snowpackConfig, pluginOptions) => {
   snowpackConfig.buildOptions.minify = false; // Let rollup handle this
   snowpackConfig.buildOptions.clean = true;
+  console.log("ello");
   return {
     name: "snowpack-plugin-rollup-bundle",
     async optimize({ buildDirectory }) {
@@ -37,6 +38,13 @@ const plugin = (snowpackConfig, pluginOptions) => {
         },
       });
 
+      const manifest = generateManifest(buildDirectory);
+      const manifestJSON = JSON.stringify(manifest);
+      fs.writeFileSync(
+        path.resolve(buildDirectory, "manifest.json"),
+        manifestJSON
+      );
+      console.log(manifestJSON);
       await rollupBuild(extendedConfig);
     },
   };
