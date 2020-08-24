@@ -1,13 +1,34 @@
 const rollup = require("rollup");
-// const fs = require("fs");
-// const path = require("path");
+const fs = require("fs");
+const path = require("path");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 // import { generateManifest } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
-  await bundle.generate(outputOptions);
+  const { output } = await bundle.generate(outputOptions);
+  const manifestData = {};
+  for (const chunkOrAsset of output) {
+    const fileName = chunkOrAsset.fileName;
+    let name;
+
+    if (chunkOrAsset.type === "asset") {
+      name = chunkOrAsset.source;
+    } else {
+      name = `${chunkOrAsset.name}.js`;
+    }
+
+    manifestData[name] = fileName;
+  }
+
+  const manifestJSON = JSON.stringify(manifestData);
+  fs.mkdirSync(outputOptions.dir);
+  fs.writeFileSync(
+    path.resolve(outputOptions.dir, "manifest.json"),
+    manifestJSON
+  );
+
   await bundle.write(outputOptions);
 }
 

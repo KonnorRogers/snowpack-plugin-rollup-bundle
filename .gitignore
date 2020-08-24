@@ -2,3 +2,4 @@
 pkg
 yarn-error.log
 examples/**/*dist
+examples/**/*build
