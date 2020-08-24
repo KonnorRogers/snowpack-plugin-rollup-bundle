@@ -10,6 +10,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   const { output } = await bundle.generate(outputOptions);
   const manifestData = {};
   for (const chunkOrAsset of output) {
+    console.log(chunkOrAsset);
     const fileName = chunkOrAsset.fileName;
     let name;
 
