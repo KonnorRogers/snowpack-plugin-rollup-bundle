@@ -10,12 +10,13 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   const { output } = await bundle.generate(outputOptions);
   const manifestData = {};
   for (const chunkOrAsset of output) {
-    console.log(path.parse(chunkOrAsset.fileName));
+    const { fileName } = chunkOrAsset
+    manifestData[originalFileName] = fileName;
   }
 
   const manifestJSON = JSON.stringify(manifestData);
   if (!fs.existsSync(outputOptions.dir)) {
-    fs.mkdirSync(outputOptions.dir, {recursive: true});
+    fs.mkdirSync(outputOptions.dir, { recursive: true });
   }
   fs.writeFileSync(
     path.resolve(outputOptions.dir, "manifest.json"),
@@ -78,5 +79,9 @@ const plugin = (snowpackConfig, pluginOptions) => {
 //   }
 //   return;
 // }
+function determineOriginalFileName(filename) {
+  const newFileName = path.parse(filename)
+}
 
 export default plugin;
+
