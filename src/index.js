@@ -10,21 +10,13 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   const { output } = await bundle.generate(outputOptions);
   const manifestData = {};
   for (const chunkOrAsset of output) {
-    console.log(chunkOrAsset);
-    const fileName = chunkOrAsset.fileName;
-    let name;
-
-    if (chunkOrAsset.type === "asset") {
-      name = chunkOrAsset.source;
-    } else {
-      name = `${chunkOrAsset.name}.js`;
-    }
-
-    manifestData[name] = fileName;
+    console.log(path.parse(chunkOrAsset.fileName));
   }
 
   const manifestJSON = JSON.stringify(manifestData);
-  fs.mkdirSync(outputOptions.dir);
+  if (!fs.statSync(outputOptions.dir)) {
+    fs.mkdirSync(outputOptions.dir);
+  }
   fs.writeFileSync(
     path.resolve(outputOptions.dir, "manifest.json"),
     manifestJSON
