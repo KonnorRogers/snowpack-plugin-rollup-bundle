@@ -24,8 +24,15 @@ export function generateManifest(buildDirectory) {
       const hashValue = createHashFromFile(oldPath);
 
       const relativePath = path.relative(buildDirectory, oldPath);
-      const newPath = createHashFileName(relativePath, hashValue);
+      let newPath = path.resolve(
+        buildDirectory,
+        createHashFileName(relativePath, hashValue)
+      );
       fs.renameSync(oldPath, newPath);
+
+      oldPath = path.relative(buildDirectory, oldPath);
+      newPath = path.relative(buildDirectory, newPath);
+
       manifest[oldPath] = newPath;
     });
 
@@ -35,11 +42,16 @@ export function generateManifest(buildDirectory) {
 function createHashFileName(filePath, hashValue) {
   const parsedPath = path.parse(filePath);
 
-  return parsedPath.dir + parsedPath.name + "." + hashValue + parsedPath.ext;
+  return (
+    path.join(parsedPath.dir, parsedPath.name) +
+    "." +
+    hashValue +
+    parsedPath.ext
+  );
 }
 
 function createHashFromFile(filePath) {
-  const hash = crypto.createHash("sha256");
+  const hash = crypto.createHash("sha1");
   const data = fs.readFileSync(filePath);
   hash.update(data);
   return hash.digest("hex");

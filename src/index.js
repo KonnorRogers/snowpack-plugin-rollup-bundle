@@ -14,7 +14,6 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 const plugin = (snowpackConfig, pluginOptions) => {
   snowpackConfig.buildOptions.minify = false; // Let rollup handle this
   snowpackConfig.buildOptions.clean = true;
-  console.log("ello");
   return {
     name: "snowpack-plugin-rollup-bundle",
     async optimize({ buildDirectory }) {
