@@ -14,8 +14,8 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   }
 
   const manifestJSON = JSON.stringify(manifestData);
-  if (!fs.statSync(outputOptions.dir)) {
-    fs.mkdirSync(outputOptions.dir);
+  if (!fs.existsSync(outputOptions.dir)) {
+    fs.mkdirSync(outputOptions.dir, {recursive: true});
   }
   fs.writeFileSync(
     path.resolve(outputOptions.dir, "manifest.json"),
