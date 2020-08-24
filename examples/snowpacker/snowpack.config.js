@@ -13,10 +13,10 @@ const plugins = [
     "snowpack-plugin-rollup-bundle",
     {
       extendConfig: (config) => {
-        config.outputOptions.dir = "dist/packs"
+        config.outputOptions.dir = "src/packs"
         config.inputOptions.input = [
-          "dist/packs/application.js",
-          "dist/packs/pack2.js"
+          "src/packs/application.js",
+          "src/packs/pack2.js"
         ]
         return config;
       },

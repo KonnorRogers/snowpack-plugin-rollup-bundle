@@ -1,9 +1,9 @@
 const rollup = require("rollup");
-const fs = require("fs");
-const path = require("path");
+// const fs = require("fs");
+// const path = require("path");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { generateManifest } from "./generateManifest";
+// import { generateManifest } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
@@ -27,6 +27,13 @@ const plugin = (snowpackConfig, pluginOptions) => {
         extendConfig = (cfg) => ({ ...cfg, ...pluginOptions.extendConfig });
       }
 
+      // const manifest = generateManifest(buildDirectory);
+      // const manifestJSON = JSON.stringify(manifest);
+      // fs.writeFileSync(
+      //   path.resolve(buildDirectory, "manifest.json"),
+      //   manifestJSON
+      // );
+
       const extendedConfig = await extendConfig({
         ...snowpackConfig,
         inputOptions: {
@@ -37,16 +44,25 @@ const plugin = (snowpackConfig, pluginOptions) => {
         },
       });
 
-      const manifest = generateManifest(buildDirectory);
-      const manifestJSON = JSON.stringify(manifest);
-      fs.writeFileSync(
-        path.resolve(buildDirectory, "manifest.json"),
-        manifestJSON
-      );
-      console.log(manifestJSON);
+      // const input = extendedConfig.inputOptions.input;
+      // extendedConfig.inputOptions.input = hashedInputs(input, manifest);
+
       await rollupBuild(extendedConfig);
     },
   };
 };
+
+// function hashedInputs(inputs, manifest) {
+//   if (inputs == null) {
+//     throw "No inputs given";
+//   }
+//   if (Array.isArray(inputs)) {
+//     return inputs.map((file) => manifest[file]);
+//   }
+//   if (typeof inputs === "object") {
+//     return;
+//   }
+//   return;
+// }
 
 export default plugin;

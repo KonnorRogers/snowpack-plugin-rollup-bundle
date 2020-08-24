@@ -13,6 +13,7 @@ try {
 export function generateManifest(buildDirectory) {
   const manifest = {};
   const pattern = buildDirectory + "**/**";
+  const buildDirName = path.parse(buildDirectory).name;
 
   glob
     .sync(pattern)
@@ -24,16 +25,19 @@ export function generateManifest(buildDirectory) {
       const hashValue = createHashFromFile(oldPath);
 
       const relativePath = path.relative(buildDirectory, oldPath);
-      let newPath = path.resolve(
+      const newPath = path.resolve(
         buildDirectory,
         createHashFileName(relativePath, hashValue)
       );
       fs.renameSync(oldPath, newPath);
 
-      oldPath = path.relative(buildDirectory, oldPath);
-      newPath = path.relative(buildDirectory, newPath);
+      const paths = [oldPath, newPath].map((filePath) => {
+        return path.join(buildDirName, path.relative(buildDirectory, filePath));
+      });
 
-      manifest[oldPath] = newPath;
+      console.log(paths);
+      const [oldFilePath, hashedFilePath] = paths;
+      manifest[oldFilePath] = hashedFilePath;
     });
 
   return manifest;

@@ -10,7 +10,6 @@ import { terser } from "rollup-plugin-terser";
 
 export function defaultInputOptions(buildDirectory) {
   return {
-    input: `${buildDirectory}/**/*`,
     plugins: [
       nodeResolve(),
       commonjs(),
