@@ -1,23 +1,16 @@
 const path = require("path");
 // plugins
 import alias from "@rollup/plugin-alias";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import postcss from "rollup-plugin-postcss";
-import image from "@rollup/plugin-image";
-import json from "@rollup/plugin-json";
+import css from 'rollup-plugin-css-only'
+// import image from "@rollup/plugin-image";
 import { terser } from "rollup-plugin-terser";
 
 export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
-      nodeResolve(),
-      commonjs(),
-      image(),
-      json(),
-      postcss({
-        minimize: true,
-        extract: true,
+      // image(),
+      css({
+        output: "bundle.css"
       }),
       alias({
         entries: [
