@@ -17,8 +17,8 @@ const plugins = [
       extendConfig: (config) => {
         config.outputOptions.dir = "build"
         config.inputOptions.input = [
-          "src/packs/application.js",
-          "src/packs/pack2.js"
+          "build/packs/application.js",
+          "build/packs/pack2.js"
         ]
         return config;
       },

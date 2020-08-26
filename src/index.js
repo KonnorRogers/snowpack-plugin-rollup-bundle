@@ -3,24 +3,20 @@ const fs = require("fs");
 const path = require("path");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
+import { generateManifest } from "./generateManifest"
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
-  const { output } = await bundle.generate(outputOptions);
-  const manifestData = {};
-  for (const chunkOrAsset of output) {
-    // const { fileName } = chunkOrAsset
-    // manifestData[originalFileName] = fileName;
+  await bundle.generate(outputOptions);
+  const manifestData = generateManifest(outputOptions.dir)
+  const manifestJSON = JSON.stringify(manifestData);
+  if (!fs.existsSync(outputOptions.dir)) {
+    fs.mkdirSync(outputOptions.dir, { recursive: true });
   }
-
-  // const manifestJSON = JSON.stringify(manifestData);
-  // if (!fs.existsSync(outputOptions.dir)) {
-  //   fs.mkdirSync(outputOptions.dir, { recursive: true });
-  // }
-  // fs.writeFileSync(
-  //   path.resolve(outputOptions.dir, "manifest.json"),
-  //   manifestJSON
-  // );
+  fs.writeFileSync(
+    path.resolve(outputOptions.dir, "manifest.json"),
+    manifestJSON
+  );
 
   await bundle.write(outputOptions);
 }
@@ -57,4 +53,3 @@ const plugin = (snowpackConfig, pluginOptions) => {
 };
 
 export default plugin;
-
