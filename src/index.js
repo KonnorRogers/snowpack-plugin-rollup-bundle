@@ -1,18 +1,21 @@
 const rollup = require("rollup");
 // const fs = require("fs");
 // const path = require("path");
+import { proxyImportResolver } from "./proxyImportResolve"
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { generateManifestData, generateManifestFile } from "./generateManifest";
+// import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
   const { output } = await bundle.generate(outputOptions);
 
   for (const chunkOrAsset of output) {
-    if (chunkOrAsset.type === 'asset') {
+    if (chunkOrAsset.type === "asset") {
+      //
     } else {
-      console.log(chunkOrAsset.name)
+      console.log(chunkOrAsset.name);
+      chunkOrAsset.code
     }
   }
   await bundle.write(outputOptions);
@@ -46,13 +49,13 @@ const plugin = (snowpackConfig, pluginOptions) => {
 
       await rollupBuild(extendedConfig);
 
-      const buildDir = extendedConfig.outputOptions.dir;
-      const manifestData = generateManifestData(buildDir);
+      // const buildDir = extendedConfig.outputOptions.dir;
+      // const manifestData = generateManifestData(buildDir);
 
-      generateManifestFile({
-        buildDirectory: buildDir,
-        manifestData: manifestData,
-      });
+      // generateManifestFile({
+      //   buildDirectory: buildDir,
+      //   manifestData: manifestData,
+      // });
     },
   };
 };
