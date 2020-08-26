@@ -1,7 +1,7 @@
 const path = require("path");
 // plugins
 import alias from "@rollup/plugin-alias";
-import css from 'rollup-plugin-css-only'
+import css from "rollup-plugin-css-only";
 // import image from "@rollup/plugin-image";
 import { terser } from "rollup-plugin-terser";
 
@@ -10,7 +10,7 @@ export function defaultInputOptions(buildDirectory) {
     plugins: [
       // image(),
       css({
-        output: "bundle.css"
+        output: "bundle.css",
       }),
       alias({
         entries: [
