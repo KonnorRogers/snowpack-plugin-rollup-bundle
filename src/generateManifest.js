@@ -10,7 +10,15 @@ try {
   throw "crypto support is disabled!";
 }
 
-export function generateManifest(buildDirectory) {
+export function generateManifestFile({ manifestData, buildDirectory }) {
+  const manifestJSON = JSON.stringify(manifestData, null, 2);
+  if (!fs.existsSync(buildDirectory)) {
+    fs.mkdirSync(buildDirectory, { recursive: true });
+  }
+  fs.writeFileSync(path.resolve(buildDirectory, "manifest.json"), manifestJSON);
+}
+
+export function generateManifestData(buildDirectory) {
   const manifest = {};
   const pattern = buildDirectory + "/**/*";
 
@@ -20,7 +28,7 @@ export function generateManifest(buildDirectory) {
       return fs.statSync(file).isFile() && path.parse(file).ext !== ".html";
     })
     .map((oldPath) => {
-      oldPath = path.resolve(buildDirectory, oldPath);
+      oldPath = path.resolve(oldPath);
       const hashValue = createHashFromFile(oldPath);
 
       const relativePath = path.relative(buildDirectory, oldPath);

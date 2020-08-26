@@ -8,7 +8,6 @@ import { terser } from "rollup-plugin-terser";
 export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
-      // image(),
       css({
         output: "bundle.css",
       }),
