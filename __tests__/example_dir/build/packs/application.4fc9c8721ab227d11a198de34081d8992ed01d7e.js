@@ -1,8 +1,8 @@
-import JS from "../javascript";
-import * as channels from "../channels";
-import "../stylesheets/index.css";
-import jsonFile from "../assets/x.json"
-import logo from "../assets/logo.svg"
+import JS from "../javascript/index.js";
+import * as channels from "../channels/index.js";
+import "../stylesheets/index.css.proxy.js";
+import jsonFile from "../assets/x.json.proxy.js"
+import logo from "../assets/logo.svg.proxy.js"
 
 document.addEventListener("DOMContentLoaded", () => {
   const img = document.createElement("img")
