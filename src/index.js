@@ -1,8 +1,9 @@
 const rollup = require("rollup");
 const fs = require("fs");
 const path = require("path");
-// import { proxyImportResolver } from "./proxyImportResolve"
 
+import { generateManifest } from "./generateManifest"
+import { proxyImportResolver } from "./proxyImportResolver";
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
@@ -13,12 +14,14 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   const buildDirectory = outputOptions.dir;
 
   for (const chunkOrAsset of output) {
+    console.log(chunkOrAsset);
     const fileName = chunkOrAsset.fileName;
     manifestData[fileWithoutHash(fileName)] = fileName;
 
     if (chunkOrAsset.type == "asset") {
       //
     } else {
+      chunkOrAsset.code = proxyImportResolver(chunkOrAsset.code);
       if (chunkOrAsset.isEntry) {
         // turns into
         // entrypoints: { origFileName: { js: hashedFileName }}
@@ -27,7 +30,13 @@ async function rollupBuild({ inputOptions, outputOptions }) {
         });
 
         // delete original file
-        fs.unlinkSync(fileWithoutHash(fileName))
+        const origFile = path.resolve(
+          buildDirectory,
+          fileWithoutHash(fileName)
+        );
+        if (!fs.existsSync(origFile)) {
+          fs.unlinkSync(origFile);
+        }
       }
     }
   }
@@ -40,7 +49,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 function fileWithoutHash(filePath) {
   const { dir, base } = path.parse(filePath);
 
-  const fileWithoutHash = base.replace(/\.\d*\./, ".");
+  const fileWithoutHash = base.replace(/\..*\./, ".");
   return path.join(dir, fileWithoutHash);
 }
 

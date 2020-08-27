@@ -21,4 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   JS.append(body);
   channels.consumer.append(body);
+
+  const appleImg = document.createElement("img")
+  appleImg.alt = "apple image"
+  appleImg.className = "apple-image"
+  appleImg.height = 200
+  appleImg.width = 200
+  body.appendChild(appleImg)
 });
