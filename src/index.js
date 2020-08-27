@@ -1,24 +1,42 @@
 const rollup = require("rollup");
-// const fs = require("fs");
-// const path = require("path");
-import { proxyImportResolver } from "./proxyImportResolve"
+const fs = require("fs");
+const path = require("path");
+// import { proxyImportResolver } from "./proxyImportResolve"
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-// import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
   const { output } = await bundle.generate(outputOptions);
+  const manifestData = {};
+  manifestData.entrypoints = {};
+  const buildDirectory = outputOptions.dir;
 
   for (const chunkOrAsset of output) {
-    if (chunkOrAsset.type === "asset") {
+    const fileName = chunkOrAsset.fileName;
+    manifestData[parsePath(fileName)] = fileName;
+
+    if (chunkOrAsset.type == "asset") {
       //
     } else {
-      console.log(chunkOrAsset.name);
-      chunkOrAsset.code
+      if (chunkOrAsset.isEntry) {
+        Object.assign(manifestData.entrypoints, {
+          [chunkOrAsset.name]: { js: fileName },
+        });
+      }
     }
   }
+
+  const manifestJSON = JSON.stringify(manifestData, null, 2);
+  fs.writeFileSync(path.resolve(buildDirectory, "manifest.json"), manifestJSON);
   await bundle.write(outputOptions);
+}
+
+function parsePath(filePath) {
+  const { dir, base } = path.parse(filePath);
+
+  const fileWithoutHash = base.replace(/\.\d*\./, ".");
+  return path.join(dir, fileWithoutHash);
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
@@ -48,14 +66,6 @@ const plugin = (snowpackConfig, pluginOptions) => {
       });
 
       await rollupBuild(extendedConfig);
-
-      // const buildDir = extendedConfig.outputOptions.dir;
-      // const manifestData = generateManifestData(buildDir);
-
-      // generateManifestFile({
-      //   buildDirectory: buildDir,
-      //   manifestData: manifestData,
-      // });
     },
   };
 };

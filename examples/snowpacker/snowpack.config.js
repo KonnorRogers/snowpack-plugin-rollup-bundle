@@ -15,7 +15,7 @@ const plugins = [
     "snowpack-plugin-rollup-bundle",
     {
       extendConfig: (config) => {
-        config.outputOptions.dir = "build"
+        config.outputOptions.dir = "build/packs"
         config.inputOptions.input = [
           "build/packs/application.js",
           "build/packs/pack2.js"
