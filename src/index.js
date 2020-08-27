@@ -1,42 +1,31 @@
 const rollup = require("rollup");
-const fs = require("fs");
-const path = require("path");
+// const fs = require("fs");
+// const path = require("path");
 
-import { generateManifest } from "./generateManifest"
-import { proxyImportResolver } from "./proxyImportResolver";
+// import { proxyImportResolver } from "./proxyImportResolver";
 import { defaultInputOptions, defaultOutputOptions } from "./options";
+// import { generateManifestData, generateManifestFile } from "./generateManifest"
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
   const { output } = await bundle.generate(outputOptions);
-  const manifestData = {};
-  manifestData.entrypoints = {};
   const buildDirectory = outputOptions.dir;
+
+  // generateManifestData({buildDirectory: buildDirectory, b})
 
   for (const chunkOrAsset of output) {
     console.log(chunkOrAsset);
-    const fileName = chunkOrAsset.fileName;
-    manifestData[fileWithoutHash(fileName)] = fileName;
+    // const fileName = chunkOrAsset.fileName;
+    // manifestData[fileWithoutHash(fileName)] = fileName;
 
     if (chunkOrAsset.type == "asset") {
       //
     } else {
-      chunkOrAsset.code = proxyImportResolver(chunkOrAsset.code);
+      // chunkOrAsset.code = proxyImportResolver(chunkOrAsset.code);
       if (chunkOrAsset.isEntry) {
-        // turns into
-        // entrypoints: { origFileName: { js: hashedFileName }}
-        Object.assign(manifestData.entrypoints, {
-          [chunkOrAsset.name]: { js: fileName },
-        });
-
-        // delete original file
-        const origFile = path.resolve(
-          buildDirectory,
-          fileWithoutHash(fileName)
-        );
-        if (!fs.existsSync(origFile)) {
-          fs.unlinkSync(origFile);
-        }
+        // Object.assign(manifestData.entrypoints, {
+        //   [chunkOrAsset.name]: { js: fileName },
+        // });
       }
     }
   }
@@ -46,12 +35,12 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   await bundle.write(outputOptions);
 }
 
-function fileWithoutHash(filePath) {
-  const { dir, base } = path.parse(filePath);
+// function fileWithoutHash(filePath) {
+//   const { dir, base } = path.parse(filePath);
 
-  const fileWithoutHash = base.replace(/\..*\./, ".");
-  return path.join(dir, fileWithoutHash);
-}
+//   const fileWithoutHash = base.replace(/\..*\./, ".");
+//   return path.join(dir, fileWithoutHash);
+// }
 
 const plugin = (snowpackConfig, pluginOptions) => {
   snowpackConfig.buildOptions.minify = false; // Let rollup handle this
