@@ -14,15 +14,20 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
-    manifestData[parsePath(fileName)] = fileName;
+    manifestData[fileWithoutHash(fileName)] = fileName;
 
     if (chunkOrAsset.type == "asset") {
       //
     } else {
       if (chunkOrAsset.isEntry) {
+        // turns into
+        // entrypoints: { origFileName: { js: hashedFileName }}
         Object.assign(manifestData.entrypoints, {
           [chunkOrAsset.name]: { js: fileName },
         });
+
+        // delete original file
+        fs.unlinkSync(fileWithoutHash(fileName))
       }
     }
   }
@@ -32,7 +37,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   await bundle.write(outputOptions);
 }
 
-function parsePath(filePath) {
+function fileWithoutHash(filePath) {
   const { dir, base } = path.parse(filePath);
 
   const fileWithoutHash = base.replace(/\.\d*\./, ".");

@@ -2,12 +2,13 @@ const path = require("path");
 // plugins
 import alias from "@rollup/plugin-alias";
 import css from "rollup-plugin-css-only";
-// import image from "@rollup/plugin-image";
+import image from "@rollup/plugin-image";
 import { terser } from "rollup-plugin-terser";
 
 export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
+      image(),
       css({
         output: "bundle.css",
       }),
@@ -34,7 +35,7 @@ export function defaultOutputOptions(buildDirectory) {
     assetFileNames: "assets/[name].[hash].[extname]",
     chunkFileNames: "chunks/[name].[hash].js",
     compact: true,
-    entryFileNames: "[name].[hash].js",
+    entryFileNames: "packs/[name].[hash].js",
     dir: buildDirectory,
   };
 }
