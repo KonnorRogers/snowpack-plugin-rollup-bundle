@@ -1,37 +1,21 @@
 const rollup = require("rollup");
 // const fs = require("fs");
 // const path = require("path");
+// const glob = require("glob");
 
 // import { proxyImportResolver } from "./proxyImportResolver";
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-// import { generateManifestData, generateManifestFile } from "./generateManifest"
+import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
-  const { output } = await bundle.generate(outputOptions);
+  // const { output } = await bundle.generate(outputOptions);
+  await bundle.generate(outputOptions);
   const buildDirectory = outputOptions.dir;
 
-  // generateManifestData({buildDirectory: buildDirectory, b})
+  const manifestData = generateManifestData(buildDirectory);
+  generateManifestFile({ buildDirectory, manifestData });
 
-  for (const chunkOrAsset of output) {
-    console.log(chunkOrAsset);
-    // const fileName = chunkOrAsset.fileName;
-    // manifestData[fileWithoutHash(fileName)] = fileName;
-
-    if (chunkOrAsset.type == "asset") {
-      //
-    } else {
-      // chunkOrAsset.code = proxyImportResolver(chunkOrAsset.code);
-      if (chunkOrAsset.isEntry) {
-        // Object.assign(manifestData.entrypoints, {
-        //   [chunkOrAsset.name]: { js: fileName },
-        // });
-      }
-    }
-  }
-
-  const manifestJSON = JSON.stringify(manifestData, null, 2);
-  fs.writeFileSync(path.resolve(buildDirectory, "manifest.json"), manifestJSON);
   await bundle.write(outputOptions);
 }
 
@@ -67,6 +51,15 @@ const plugin = (snowpackConfig, pluginOptions) => {
           ...outputOptions,
         },
       });
+
+      // const pattern = buildDirectory + "/**/**";
+      // const filesToResolve = glob.sync(pattern).filter((file) => {
+      //   return fs.statSync(file).isFile();
+      // });
+      // filesToResolve.forEach((file) => {
+      //   const fileContent = fs.readFileSync(file, { encoding: "utf-8" });
+      //   fs.writeFileSync(file, proxyImportResolver(fileContent));
+      // });
 
       await rollupBuild(extendedConfig);
     },

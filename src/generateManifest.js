@@ -48,13 +48,13 @@ export function generateManifestData(buildDirectory) {
 }
 
 function createHashFileName(filePath, hashValue) {
-  const parsedPath = path.parse(filePath);
+  const { dir, base } = path.parse(filePath);
 
-  return (
-    path.join(parsedPath.dir, parsedPath.name) +
-    "." +
-    hashValue +
-    parsedPath.ext
+  return path.join(
+    dir,
+    base.replace(/\.(.*)/, (match) => {
+      return "." + hashValue + match;
+    })
   );
 }
 
