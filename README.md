@@ -19,3 +19,5 @@ yarn install
 yarn link snowpack-plugin-rollup-bundle
 yarn snowpack build
 ```
+
+Then check out the `build/`directory.
