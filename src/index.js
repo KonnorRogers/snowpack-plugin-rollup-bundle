@@ -8,8 +8,6 @@ import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
-  const { output } = await bundle.generate(outputOptions);
-
   await bundle.generate(outputOptions);
 
   const buildDirectory = outputOptions.dir;

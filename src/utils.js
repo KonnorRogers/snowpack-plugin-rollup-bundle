@@ -6,3 +6,7 @@ export function fileWithoutHash(filePath) {
   const fileWithoutHash = base.replace(/\..*\./, ".");
   return path.join(dir, fileWithoutHash);
 }
+
+// export function findFileInManifest(manifest, file) {
+
+// }
