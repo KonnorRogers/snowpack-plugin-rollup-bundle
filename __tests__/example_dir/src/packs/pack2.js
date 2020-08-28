@@ -1,1 +1,1 @@
-console.log("hi from pack2")
+console.log("hi from pack2");

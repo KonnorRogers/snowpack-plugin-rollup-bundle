@@ -1,1 +1,1 @@
-__tests__/example_dir
+__tests__/example_dir/**/*
