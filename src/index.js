@@ -3,28 +3,22 @@ const rollup = require("rollup");
 // const path = require("path");
 // const glob = require("glob");
 
-// import { proxyImportResolver } from "./proxyImportResolver";
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
-  // const { output } = await bundle.generate(outputOptions);
-  await bundle.generate(outputOptions);
-  const buildDirectory = outputOptions.dir;
+  const { output } = await bundle.generate(outputOptions);
 
+  await bundle.generate(outputOptions);
+
+  const buildDirectory = outputOptions.dir;
   const manifestData = generateManifestData(buildDirectory);
   generateManifestFile({ buildDirectory, manifestData });
 
   await bundle.write(outputOptions);
 }
 
-// function fileWithoutHash(filePath) {
-//   const { dir, base } = path.parse(filePath);
-
-//   const fileWithoutHash = base.replace(/\..*\./, ".");
-//   return path.join(dir, fileWithoutHash);
-// }
 
 const plugin = (snowpackConfig, pluginOptions) => {
   snowpackConfig.buildOptions.minify = false; // Let rollup handle this
@@ -54,7 +48,8 @@ const plugin = (snowpackConfig, pluginOptions) => {
 
       // const pattern = buildDirectory + "/**/**";
       // const filesToResolve = glob.sync(pattern).filter((file) => {
-      //   return fs.statSync(file).isFile();
+      //   return (fs.statSync(file).isFile() &&
+      //           path.parse(file).ext !== ".html")
       // });
       // filesToResolve.forEach((file) => {
       //   const fileContent = fs.readFileSync(file, { encoding: "utf-8" });
