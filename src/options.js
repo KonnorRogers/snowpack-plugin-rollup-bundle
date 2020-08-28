@@ -25,6 +25,7 @@ export function defaultInputOptions(buildDirectory) {
           },
         ],
       }),
+      sizes(),
     ],
   };
 }
@@ -32,7 +33,7 @@ export function defaultInputOptions(buildDirectory) {
 export function defaultOutputOptions(buildDirectory) {
   return {
     format: "es",
-    plugins: [terser(), sizes()],
+    plugins: [terser()],
     assetFileNames: "assets/[name].[hash].[extname]",
     chunkFileNames: "chunks/[name].[hash].js",
     compact: true,
