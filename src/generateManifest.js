@@ -23,9 +23,9 @@ export function generateManifestData(buildDirectory) {
   const pattern = buildDirectory + "/**/*";
 
   glob
-    .sync(pattern)
+    .sync(pattern, { nodir: true })
     .filter((file) => {
-      return fs.statSync(file).isFile() && path.parse(file).ext !== ".html";
+      return path.parse(file).ext !== ".html";
     })
     .map((oldPath) => {
       oldPath = path.resolve(oldPath);
