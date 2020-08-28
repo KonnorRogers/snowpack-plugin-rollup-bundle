@@ -4,11 +4,11 @@ module.exports = {
     es2020: true,
     "jest/globals": true,
   },
-  extends: ["eslint:recommended", "plugin:jest/recommended"],
+  extends: ["eslint:recommended", "plugin:jest/recommended", "plugin:testing-library/recommended"],
   parserOptions: {
     ecmaVersion: 11,
     sourceType: "module",
   },
   rules: {},
-  plugins: ["jest"]
+  plugins: ["jest", "testing-library"]
 };
