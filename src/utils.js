@@ -1,4 +1,4 @@
-const path = require("path")
+const path = require("path");
 
 export function fileWithoutHash(filePath) {
   const { dir, base } = path.parse(filePath);

@@ -17,7 +17,6 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   await bundle.write(outputOptions);
 }
 
-
 const plugin = (snowpackConfig, pluginOptions) => {
   snowpackConfig.buildOptions.minify = false; // Let rollup handle this
   snowpackConfig.buildOptions.clean = true;
