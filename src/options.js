@@ -10,18 +10,18 @@ export function defaultInputOptions(buildDirectory) {
       css({
         output: "bundle.css",
       }),
-      alias({
-        entries: [
-          {
-            find: "/__snowpack__",
-            replacement: path.relative(buildDirectory, "__snowpack__"),
-          },
-          {
-            find: "/web_modules",
-            replacement: path.relative(buildDirectory, "web_modules"),
-          },
-        ],
-      }),
+      // alias({
+      //   entries: [
+      //     {
+      //       find: "/__snowpack__",
+      //       replacement: path.relative(buildDirectory, "__snowpack__"),
+      //     },
+      //     {
+      //       find: "/web_modules",
+      //       replacement: path.relative(buildDirectory, "web_modules"),
+      //     },
+      //   ],
+      // }),
     ],
   };
 }
