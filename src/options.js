@@ -2,7 +2,6 @@ const path = require("path");
 // plugins
 import alias from "@rollup/plugin-alias";
 import css from "rollup-plugin-css-only";
-import url from "@rollup/plugin-url";
 import { terser } from "rollup-plugin-terser";
 
 export function defaultInputOptions(buildDirectory) {
@@ -10,12 +9,6 @@ export function defaultInputOptions(buildDirectory) {
     plugins: [
       css({
         output: "bundle.css",
-      }),
-      url({
-        fileName: "[name].[hash][extname]",
-        publicPath: buildDirectory,
-        include: "**/*",
-        exclude: ["**/*.js", "**/*.json", "**/*.css"],
       }),
       alias({
         entries: [
@@ -33,16 +26,13 @@ export function defaultInputOptions(buildDirectory) {
   };
 }
 
-export function defaultOutputOptions(
-  buildDirectory,
-  { chunkPath = "chunks", packPath = "packs" }
-) {
+export function defaultOutputOptions(buildDirectory) {
   return {
     format: "es",
     plugins: [terser()],
-    chunkFileNames: `${chunkPath}/[name].[hash].js`,
+    chunkFileNames: "packs/[name].js",
     compact: true,
-    entryFileNames: `${packPath}/[name].[hash].js`,
+    entryFileNames: "packs/[name].js",
     dir: buildDirectory,
   };
 }

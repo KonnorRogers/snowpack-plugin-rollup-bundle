@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "react": "^16.13.1",
     "rollup": "^2.26.5",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "snowpack": "^2.8.0",

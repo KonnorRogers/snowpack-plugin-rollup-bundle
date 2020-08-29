@@ -4,22 +4,16 @@ const rollup = require("rollup");
 // const glob = require("glob");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-// import { generateManifestData, generateManifestFile } from "./generateManifest";
+import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
-  const { output } = await bundle.generate(outputOptions);
-  // const manifestData = {};
+  await bundle.generate(outputOptions);
 
-  for(const chunkOrAsset of output) {
-    console.log(chunkOrAsset)
-  }
-
-  // const buildDirectory = outputOptions.dir;
-  // const manifestData = generateManifestData(buildDirectory);
-  // generateManifestFile({ buildDirectory, manifestData });
-
+  const buildDirectory = outputOptions.dir;
   await bundle.write(outputOptions);
+  const manifestData = generateManifestData(buildDirectory);
+  generateManifestFile({ buildDirectory, manifestData });
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {

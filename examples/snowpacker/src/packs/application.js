@@ -3,6 +3,7 @@ import * as channels from "../channels";
 import "../stylesheets/index.css";
 import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
+import React from "react"
 
 document.addEventListener("DOMContentLoaded", () => {
   const img = document.createElement("img")
