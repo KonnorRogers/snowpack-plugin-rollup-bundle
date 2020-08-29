@@ -11,7 +11,15 @@ try {
 }
 
 export function generateManifestFile({ manifestData, buildDirectory }) {
+  for (const [oldPath, newPath] of Object.entries(manifestData)) {
+    fs.renameSync(
+      buildDirectory + "/" + oldPath,
+      buildDirectory + "/" + newPath
+    );
+  }
+
   const manifestJSON = JSON.stringify(manifestData, null, 2);
+
   if (!fs.existsSync(buildDirectory)) {
     fs.mkdirSync(buildDirectory, { recursive: true });
   }
@@ -23,7 +31,9 @@ export function generateManifestData(buildDirectory) {
   const pattern = buildDirectory + "/**/*";
 
   glob
-    .sync(pattern, { nodir: true })
+    .sync(pattern, {
+      nodir: true,
+    })
     .filter((file) => {
       return path.parse(file).ext !== ".html";
     })
@@ -36,7 +46,6 @@ export function generateManifestData(buildDirectory) {
         buildDirectory,
         createHashFileName(relativePath, hashValue)
       );
-      fs.renameSync(oldPath, newPath);
 
       oldPath = path.relative(buildDirectory, oldPath);
       newPath = path.relative(buildDirectory, newPath);
