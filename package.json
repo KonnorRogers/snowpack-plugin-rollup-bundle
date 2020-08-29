@@ -18,7 +18,8 @@
   "scripts": {
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*.js",
     "build": "yarn format && pika build",
-    "deploy": "pika publish",
+    "test": "yarn test",
+    "deploy": "yarn test && pika publish",
     "version": "yarn run build"
   },
   "@pika/pack": {
