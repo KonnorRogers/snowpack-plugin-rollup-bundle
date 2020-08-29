@@ -5,6 +5,9 @@
   "author": "Konnor Rogers",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "yarn snowpack build"
+  },
   "dependencies": {
     "rollup": "^2.26.5",
     "snowpack": "^2.8.0",
