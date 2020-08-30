@@ -21,3 +21,28 @@ yarn snowpack build
 ```
 
 Then check out the `build/`directory.
+
+### Expected output
+
+```bash
+src/snowpacker/
+  assets/
+  stylesheets/
+  entrypoints/
+  javascript/
+```
+
+Becomes:
+
+```bash
+build/
+  snowpacks/
+    entrypoint1.hash.js
+    entrypoint2.hash.js
+    css/
+      stylesheet1.hash.css
+      stylesheet2.hash.css
+    assets/
+      asset1.hash.png
+      asset2.hash.jpg
+```
