@@ -1,5 +1,5 @@
 const mount = {
-  src: "/"
+  src: "/_dist_"
 };
 
 const proxy = {
@@ -35,7 +35,7 @@ const alias = {
 };
 
 const devOptions = {
-  out: "build/_dist_",
+  out: "build",
   open: "none",
   bundle: true
 };

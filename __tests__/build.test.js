@@ -11,7 +11,12 @@ beforeAll(() => {
   childProcess.execSync("yarn build");
 });
 
-test("Should produce a manifest.json", () => {
-  const manifestFile = path.join(buildDir, "manifest.json");
-  expect(fs.existsSync(manifestFile)).toBe(true);
+test("Should produce entrypoints and manifest.json", () => {
+  const buildFiles = ["entrypoints", "manifest.json"].map((file) =>
+    path.join(buildDir, file)
+  );
+
+  buildFiles.forEach((file) => {
+    expect(fs.existsSync(file)).toBe(true);
+  });
 });
