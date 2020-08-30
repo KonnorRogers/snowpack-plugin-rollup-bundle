@@ -1,19 +1,31 @@
 const rollup = require("rollup");
-// const fs = require("fs");
-// const path = require("path");
+const fs = require("fs");
+const path = require("path");
 // const glob = require("glob");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { generateManifestData, generateManifestFile } from "./generateManifest";
+// import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
-  await bundle.generate(outputOptions);
+  const { output } = await bundle.generate(outputOptions);
+  const manifestData = {}
+
+  for(const chunkOrAsset of output) {
+    const fileName = chunkOrAsset.fileName
+    if (chunkOrAsset.type === "asset") {
+      //
+    } else {
+      //
+    }
+    manifestData[fileName] = fileName
+  }
+
 
   const buildDirectory = outputOptions.dir;
+  const manifestJSON = JSON.stringify(manifestData, null, 2)
   await bundle.write(outputOptions);
-  const manifestData = generateManifestData(buildDirectory);
-  generateManifestFile({ buildDirectory, manifestData });
+  fs.writeFileSync(path.join(buildDirectory, "manifest.json"), manifestJSON)
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
@@ -41,16 +53,6 @@ const plugin = (snowpackConfig, pluginOptions) => {
           ...outputOptions,
         },
       });
-
-      // const pattern = buildDirectory + "/**/**";
-      // const filesToResolve = glob.sync(pattern).filter((file) => {
-      //   return (fs.statSync(file).isFile() &&
-      //           path.parse(file).ext !== ".html")
-      // });
-      // filesToResolve.forEach((file) => {
-      //   const fileContent = fs.readFileSync(file, { encoding: "utf-8" });
-      //   fs.writeFileSync(file, proxyImportResolver(fileContent));
-      // });
 
       await rollupBuild(extendedConfig);
     },

@@ -2,14 +2,10 @@ const fs = require("fs");
 const path = require("path");
 
 const mount = {
-  // public: "/",
-  // src: "/_dist_",
   src: "/",
 };
 
-const proxy = {
-  /* ... */
-};
+const proxy = {};
 const plugins = [
   [
     "snowpack-plugin-rollup-bundle",
@@ -17,8 +13,8 @@ const plugins = [
       extendConfig: (config) => {
         config.outputOptions.dir = "build";
         config.inputOptions.input = [
-          "build/packs/application.js",
-          "build/packs/pack2.js",
+          "build/_dist_/entrypoints/application.js",
+          "build/_dist_/entrypoints/pack2.js",
         ];
         return config;
       },
