@@ -9,6 +9,9 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: "module",
   },
+  ignorePatterns: [
+    "__tests__/example_dir"
+  ],
   rules: {},
   plugins: ["jest", "testing-library"]
 };
