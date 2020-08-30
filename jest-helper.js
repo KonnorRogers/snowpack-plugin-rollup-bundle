@@ -6,11 +6,10 @@ const childProcess = require("child_process")
 process.env.EXAMPLE_DIR = path.resolve("__tests__", "example_dir")
 
 // Rebuild node package
-// process.chdir(process.cwd())
 childProcess.execSync("yarn build")
 
-// // Run yarn install
+// Run yarn install
 process.chdir(process.env.EXAMPLE_DIR)
-// childProcess.execSync("yarn install")
+childProcess.execSync("yarn install")
 
 
