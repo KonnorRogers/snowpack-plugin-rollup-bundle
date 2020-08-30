@@ -1,5 +1,8 @@
+const glob = require("glob");
+const path = require("path");
+
 const mount = {
-  src: "/_dist_"
+  src: "/_dist_",
 };
 
 const proxy = {
@@ -10,11 +13,8 @@ const plugins = [
     "snowpack-plugin-rollup-bundle",
     {
       extendConfig: (config) => {
-        config.outputOptions.dir = "build"
-        config.inputOptions.input = [
-          "build/_dist_/entrypoints/application.js",
-          "build/_dist_/entrypoints/pack2.js"
-        ]
+        config.outputOptions.dir = "build";
+        config.inputOptions.input = glob.sync(path.join("build", "_dist_", "entrypoints", "**", "*"));
         return config;
       },
     },
@@ -37,7 +37,7 @@ const alias = {
 const devOptions = {
   out: "build",
   open: "none",
-  bundle: true
+  bundle: true,
 };
 const buildOptions = {
   clean: true,
