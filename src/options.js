@@ -3,6 +3,7 @@ const path = require("path");
 import alias from "@rollup/plugin-alias";
 import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
+import url from "@rollup/plugin-url";
 
 export function defaultInputOptions(buildDirectory) {
   return {
@@ -11,6 +12,12 @@ export function defaultInputOptions(buildDirectory) {
         extract: true,
         modules: true,
         use: ["sass"],
+      }),
+      url({
+        include: "**/*",
+        exclude: "**/*.(js|json|css)",
+        publicPath: "assets",
+        fileName: "[name].[hash][extname]",
       }),
       alias({
         entries: [

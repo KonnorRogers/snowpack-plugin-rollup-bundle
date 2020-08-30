@@ -1,10 +1,11 @@
 const rollup = require("rollup");
 const fs = require("fs");
 const path = require("path");
-// const glob = require("glob");
+const glob = require("glob");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { parseHashFileName } from "./utils";
+import { proxyImportResolver } from "./proxyImportResolver";
 // import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
@@ -54,6 +55,12 @@ const plugin = (snowpackConfig, pluginOptions) => {
         },
       });
 
+      glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
+        const resolvedImports = proxyImportResolver(
+          fs.readFileSync(file, "utf8")
+        );
+        fs.writeFileSync(file, resolvedImports, "utf8");
+      });
       await rollupBuild(extendedConfig);
     },
   };
