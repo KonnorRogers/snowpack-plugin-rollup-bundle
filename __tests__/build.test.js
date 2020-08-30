@@ -23,4 +23,4 @@ test("Should produce entrypoints and manifest.json", () => {
 
 test("Should produce css files, including module.css files", () => {
   //
-})
+});
