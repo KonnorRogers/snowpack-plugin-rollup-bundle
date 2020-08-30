@@ -30,9 +30,10 @@ export function defaultOutputOptions(buildDirectory) {
   return {
     format: "es",
     plugins: [terser()],
-    chunkFileNames: "packs/[name].js",
+    assetFileName: "assets/[name].[hash][ext]",
+    chunkFileNames: "chunks/[name].[hash].js",
     compact: true,
-    entryFileNames: "packs/[name].js",
+    entryFileNames: "entrypoints/[name].[hash].js",
     dir: buildDirectory,
   };
 }

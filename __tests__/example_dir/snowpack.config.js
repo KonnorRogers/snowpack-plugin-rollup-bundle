@@ -36,7 +36,7 @@ const alias = {
 };
 
 const devOptions = {
-  out: "build",
+  out: "build/_dist_",
   open: "none",
   bundle: true,
 };
