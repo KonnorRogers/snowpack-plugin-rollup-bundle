@@ -20,3 +20,7 @@ test("Should produce entrypoints and manifest.json", () => {
     expect(fs.existsSync(file)).toBe(true);
   });
 });
+
+test("Should produce css files, including module.css files", () => {
+  //
+})
