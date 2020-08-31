@@ -2,6 +2,14 @@ const glob = require("glob")
 const fs = require("fs")
 const path = require("path");
 
+// export function convertManifestFileToJson(manifestFile) {
+//   JSON.parse(manifestFile)
+// }
+
+// export function findFileInManifestData(manifestJson, fileName) {
+
+// }
+
 export function parseHashFileName(filePath) {
   const { dir, base } = path.parse(filePath);
 
@@ -9,10 +17,10 @@ export function parseHashFileName(filePath) {
   return path.join(dir, fileWithoutHash);
 }
 
-export function emitHtmlFiles(source, destination) {
-  const htmlFiles = source + "**/*.html"
-  glob.sync(htmlFiles).forEach((file) => {
+// export function emitHtmlFiles(source, destination) {
+//   const htmlFiles = source + "**/*.html"
+//   glob.sync(htmlFiles).forEach((file) => {
 
-  })
+//   })
 
 }
