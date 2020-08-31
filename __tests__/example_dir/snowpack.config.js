@@ -9,16 +9,16 @@ const proxy = {
   /* ... */
 };
 const plugins = [
-  [
-    "snowpack-plugin-rollup-bundle",
-    {
-      extendConfig: (config) => {
-        config.outputOptions.dir = "build";
-        config.inputOptions.input = glob.sync(path.join("build", "_dist_", "entrypoints", "**", "*"));
-        return config;
-      },
-    },
-  ],
+  // [
+  //   "snowpack-plugin-rollup-bundle",
+  //   {
+  //     extendConfig: (config) => {
+  //       config.outputOptions.dir = "build";
+  //       config.inputOptions.input = glob.sync(path.join("build", "_dist_", "entrypoints", "**", "*"));
+  //       return config;
+  //     },
+  //   },
+  // ],
 ];
 const installOptions = {
   NODE_ENV: true,

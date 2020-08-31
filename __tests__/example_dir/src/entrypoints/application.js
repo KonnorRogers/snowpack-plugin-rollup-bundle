@@ -3,6 +3,7 @@ import * as channels from "../channels";
 import "../stylesheets/index.css";
 import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
+import SmallHouse from "../assets/small-house.png"
 
 document.addEventListener("DOMContentLoaded", () => {
   const img = document.createElement("img")
@@ -22,10 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
   JS.append(body);
   channels.consumer.append(body);
 
-  const appleImg = document.createElement("img")
-  appleImg.alt = "apple image"
-  appleImg.className = "apple-image"
-  appleImg.height = 200
-  appleImg.width = 200
-  body.appendChild(appleImg)
+  const smallHouse = document.createElement("img")
+  smallHouse.src = SmallHouse
+  smallHouse.alt = "apple image"
+  smallHouse.className = "apple-image"
+  smallHouse.height = 200
+  smallHouse.width = 200
+  body.appendChild(smallHouse)
 });
