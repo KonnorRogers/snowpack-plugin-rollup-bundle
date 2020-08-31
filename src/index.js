@@ -4,7 +4,7 @@ const path = require("path");
 const glob = require("glob");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { parseHashFileName } from "./utils";
+import { parseHashFileName, emitHtmlFiles } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 // import { generateManifestData, generateManifestFile } from "./generateManifest";
 

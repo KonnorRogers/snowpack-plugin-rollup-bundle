@@ -33,6 +33,7 @@
     ]
   },
   "peerDependencies": {
+    "glob": "^7.1.4",
     "rollup": "^2.26.4",
     "snowpack": "^2.8.0"
   },
