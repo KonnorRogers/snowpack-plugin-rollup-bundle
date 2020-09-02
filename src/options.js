@@ -16,6 +16,7 @@ export function defaultInputOptions(buildDirectory) {
         include: "**/*",
         exclude: "**/*.(js|json|css)",
         publicPath: "assets",
+        limit: 0, // extract all files
         fileName: "[name].[hash][extname]",
       }),
       alias({
