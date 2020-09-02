@@ -10,7 +10,7 @@ export function defaultInputOptions(buildDirectory) {
     plugins: [
       postcss({
         extract: true,
-        modules: true
+        modules: true,
       }),
       url({
         include: "**/*",

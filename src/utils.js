@@ -1,5 +1,5 @@
-const glob = require("glob")
-const fs = require("fs")
+// const glob = require("glob")
+// const fs = require("fs")
 const path = require("path");
 
 export function parseHashFileName(filePath) {
@@ -19,4 +19,4 @@ export function parseHashFileName(filePath) {
 
 //   })
 
-}
+// }
