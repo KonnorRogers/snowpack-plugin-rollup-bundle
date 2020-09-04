@@ -12,7 +12,7 @@ export function defaultInputOptions(buildDirectory) {
         extract: path.resolve(buildDirectory, "css"),
         modules: true,
         minimize: true,
-        sourceMap: true
+        sourceMap: true,
       }),
       url({
         include: "**/*",
