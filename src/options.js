@@ -9,8 +9,9 @@ export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
       postcss({
-        extract: path.resolve(buildDirectory, "css"),
-        modules: true,
+        inject: false,
+        extract: path.resolve(buildDirectory),
+        // modules: true,
         minimize: true,
         sourceMap: true,
       }),
