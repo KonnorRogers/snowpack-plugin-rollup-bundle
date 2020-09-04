@@ -2,6 +2,7 @@
 export function proxyImportResolver(source) {
   const regex = /from\s*['"].*\.(\w+)\.proxy\.js['"]/g;
   return source.replace(regex, (fullMatch, originalExt) => {
+    // no JSON plugin loaded
     if (originalExt === "json") {
       return fullMatch;
     }
