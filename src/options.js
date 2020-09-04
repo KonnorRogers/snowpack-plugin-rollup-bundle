@@ -9,13 +9,15 @@ export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
       postcss({
-        extract: true,
+        extract: path.resolve(buildDirectory, "css"),
         modules: true,
+        minimize: true,
+        sourceMap: true
       }),
       url({
         include: "**/*",
         exclude: "**/*.(js|json|css)",
-        destDir: "assets",
+        destDir: path.resolve(buildDirectory, "assets"),
         limit: 0, // extract all files
         fileName: "[name].[hash][extname]",
       }),
