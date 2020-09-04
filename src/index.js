@@ -6,7 +6,6 @@ const glob = require("glob");
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { parseHashFileName } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
-// import { generateManifestData, generateManifestFile } from "./generateManifest";
 
 async function rollupBuild({ inputOptions, outputOptions }) {
   const bundle = await rollup.rollup(inputOptions);
@@ -55,12 +54,14 @@ const plugin = (snowpackConfig, pluginOptions) => {
         },
       });
 
+      // Rewrite "proxy.js" imports prior to building
       glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
         const resolvedImports = proxyImportResolver(
           fs.readFileSync(file, "utf8")
         );
         fs.writeFileSync(file, resolvedImports, "utf8");
       });
+
       await rollupBuild(extendedConfig);
     },
   };

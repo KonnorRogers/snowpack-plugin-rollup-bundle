@@ -3,11 +3,13 @@ const childProcess = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
-const buildDir = path.join(process.env.EXAMPLE_DIR, "build");
+const exampleDir = path.resolve("__tests__", "example_dir");
+const buildDir = path.join(exampleDir, "build");
 
-beforeEach(() => {
+beforeAll(() => {
+  // Remove and Rebuild the build directory
   childProcess.execSync(`rm -rf ${buildDir}`);
-  process.chdir(process.env.EXAMPLE_DIR);
+  process.chdir(exampleDir);
   childProcess.execSync("yarn build");
 });
 
@@ -23,4 +25,10 @@ test("Should produce entrypoints and manifest.json", () => {
 
 test("Should produce css files, including module.css files", () => {
   //
+});
+
+test("Should create an assets directory for all non-css and non-js files", () => {
+  const files = fs.readdirSync(path.join(buildDir, "assets"));
+
+  expect(files).not.toHaveLength(0);
 });

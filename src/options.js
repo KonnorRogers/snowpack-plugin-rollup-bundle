@@ -15,7 +15,7 @@ export function defaultInputOptions(buildDirectory) {
       url({
         include: "**/*",
         exclude: "**/*.(js|json|css)",
-        publicPath: "assets",
+        destDir: "assets",
         limit: 0, // extract all files
         fileName: "[name].[hash][extname]",
       }),

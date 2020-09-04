@@ -2,7 +2,7 @@ const process = require("process")
 
 module.exports = {
   clearMocks: true,
-  globalSetup: "<rootDir>/jest-helper.js",
+  globalSetup: "<rootDir>/jest-setup.js",
   rootDir: process.cwd(),
   testEnvironment: "jest-environment-jsdom",
   testMatch: [
@@ -11,7 +11,8 @@ module.exports = {
   ],
   testPathIgnorePatterns: [
     "/node_modules/",
-    "/__tests__/example_dir/"
+    "/__tests__/example_dir/",
+    "/pkg/"
   ],
   testRunner: "jest-circus/runner",
   transform: {
@@ -21,4 +22,9 @@ module.exports = {
     "/node_modules/",
     "\\.pnp\\.[^\\/]+$"
   ],
+  watchPathIgnorePatterns: [
+    "/node_modules/",
+    "/pkg/",
+
+  ]
 };
