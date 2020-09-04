@@ -5,11 +5,7 @@ const fs = require("fs");
 
 const buildDir = path.join(process.env.EXAMPLE_DIR, "build");
 
-<<<<<<< HEAD
-beforeAll(() => {
-=======
 beforeEach(() => {
->>>>>>> master
   childProcess.execSync(`rm -rf ${buildDir}`);
   process.chdir(process.env.EXAMPLE_DIR);
   childProcess.execSync("yarn build");

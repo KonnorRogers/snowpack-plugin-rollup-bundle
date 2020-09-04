@@ -1,18 +1,12 @@
-<<<<<<< HEAD
-const path = require("path")
-const process = require("process")
-const childProcess = require("child_process")
-=======
-const { path } = import("path")
-const { process } = import("process")
-const { childProcess } = import("child_process")
->>>>>>> master
+const path = require("path");
+const process = require("process");
+const childProcess = require("child_process");
 
-// Set ENV Vars
-process.env.EXAMPLE_DIR = path.resolve("__tests__", "example_dir")
+export default async function globalSetup() {
+  // Set ENV Vars
+  process.env.EXAMPLE_DIR = path.resolve("__tests__", "example_dir");
 
-// Run yarn install
-process.chdir(process.env.EXAMPLE_DIR)
-childProcess.execSync("yarn install")
-
-
+  // Run yarn install
+  process.chdir(process.env.EXAMPLE_DIR);
+  childProcess.execSync("yarn install");
+}

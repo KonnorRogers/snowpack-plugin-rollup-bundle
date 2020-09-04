@@ -18,13 +18,8 @@
   "scripts": {
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*.js",
     "build": "yarn format && pika build",
-<<<<<<< HEAD
-    "test": "yarn build && jest",
-    "deploy": "yarn test && pika publish",
-=======
     "test": "jest",
     "deploy": "yarn format && yarn test && pika build && pika publish",
->>>>>>> master
     "version": "yarn run build"
   },
   "@pika/pack": {
@@ -64,10 +59,7 @@
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-jest-dom": "^3.1.7",
     "jest": "^26.4.2",
-<<<<<<< HEAD
-=======
     "jest-circus": "^26.4.2",
->>>>>>> master
     "prettier": "^2.0.5"
   },
   "version": "0.0.2"
