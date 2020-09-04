@@ -14,11 +14,6 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
-    if (chunkOrAsset.type === "asset") {
-      //
-    } else {
-      //
-    }
     manifestData[parseHashFileName(fileName)] = fileName;
   }
 
