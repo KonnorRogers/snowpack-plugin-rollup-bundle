@@ -1,0 +1,19 @@
+{
+  "name": "snowpacker-example",
+  "version": "1.0.0",
+  "description": "A snowpacker file structure example",
+  "author": "Konnor Rogers",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "snowpack build"
+  },
+  "dependencies": {
+    "rollup": "^2.26.5",
+    "snowpack": "^2.8.0",
+    "snowpack-plugin-rollup-bundle": "file:../../pkg/dist-node"
+  },
+  "devDependencies": {
+    "servor": "^4.0.2"
+  }
+}
