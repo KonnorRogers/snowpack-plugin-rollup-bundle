@@ -1,4 +1,5 @@
 const process = require("process")
+<<<<<<< HEAD
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
@@ -153,10 +154,23 @@ module.exports = {
   // ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
+=======
+
+module.exports = {
+  clearMocks: true,
+  globalSetup: "<rootDir>/jest-helper.js",
+  rootDir: process.cwd(),
+  testEnvironment: "jest-environment-jsdom",
+  testMatch: [
+    "**/__tests__/**/*.[jt]s?(x)",
+    "**/?(*.)+(spec|test).[tj]s?(x)"
+  ],
+>>>>>>> master
   testPathIgnorePatterns: [
     "/node_modules/",
     "/__tests__/example_dir/"
   ],
+<<<<<<< HEAD
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
@@ -201,4 +215,14 @@ module.exports = {
       }
     ],
   ]
+=======
+  testRunner: "jest-circus/runner",
+  transform: {
+    "^.+\\.[t|j]sx?$": "babel-jest",
+  },
+  transformIgnorePatterns: [
+    "/node_modules/",
+    "\\.pnp\\.[^\\/]+$"
+  ],
+>>>>>>> master
 };

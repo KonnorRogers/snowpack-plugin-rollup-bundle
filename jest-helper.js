@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 const path = require("path")
 const process = require("process")
 const childProcess = require("child_process")
+=======
+const { path } = import("path")
+const { process } = import("process")
+const { childProcess } = import("child_process")
+>>>>>>> master
 
 // Set ENV Vars
 process.env.EXAMPLE_DIR = path.resolve("__tests__", "example_dir")
