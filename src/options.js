@@ -14,7 +14,7 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
         modules: true,
         autoModules: true,
         sourceMap: true,
-        minimize: true
+        minimize: true,
       }),
       url({
         include: "**/*",
@@ -43,7 +43,7 @@ export function defaultOutputOptions(buildDirectory) {
   return {
     format: "es",
     plugins: [terser()],
-    assetFileNames: "assets/[name].[hash][ext]",
+    assetFileNames: "assets/[name].[hash].[ext]",
     chunkFileNames: "chunks/[name].[hash].js",
     compact: true,
     entryFileNames: "entrypoints/[name].[hash].js",
