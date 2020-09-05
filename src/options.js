@@ -1,19 +1,15 @@
 const path = require("path");
 // plugins
 import alias from "@rollup/plugin-alias";
-import postcss from "rollup-plugin-postcss";
+import css from "rollup-plugin-css-only";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
 
 export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
-      postcss({
-        inject: false,
-        extract: path.resolve(buildDirectory),
-        // modules: true,
-        minimize: true,
-        sourceMap: true,
+      css({
+        output: path.resolve(buildDirectory, "css", "bundle.css"),
       }),
       url({
         include: "**/*",

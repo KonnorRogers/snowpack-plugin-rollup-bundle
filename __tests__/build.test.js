@@ -24,7 +24,8 @@ test("Should produce entrypoints and manifest.json", () => {
 });
 
 test("Should produce css files, including module.css files", () => {
-  //
+  const cssFile = path.resolve(buildDir, "css", "stylesheet.css");
+  expect(fs.existsSync(cssFile)).toBe(true);
 });
 
 test("Should create an assets directory for all non-css and non-js files", () => {
