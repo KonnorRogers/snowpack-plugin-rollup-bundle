@@ -20,7 +20,6 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
-    // const { ext } = path.parse(fileName)
 
     manifestData[parseHashFileName(fileName)] = path.join(
       "/",
