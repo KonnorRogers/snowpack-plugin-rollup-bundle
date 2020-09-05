@@ -5,7 +5,7 @@ const glob = require("glob");
 const os = require("os");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { shellRun, parseHashFileName } from "./utils";
+import { shellRun, addToManifestData } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
@@ -20,20 +20,21 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
-
-    manifestData[parseHashFileName(fileName)] = path.join(
-      "/",
-      buildDirectory,
-      fileName
-    );
+    addToManifestData({manifestData, fileName, buildDirectory})
   }
 
-  const manifestJSON = JSON.stringify(manifestData, null, 2);
 
   await bundle.write(outputOptions);
 
   shellRun(`rm -rf ${buildDirectory}`);
   shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
+
+  // Add assets to manifest
+  glob.sync("assets/**/*").forEach((fileName) => {
+    addToManifestData({manifestData, fileName, buildDirectory})
+  })
+
+  const manifestJSON = JSON.stringify(manifestData, null, 2);
   fs.writeFileSync(path.join(buildDirectory, "manifest.json"), manifestJSON);
 }
 
