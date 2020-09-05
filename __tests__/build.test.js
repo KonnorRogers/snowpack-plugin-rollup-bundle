@@ -1,16 +1,18 @@
 const process = require("process");
-const childProcess = require("child_process");
 const path = require("path");
 const fs = require("fs");
+
+import { shellRun } from "../src/utils"
 
 const exampleDir = path.resolve("__tests__", "example_dir");
 const buildDir = path.join(exampleDir, "build");
 
+
 beforeAll(() => {
   // Remove and Rebuild the build directory
-  childProcess.execSync(`rm -rf ${buildDir}`);
+  shellRun(`rm -rf ${buildDir}`);
   process.chdir(exampleDir);
-  childProcess.execSync("yarn build");
+  shellRun("yarn build")
 });
 
 test("Should produce entrypoints and manifest.json", () => {

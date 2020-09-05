@@ -1,5 +1,5 @@
-const childProcess = require("child_process")
+import { shellRun } from "./src/utils"
 
 export default async function globalSetup() {
-  childProcess.execSync("yarn build")
+  await shellRun("yarn build")
 }
