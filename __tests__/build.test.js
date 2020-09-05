@@ -2,17 +2,29 @@ const process = require("process");
 const path = require("path");
 const fs = require("fs");
 
-import { shellRun } from "../src/utils"
+const childProcess = require("child_process");
 
 const exampleDir = path.resolve("__tests__", "example_dir");
 const buildDir = path.join(exampleDir, "build");
 
-
 beforeAll(() => {
   // Remove and Rebuild the build directory
-  shellRun(`rm -rf ${buildDir}`);
+  childProcess.spawnSync(`rm -rf ${buildDir}`, {
+    stdio: "inherit",
+    shell: true,
+  });
+
   process.chdir(exampleDir);
-  shellRun("yarn build")
+
+  const { status } = childProcess.spawnSync(
+    "yarn install --force && yarn build",
+    {
+      stdio: "inherit",
+      shell: true,
+    }
+  );
+
+  if (status !== 0) throw "An error occurred building the test directory";
 });
 
 test("Should produce entrypoints and manifest.json", () => {

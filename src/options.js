@@ -9,7 +9,7 @@ export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
       postcss({
-        extract: path.resolve(buildDirectory, "css", "bundle.css"),
+        extract: path.resolve(buildDirectory, "css", "stylesheet.css"),
         modules: true,
         sourceMap: true,
       }),
@@ -40,7 +40,7 @@ export function defaultOutputOptions(buildDirectory) {
   return {
     format: "es",
     plugins: [terser()],
-    assetFileName: "assets/[name].[hash][ext]",
+    assetFileNames: "assets/[name].[hash][ext]",
     chunkFileNames: "chunks/[name].[hash].js",
     compact: true,
     entryFileNames: "entrypoints/[name].[hash].js",
