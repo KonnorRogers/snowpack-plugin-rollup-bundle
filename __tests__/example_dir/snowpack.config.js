@@ -2,24 +2,26 @@ const glob = require("glob");
 const path = require("path");
 
 const mount = {
-  src: "/_dist_",
+  src: "/",
 };
 
 const proxy = {
   /* ... */
 };
+
 const plugins = [
   [
     "snowpack-plugin-rollup-bundle",
     {
       extendConfig: (config) => {
         config.outputOptions.dir = "build";
-        config.inputOptions.input = glob.sync(path.join("build", "_dist_", "entrypoints", "**", "*"));
+        config.inputOptions.input = glob.sync(path.join("build", "entrypoints", "**", "*"));
         return config;
       },
     },
   ],
 ];
+
 const installOptions = {
   NODE_ENV: true,
   rollup: {
@@ -28,10 +30,7 @@ const installOptions = {
 };
 
 const alias = {
-  "@channels": "./src/channels",
-  "@js": "./src/javascript",
-  "@css": "./src/stylesheets",
-  "@assets": "./src/assets",
+  /* */
 };
 
 const devOptions = {
@@ -39,6 +38,7 @@ const devOptions = {
   open: "none",
   bundle: true,
 };
+
 const buildOptions = {
   clean: true,
 };
