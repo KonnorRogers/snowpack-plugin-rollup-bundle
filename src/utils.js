@@ -8,10 +8,6 @@ export function parseHashFileName(filePath) {
   return path.join(dir, fileWithoutHash);
 }
 
-//function findFilePathInManifest(manifestFile) {
-//  //
-//}
-
 export function shellRun(cmd, options = {}) {
   options.stdio = options.stdio || "inherit";
   options.shell = options.shell || true;
