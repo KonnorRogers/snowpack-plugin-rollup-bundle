@@ -2,16 +2,19 @@ const path = require("path");
 
 // plugins
 import alias from "@rollup/plugin-alias";
-import postcss from "rollup-plugin-postcss";
+import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
 
 export function defaultInputOptions({ buildDirectory, tmpDir }) {
   return {
     plugins: [
-      postcss({
-        extract: true,
+      styles({
+        mode: "extract",
         modules: true,
+        autoModules: true,
+        sourceMap: true,
+        minimize: true
       }),
       url({
         include: "**/*",

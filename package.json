@@ -42,7 +42,7 @@
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-url": "^5.0.1",
     "rollup-plugin-node-polyfills": "^0.2.1",
-    "rollup-plugin-postcss": "^3.1.8",
+    "rollup-plugin-styles": "^3.10.0",
     "rollup-plugin-terser": "^7.0.0"
   },
   "devDependencies": {
