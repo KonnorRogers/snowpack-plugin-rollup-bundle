@@ -11,7 +11,7 @@
   "dependencies": {
     "rollup": "^2.26.5",
     "snowpack": "^2.8.0",
-    "snowpack-plugin-rollup-bundle": "file:../../pkg/dist-node"
+    "snowpack-plugin-rollup-bundle": "file:../../pkg"
   },
   "devDependencies": {
     "servor": "^4.0.2"
