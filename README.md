@@ -1,5 +1,11 @@
 # snowpack-plugin-rollup-bundle
 
+## Issues
+
+Currently, this only generates build files but will not rewrite your
+HTML scripts. If you would like to see this feature, I would be happy to
+add it. For now, this project is purely for the use of Snowpacker.
+
 ## Developing locally
 
 ```bash
