@@ -12,7 +12,6 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
       postcss({
         extract: true,
         modules: true,
-        sourceMap: true,
       }),
       url({
         include: "**/*",
@@ -40,7 +39,9 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
 export function defaultOutputOptions(buildDirectory) {
   return {
     format: "es",
-    plugins: [terser()],
+    plugins: [
+      terser(),
+    ],
     assetFileNames: "assets/[name].[hash][ext]",
     chunkFileNames: "chunks/[name].[hash].js",
     compact: true,
