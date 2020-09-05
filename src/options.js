@@ -11,7 +11,7 @@ export function defaultInputOptions(buildDirectory) {
       postcss({
         extract: path.resolve(buildDirectory, "css", "bundle.css"),
         modules: true,
-        sourceMap: true
+        sourceMap: true,
       }),
       url({
         include: "**/*",
