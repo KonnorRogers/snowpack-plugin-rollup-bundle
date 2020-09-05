@@ -34,6 +34,7 @@
   },
   "peerDependencies": {
     "glob": "^7.1.4",
+    "rimraf": "^3.0.2",
     "rollup": "^2.26.4",
     "snowpack": "^2.8.0"
   },

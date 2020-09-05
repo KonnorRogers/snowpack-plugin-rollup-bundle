@@ -1,4 +1,5 @@
 const path = require("path");
+
 // plugins
 import alias from "@rollup/plugin-alias";
 import postcss from "rollup-plugin-postcss";
@@ -9,7 +10,7 @@ export function defaultInputOptions(buildDirectory) {
   return {
     plugins: [
       postcss({
-        extract: path.resolve(buildDirectory, "css", "stylesheet.css"),
+        extract: true,
         modules: true,
         sourceMap: true,
       }),
