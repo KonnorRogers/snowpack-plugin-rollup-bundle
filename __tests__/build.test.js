@@ -30,8 +30,16 @@ describe("generates proper files", () => {
   });
 
   test("Should produce css files, including module.css files", () => {
-    const cssFile = path.resolve(buildDir, "css", "stylesheet.css");
-    expect(fs.existsSync(cssFile)).toBe(true);
+    const entryFiles = fs.readdirSync(path.join(buildDir, "entrypoints"));
+    const cssFiles = fs.readdirSync(path.resolve(buildDir, "css"));
+    expect(cssFiles).toHaveLength(entryFiles.length * 2);
+
+    const entryFileNames = entryFiles.map((file) => file.split(".")[0]);
+    const cssFileNames = cssFiles.map((file) => file.split(".")[0]);
+
+    cssFileNames.forEach((name) => {
+      expect(entryFileNames).toContain(name);
+    });
   });
 
   test("Should create an assets directory for all non-css and non-js files", () => {
@@ -41,4 +49,4 @@ describe("generates proper files", () => {
   });
 });
 
-describe("Properly displays in the HTML file", () => {});
+// describe("Properly displays in the HTML file", () => {});

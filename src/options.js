@@ -10,7 +10,7 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
   return {
     plugins: [
       styles({
-        mode: "extract",
+        mode: ["extract"],
         modules: true,
         autoModules: true,
         sourceMap: true,
@@ -43,7 +43,7 @@ export function defaultOutputOptions(buildDirectory) {
   return {
     format: "es",
     plugins: [terser()],
-    assetFileNames: "assets/[name].[hash].[ext]",
+    assetFileNames: "css/[name].[hash].[ext]",
     chunkFileNames: "chunks/[name].[hash].js",
     compact: true,
     entryFileNames: "entrypoints/[name].[hash].js",
