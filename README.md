@@ -46,3 +46,12 @@ build/
       asset1.hash.png
       asset2.hash.jpg
 ```
+
+## Testing
+
+```bash
+git clone https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/tree/development/
+cd snowpack-plugin-rollup-bundle
+yarn install
+yarn test
+```
