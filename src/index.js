@@ -6,7 +6,6 @@ const os = require("os");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { shellRun, parseHashFileName } from "./utils";
-// import { parseHashFileName } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
@@ -21,10 +20,13 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
-    if (chunkOrAsset.type === "asset") {
-      console.log(fileName);
-    }
-    manifestData[parseHashFileName(fileName)] = fileName;
+    // const { ext } = path.parse(fileName)
+
+    manifestData[parseHashFileName(fileName)] = path.join(
+      "/",
+      buildDirectory,
+      fileName
+    );
   }
 
   const manifestJSON = JSON.stringify(manifestData, null, 2);
