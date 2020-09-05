@@ -2,24 +2,37 @@ const rollup = require("rollup");
 const fs = require("fs");
 const path = require("path");
 const glob = require("glob");
+const os = require("os");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { parseHashFileName } from "./utils";
+import { shellRun, parseHashFileName } from "./utils";
+// import { parseHashFileName } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 
+const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
+
 async function rollupBuild({ inputOptions, outputOptions }) {
+  const buildDirectory = outputOptions.dir;
+  outputOptions.dir = TMP_BUILD_DIRECTORY;
+
   const bundle = await rollup.rollup(inputOptions);
   const { output } = await bundle.generate(outputOptions);
   const manifestData = {};
 
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
+    if (chunkOrAsset.type === "asset") {
+      console.log(fileName);
+    }
     manifestData[parseHashFileName(fileName)] = fileName;
   }
 
-  const buildDirectory = outputOptions.dir;
   const manifestJSON = JSON.stringify(manifestData, null, 2);
+
   await bundle.write(outputOptions);
+
+  shellRun(`rm -rf ${buildDirectory}`);
+  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
   fs.writeFileSync(path.join(buildDirectory, "manifest.json"), manifestJSON);
 }
 
@@ -29,7 +42,10 @@ const plugin = (snowpackConfig, pluginOptions) => {
   return {
     name: "snowpack-plugin-rollup-bundle",
     async optimize({ buildDirectory }) {
-      const inputOptions = defaultInputOptions(buildDirectory);
+      const inputOptions = defaultInputOptions({
+        buildDirectory,
+        tmpDir: TMP_BUILD_DIRECTORY,
+      });
       const outputOptions = defaultOutputOptions(buildDirectory);
 
       let extendConfig = (cfg) => cfg;

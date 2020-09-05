@@ -1,4 +1,4 @@
-const childProcess = require("child_process");
+import { shellRun } from "./src/utils"
 
 export default async function globalSetup() {
   const { status } = await build()
@@ -6,10 +6,5 @@ export default async function globalSetup() {
 }
 
 async function build() {
-  const obj = childProcess.spawnSync("yarn build", {
-    stdio: 'inherit',
-    shell: true
-  })
-
-  return obj
+  return shellRun("yarn build")
 }

@@ -6,7 +6,7 @@ import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
 
-export function defaultInputOptions(buildDirectory) {
+export function defaultInputOptions({ buildDirectory, tmpDir }) {
   return {
     plugins: [
       postcss({
@@ -17,7 +17,7 @@ export function defaultInputOptions(buildDirectory) {
       url({
         include: "**/*",
         exclude: "**/*.(js|json|css)",
-        destDir: path.resolve(buildDirectory, "assets"),
+        destDir: path.resolve(tmpDir, "assets"),
         limit: 0, // extract all files
         fileName: "[name].[hash][extname]",
       }),
