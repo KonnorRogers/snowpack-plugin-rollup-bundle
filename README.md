@@ -20,7 +20,7 @@ yarn link
 ### Using in example directory
 
 ```bash
-cd ../../examples/snowpacker
+cd __tests__/example_dir
 yarn install
 yarn link snowpack-plugin-rollup-bundle
 yarn snowpack build
@@ -28,31 +28,36 @@ yarn snowpack build
 
 Then check out the `build/`directory.
 
-### Expected output
+### Expected input
 
 ```bash
-src/snowpacker/
+src/
   assets/
   stylesheets/
   entrypoints/
+    entrypoint1.js
+    entrypoint2.js
   javascript/
 ```
 
-Becomes:
+### Expected output
 
 ```bash
 build/
-  snowpacks/
+  chunks/
+    chunk1.hash.js
+  entrypoints/
     entrypoint1.hash.js
     entrypoint2.hash.js
-    css/
-      stylesheet1.hash.css
-      stylesheet2.hash.css
-    assets/
-      asset1.hash.png
-      asset2.hash.jpg
+  css/
+    entrypoint1.hash.css
+    entrypoint2.hash.css
+  assets/
+    asset1.hash.png
+    asset2.hash.jpg
 ```
 
+Note: CSS files with correspond with an entrypoint file and will not maintain your naming from a stylesheets directory.
 ## Testing
 
 ```bash
@@ -61,3 +66,5 @@ cd snowpack-plugin-rollup-bundle
 yarn install
 yarn test
 ```
+
+You can then view the generated build in the `__tests__/example_dir/build` directory.
