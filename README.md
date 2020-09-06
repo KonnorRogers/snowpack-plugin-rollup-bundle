@@ -44,6 +44,8 @@ src/
 
 ```bash
 build/
+  chunks/
+    chunk1.hash.js
   entrypoints/
     entrypoint1.hash.js
     entrypoint2.hash.js
