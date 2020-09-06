@@ -1,11 +1,10 @@
 const path = require("path");
-const process = require("process");
 
 import { shellRun } from "./src/utils";
 
 export default async function globalSetup() {
-  const buildPkg = await build();
-  if (buildPkg.status !== 0) {
+  const build = await buildPkg();
+  if (build.status !== 0) {
     throw "Unable to build your package";
   }
 
@@ -15,7 +14,7 @@ export default async function globalSetup() {
   }
 }
 
-async function build() {
+async function buildPkg() {
   return shellRun("yarn build");
 }
 
