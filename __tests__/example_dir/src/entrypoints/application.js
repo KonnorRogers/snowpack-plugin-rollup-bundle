@@ -5,6 +5,29 @@ import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 
+import { Application } from "stimulus";
+
+const glob = require("glob");
+const path = require("path")
+
+// dynamic import of stimulus controllers
+function parseControllerName(fileName) {
+  let { name } = path.parse(fileName);
+  name = name.split("_");
+  return name.slice(0, -1).join("-"); // cuts off _controller.js
+}
+
+const application = Application.start();
+
+glob.sync("./src/controllers/**/*_controller.js").forEach((file) => {
+  const controllerName = parseControllerName(file);
+  file = "./" + path.relative(__dirname, file);
+
+  import(file).then((module) => {
+    application.register(controllerName, module.default);
+  });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const img = document.createElement("img")
   img.src = logo
