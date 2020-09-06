@@ -4,7 +4,7 @@ module.exports = {
   clearMocks: true,
   globalSetup: "<rootDir>/jest-setup.js",
   rootDir: process.cwd(),
-  testEnvironment: "jest-environment-jsdom",
+  testEnvironment: "node",
   testMatch: [
     "**/__tests__/**/*.[jt]s?(x)",
     "**/?(*.)+(spec|test).[tj]s?(x)"
