@@ -28,17 +28,19 @@ yarn snowpack build
 
 Then check out the `build/`directory.
 
-### Expected output
+### Expected input
 
 ```bash
 src/
   assets/
   stylesheets/
   entrypoints/
+    entrypoint1.js
+    entrypoint2.js
   javascript/
 ```
 
-Becomes:
+### Expected output
 
 ```bash
 build/
@@ -53,6 +55,7 @@ build/
     asset2.hash.jpg
 ```
 
+Note: CSS files with correspond with an entrypoint file and will not maintain your naming from a stylesheets directory.
 ## Testing
 
 ```bash
