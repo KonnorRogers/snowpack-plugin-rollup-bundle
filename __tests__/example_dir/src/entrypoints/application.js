@@ -19,7 +19,7 @@ function parseControllerName(fileName) {
 
 const application = Application.start();
 
-glob.sync("./src/controllers/**/*_controller.js").forEach((file) => {
+glob.sync("../controllers/**/*_controller.js").forEach((file) => {
   const controllerName = parseControllerName(file);
   file = "./" + path.relative(__dirname, file);
 
