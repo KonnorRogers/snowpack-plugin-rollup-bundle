@@ -20,7 +20,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
-    addToManifestData({ manifestData, fileName, buildDirectory });
+    addToManifestData({ manifestData, fileName });
   }
 
   await bundle.write(outputOptions);
@@ -28,9 +28,9 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   shellRun(`rm -rf ${buildDirectory}`);
   shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
 
-  // Add assets to manifest
+  // Add assets to manifest, use path.relative to fix minor issues
   glob.sync(`${buildDirectory}/assets/**/*`).forEach((fileName) => {
-    // Do not add buildDirectory, fileName comes with it.
+    fileName = path.relative(buildDirectory, fileName);
     addToManifestData({ manifestData, fileName });
   });
 

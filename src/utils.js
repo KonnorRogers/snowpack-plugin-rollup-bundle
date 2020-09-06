@@ -15,14 +15,10 @@ export function shellRun(cmd, options = {}) {
   return childProcess.spawnSync(cmd, options);
 }
 
-export function addToManifestData({
-  manifestData,
-  fileName,
-  buildDirectory = "",
-}) {
-  manifestData[parseHashFileName(fileName)] = path.join(
-    "/",
-    buildDirectory,
-    fileName
-  );
+export function addToManifestData({ manifestData, fileName }) {
+  manifestData[parseHashFileName(fileName)] = path.join("/", fileName);
 }
+
+// export function findInManifestObject({manifest, }) {
+//   manifestObject
+// }
