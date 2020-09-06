@@ -19,6 +19,29 @@ export function addToManifestData({ manifestData, fileName }) {
   manifestData[parseHashFileName(fileName)] = path.join("/", fileName);
 }
 
+export function addToManifestEntrypoint({ manifestData, fileName }) {
+  const baseFileName = fileName.split(".")[0];
+  const assignToEntrypoint = (type) => {
+    Object.assign(manifestData.entrypoints[baseFileName], {
+      [type]: path.join("/", fileName),
+    });
+  };
+  switch (fileName) {
+    case fileName.endsWith(".css.map"):
+      assignToEntrypoint("css.map");
+      break;
+    case fileName.endsWith(".css"):
+      assignToEntrypoint("css");
+      break;
+    case fileName.endsWith(".js.map"):
+      assignToEntrypoint("js.map");
+      break;
+    case fileName.endsWith(".js"):
+      assignToEntrypoint("js");
+      break;
+  }
+}
+
 // export function findInManifestObject({manifest, }) {
 //   manifestObject
 // }

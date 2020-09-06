@@ -5,7 +5,7 @@ const glob = require("glob");
 const os = require("os");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { shellRun, addToManifestData } from "./utils";
+import { shellRun, addToManifestData, addToManifestEntrypoint } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
@@ -21,6 +21,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   for (const chunkOrAsset of output) {
     const fileName = chunkOrAsset.fileName;
     addToManifestData({ manifestData, fileName });
+    addToManifestEntrypoint({ manifestData, fileName });
   }
 
   await bundle.write(outputOptions);
