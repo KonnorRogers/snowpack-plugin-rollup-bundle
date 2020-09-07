@@ -1,7 +1,7 @@
 const glob = require("glob");
 const path = require("path");
 
-const resolve = require('@rollup/plugin-node-resolve')
+const resolve = require('@rollup/plugin-node-resolve').default
 const commonjs = require('@rollup/plugin-commonjs')
 
 const mount = {
