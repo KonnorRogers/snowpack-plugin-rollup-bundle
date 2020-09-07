@@ -4,10 +4,10 @@ import "../stylesheets/index.css";
 import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
-import { parseControllerName } from "../javascript/loadControllers"
+import { parseControllerName } from "../javascript/parseControllerName"
 
+import fs from "fs"
 import path from "path"
-import glob from "glob"
 
 import { Application } from "stimulus";
 

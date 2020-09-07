@@ -1,6 +1,7 @@
 const glob = require("glob");
 const path = require("path");
 
+
 const mount = {
   src: "/",
 };
@@ -24,13 +25,7 @@ const plugins = [
 
 const installOptions = {
   NODE_ENV: true,
-  rollup: {
-    plugins: [
-      require("rollup-plugin-node-polyfills")(),
-      require("@rollup/plugin-commonjs")(),
-      require("@rollup/plugin-node-resolve")()
-    ],
-  },
+  polyfillNode: true
 };
 
 const alias = {
