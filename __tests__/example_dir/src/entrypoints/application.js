@@ -4,14 +4,23 @@ import "../stylesheets/index.css";
 import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
-import { loadControllers } from "../javascript/loadControllers"
+import { parseControllerName } from "../javascript/loadControllers"
+
+import path from "path"
+import glob from "glob"
 
 import { Application } from "stimulus";
 
 const application = Application.start();
 
-loadControllers(application)
+glob.sync("./src/controllers/**/*_controller.js").forEach((file) => {
+  const controllerName = parseControllerName(file);
+  file = "./" + path.relative(__dirname, file);
 
+  import(file).then((module) => {
+    application.register(controllerName, module.default);
+  });
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const img = document.createElement("img")

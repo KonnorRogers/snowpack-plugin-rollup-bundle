@@ -25,7 +25,11 @@ const plugins = [
 const installOptions = {
   NODE_ENV: true,
   rollup: {
-    plugins: [require("rollup-plugin-node-polyfills")()],
+    plugins: [
+      require("rollup-plugin-node-polyfills")(),
+      require("@rollup/plugin-commonjs")(),
+      require("@rollup/plugin-node-resolve")()
+    ],
   },
 };
 

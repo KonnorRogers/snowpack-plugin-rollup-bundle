@@ -1,5 +1,5 @@
-const glob = require("glob");
-const path = require("path")
+import glob from "glob"
+import path from "path"
 
 // dynamic import of stimulus controllers
 function parseControllerName(fileName) {
