@@ -1,8 +1,8 @@
 const glob = require("glob");
 const path = require("path");
 
-const resolve = require('@rollup/plugin-node-resolve').default
-const commonjs = require('@rollup/plugin-commonjs')
+// const resolve = require('@rollup/plugin-node-resolve').default
+// const commonjs = require('@rollup/plugin-commonjs')
 
 const mount = {
   src: "/",
@@ -14,7 +14,14 @@ const proxy = {
 
 const plugins = [
   [
-    ["@snowpack/plugin-babel"],
+    "@snowpack/plugin-build-script",
+    {
+      "cmd": `babel --filename $FILE`,
+      "input": [".js"],
+      "output": [".js"]
+    }
+  ],
+  [
     "snowpack-plugin-rollup-bundle",
     {
       extendConfig: (config) => {
@@ -28,13 +35,13 @@ const plugins = [
 
 const installOptions = {
   NODE_ENV: true,
-  polyfillNode: false,
-  rollup: {
-    plugins: [
-      commonjs(),
-      resolve()
-    ]
-  }
+  polyfillNode: true,
+  // rollup: {
+  //   plugins: [
+  //     commonjs(),
+  //     resolve()
+  //   ]
+  // }
 };
 
 const alias = {

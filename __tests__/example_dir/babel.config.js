@@ -1,7 +1,7 @@
 // pulled from snowpacker
 module.exports = function(api) {
   const validEnv = ['development', 'test', 'production']
-  const currentEnv = process.env.NODE_ENV
+  const currentEnv = process.env.NODE_ENV || "development"
   const isDevelopmentEnv = (currentEnv === "development")
   const isProductionEnv = (currentEnv === 'production')
   const isTestEnv = (currentEnv === 'test')
@@ -42,6 +42,7 @@ module.exports = function(api) {
       ]
     ].filter(Boolean),
     plugins: [
+      'babel-plugin-static-fs',
       'babel-plugin-macros',
       '@babel/plugin-syntax-dynamic-import',
       isTestEnv && 'babel-plugin-dynamic-import-node',
