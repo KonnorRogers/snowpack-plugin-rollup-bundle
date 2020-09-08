@@ -35,7 +35,7 @@ const plugins = [
 
 const installOptions = {
   NODE_ENV: true,
-  polyfillNode: true,
+  polyfillNode: false,
   // rollup: {
   //   plugins: [
   //     commonjs(),
