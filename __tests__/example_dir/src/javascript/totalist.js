@@ -1,8 +1,7 @@
 // https://github.com/lukeed/totalist/blob/master/src/sync.js
 
-
 import path from "path"
-import fs from "fs"
+import staticFs from "static-fs"
 
 export function totalist(dir, callback, pre = '') {
   dir = (0, path.resolve)('.', dir);
