@@ -6,20 +6,32 @@ import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 import { parseControllerName } from "../javascript/parseControllerName"
 
-import fs from "fs"
+import { totalist } from "totalist/sync"
 import path from "path"
 
 import { Application } from "stimulus";
 
 const application = Application.start();
 
-glob.sync("./src/controllers/**/*_controller.js").forEach((file) => {
-  const controllerName = parseControllerName(file);
-  file = "./" + path.relative(__dirname, file);
+// glob.sync("./src/controllers/**/*_controller.js").forEach((file) => {
+//   const controllerName = parseControllerName(file);
+//   file = "./" + path.relative(__dirname, file);
 
-  import(file).then((module) => {
-    application.register(controllerName, module.default);
-  });
+//   import(file).then((module) => {
+//     application.register(controllerName, module.default);
+//   });
+// });
+
+// const dir = path.join(__dirname, "controllers")
+
+totalist(dir, (name, abs, _stats) => {
+  if (/_controller\.js$/.test(name)) {
+    abs = "./" + path.relative(__dirname, abs);
+    import(abs).then((module) => {
+      const controllerName = parseControllerName(name);
+      application.register(controllerName, module.default);
+    });
+  }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
