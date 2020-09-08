@@ -42,7 +42,7 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@rollup/plugin-alias@^3.0.1", "@rollup/plugin-alias@^3.1.1":
+"@rollup/plugin-alias@^3.0.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.1.tgz#bb96cf37fefeb0a953a6566c284855c7d1cd290c"
   integrity sha512-hNcQY4bpBUIvxekd26DBPgF7BT4mKVNDF5tBG4Zi+3IgwLxGYRY0itHs9D0oLVwXM5pvJDWJlBQro+au8WaUWw==
@@ -2344,8 +2344,8 @@ slash@^3.0.0:
 "snowpack-plugin-rollup-bundle@file:../../pkg":
   version "0.0.2"
   dependencies:
-    "@rollup/plugin-alias" "^3.1.1"
     "@rollup/plugin-image" "^2.0.5"
+    "@rollup/plugin-node-resolve" "^9.0.0"
     "@rollup/plugin-url" "^5.0.1"
     rollup-plugin-node-polyfills "^0.2.1"
     rollup-plugin-styles "^3.10.0"

@@ -26,5 +26,4 @@
 //     return dom
 //   });
 
-// test("Should properly load the page with no console errors", async () => {
-// });
+test.skip("Should properly load the page with no console errors", async () => {});

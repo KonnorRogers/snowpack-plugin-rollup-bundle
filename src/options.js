@@ -9,7 +9,7 @@ import url from "@rollup/plugin-url";
 export function defaultInputOptions({ tmpDir }) {
   return {
     plugins: [
-      resolve({browser: true}),
+      resolve({ browser: true }),
       styles({
         mode: ["extract"],
         modules: true,
@@ -34,7 +34,7 @@ export function defaultOutputOptions(buildDirectory) {
     plugins: [terser()],
     manualChunks: (id) => {
       if (id.includes("node_modules")) {
-        return "vendor"
+        return "vendor";
       }
     },
     assetFileNames: "css/[name].[hash].[ext]",
