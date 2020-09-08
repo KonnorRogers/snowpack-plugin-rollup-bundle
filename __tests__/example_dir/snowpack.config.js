@@ -1,6 +1,7 @@
 const glob = require("glob");
 const path = require("path");
 
+const polyfills = require("rollup-plugin-node-polyfills")
 const resolve = require('@rollup/plugin-node-resolve').default
 const commonjs = require('@rollup/plugin-commonjs')
 
@@ -27,9 +28,10 @@ const plugins = [
 
 const installOptions = {
   NODE_ENV: true,
-  polyfillNode: true,
+  polyfillNode: false,
   rollup: {
     plugins: [
+      polyfills({fs: true}),
       commonjs(),
       resolve()
     ]

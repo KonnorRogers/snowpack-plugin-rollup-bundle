@@ -6,23 +6,14 @@ import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 import { parseControllerName } from "../javascript/parseControllerName"
 
-import { totalist } from "totalist/sync"
 import path from "path"
+import { totalist } from "../javascript/totalist"
 
 import { Application } from "stimulus";
 
 const application = Application.start();
 
-// glob.sync("./src/controllers/**/*_controller.js").forEach((file) => {
-//   const controllerName = parseControllerName(file);
-//   file = "./" + path.relative(__dirname, file);
-
-//   import(file).then((module) => {
-//     application.register(controllerName, module.default);
-//   });
-// });
-
-// const dir = path.join(__dirname, "controllers")
+const dir = path.join("..", "controllers")
 
 totalist(dir, (name, abs, _stats) => {
   if (/_controller\.js$/.test(name)) {
