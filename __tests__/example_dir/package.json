@@ -9,12 +9,12 @@
     "build": "snowpack build"
   },
   "dependencies": {
-    "@rollup/plugin-commonjs": "^15.0.0",
     "rollup": "^2.26.5",
     "snowpack": "^2.8.0",
     "snowpack-plugin-rollup-bundle": "file:../../pkg"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "servor": "^4.0.2",

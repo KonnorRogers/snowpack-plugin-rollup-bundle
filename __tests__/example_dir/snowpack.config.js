@@ -30,7 +30,6 @@ const installOptions = {
   polyfillNode: false,
   rollup: {
     plugins: [
-      require('rollup-plugin-node-polyfills')(),
       commonjs(),
       resolve()
     ]
