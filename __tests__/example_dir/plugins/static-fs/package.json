@@ -1,0 +1,12 @@
+{
+  "name": "@snowpack/plugin-postcss",
+  "version": "0.0.1",
+  "main": "plugin.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "snowpack": "^2.8.0"
+  }
+}

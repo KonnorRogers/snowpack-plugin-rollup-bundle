@@ -13,14 +13,8 @@ const proxy = {
 };
 
 const plugins = [
-  [
-    "@snowpack/plugin-build-script",
-    {
-      "cmd": `babel --config-file ./babel.config.js --filename $FILE`,
-      "input": [".js"],
-      "output": [".js"]
-    }
-  ],
+  ["@snowpack/plugin-babel"],
+  ["snowpack-plugin-static-fs"],
   [
     "snowpack-plugin-rollup-bundle",
     {
