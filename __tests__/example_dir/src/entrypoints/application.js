@@ -7,7 +7,6 @@ import SmallHouse from "../assets/small-house.png"
 import { parseControllerName } from "../javascript/parseControllerName"
 
 import path from "path"
-import fs from "fs"
 import { totalist } from "../javascript/totalist"
 
 import { Application } from "stimulus";
