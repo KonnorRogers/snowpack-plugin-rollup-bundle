@@ -23,6 +23,7 @@
     "@babel/preset-env": "^7.11.5",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "@snowpack/plugin-babel": "^2.1.0",
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-plugin-macros": "^2.8.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
