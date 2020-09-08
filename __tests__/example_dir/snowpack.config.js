@@ -16,7 +16,7 @@ const plugins = [
   [
     "@snowpack/plugin-build-script",
     {
-      "cmd": `babel --filename $FILE`,
+      "cmd": `babel --config-file ./babel.config.js --filename $FILE`,
       "input": [".js"],
       "output": [".js"]
     }
