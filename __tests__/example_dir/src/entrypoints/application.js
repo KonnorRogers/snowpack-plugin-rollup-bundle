@@ -5,10 +5,17 @@ import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 import { parseControllerName } from "../javascript/parseControllerName"
+import importAll from "import-all.macro"
 
 import { Application } from "stimulus";
 
 const application = Application.start();
+
+const imports = importAll.sync("../controllers/*_controller.js")
+for (const [fileName, importedModule] of Object.entries(imports)) {
+  const controllerName = parseControllerName(fileName)
+  application.register(controllerName, importedModule.default())
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const img = document.createElement("img")
