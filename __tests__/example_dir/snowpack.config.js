@@ -3,7 +3,7 @@ const path = require("path");
 
 const resolve = require('@rollup/plugin-node-resolve').default
 const commonjs = require('@rollup/plugin-commonjs')
-// const nodePolyfills = require("rollup-plugin-node-polyfills")
+const nodePolyfills = require("rollup-plugin-node-polyfills")
 
 const mount = {
   src: "/",
@@ -32,8 +32,11 @@ const installOptions = {
   NODE_ENV: true,
   rollup: {
     plugins: [
+      nodePolyfills({fs: true}),
       commonjs(),
-      resolve()
+      resolve({
+        preferBuiltins: false
+      }),
     ]
   }
 };
