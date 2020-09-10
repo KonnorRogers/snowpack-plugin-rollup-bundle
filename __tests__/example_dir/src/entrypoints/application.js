@@ -6,24 +6,9 @@ import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 import { parseControllerName } from "../javascript/parseControllerName"
 
-import path from "path"
-import { totalist } from "../javascript/totalist"
-
 import { Application } from "stimulus";
 
 const application = Application.start();
-
-const dir = path.join("..", "controllers")
-
-totalist(dir, (name, abs, _stats) => {
-  if (/_controller\.js$/.test(name)) {
-    abs = "./" + path.relative(__dirname, abs);
-    import(abs).then((module) => {
-      const controllerName = parseControllerName(name);
-      application.register(controllerName, module.default);
-    });
-  }
-});
 
 document.addEventListener("DOMContentLoaded", () => {
   const img = document.createElement("img")
