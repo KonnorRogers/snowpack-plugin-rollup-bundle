@@ -3,7 +3,6 @@ const path = require("path");
 
 const resolve = require('@rollup/plugin-node-resolve').default
 const commonjs = require('@rollup/plugin-commonjs')
-const nodePolyfills = require("rollup-plugin-node-polyfills")
 
 const mount = {
   src: "/",
@@ -14,8 +13,6 @@ const proxy = {
 };
 
 const plugins = [
-  // ["@snowpack/plugin-babel"],
-  // ["snowpack-plugin-static-fs"],
   [
     "snowpack-plugin-rollup-bundle",
     {
@@ -32,11 +29,8 @@ const installOptions = {
   NODE_ENV: true,
   rollup: {
     plugins: [
-      nodePolyfills({browserifyFs: true}),
       commonjs(),
-      resolve({
-        preferBuiltins: false
-      }),
+      resolve(),
     ]
   }
 };
