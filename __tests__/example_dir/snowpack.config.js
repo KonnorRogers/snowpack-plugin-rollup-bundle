@@ -13,6 +13,7 @@ const proxy = {
 };
 
 const plugins = [
+  ["@snowpack/plugin-babel"],
   [
     "snowpack-plugin-rollup-bundle",
     {
