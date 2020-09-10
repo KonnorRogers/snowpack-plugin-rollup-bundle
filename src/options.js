@@ -20,9 +20,10 @@ export function defaultInputOptions({ tmpDir }) {
       url({
         include: "**/*",
         exclude: "**/*.(js|json|css)",
-        destDir: path.resolve(tmpDir, "assets"),
+        // destDir: path.resolve(tmpDir, "assets"),
+        destDir: path.resolve(tmpDir),
         limit: 0, // extract all files
-        fileName: "[name].[hash][extname]",
+        fileName: "[dirname][name].[hash][extname]",
       }),
     ],
   };
