@@ -5,8 +5,8 @@ const glob = require("glob");
 const os = require("os");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-// import { shellRun, addToManifestData, addToManifestEntrypoint } from "./utils";
-import { addToManifestData, addToManifestEntrypoint } from "./utils";
+import { shellRun, addToManifestData, addToManifestEntrypoint } from "./utils";
+// import { addToManifestData, addToManifestEntrypoint } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
@@ -27,8 +27,8 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   await bundle.write(outputOptions);
 
-  // shellRun(`rm -rf ${buildDirectory}`);
-  // shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
+  shellRun(`rm -rf ${buildDirectory}`);
+  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
 
   // Add assets to manifest, use path.relative to fix minor issues
   glob.sync(`${buildDirectory}/assets/**/*`).forEach((fileName) => {

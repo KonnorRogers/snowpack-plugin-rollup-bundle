@@ -11,12 +11,12 @@
   "dependencies": {
     "rollup": "^2.26.5",
     "snowpack": "^2.9.0",
-    "snowpack-plugin-rollup-bundle": "file:../../pkg",
-    "snowpack-plugin-static-fs": "file:./plugins/static-fs"
+    "snowpack-plugin-rollup-bundle": "file:../../pkg"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "browserify-fs": "^1.0.0",
     "servor": "^4.0.2",
     "stimulus": "^1.1.1",
     "totalist": "^2.0.0"

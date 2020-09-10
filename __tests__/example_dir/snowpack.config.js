@@ -32,7 +32,7 @@ const installOptions = {
   NODE_ENV: true,
   rollup: {
     plugins: [
-      nodePolyfills({fs: true}),
+      nodePolyfills({browserifyFs: true}),
       commonjs(),
       resolve({
         preferBuiltins: false
