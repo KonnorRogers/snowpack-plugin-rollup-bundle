@@ -4,9 +4,11 @@ import "../stylesheets/index.css";
 import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
+import { textColor } from "../stylesheets/button.module.css"
+
+// Stimulus
 import { parseControllerName } from "../javascript/parseControllerName"
 import importAll from "import-all.macro"
-
 import { Application } from "stimulus";
 
 const application = Application.start();
@@ -43,4 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
   smallHouse.height = 200
   smallHouse.width = 200
   body.appendChild(smallHouse)
+
+  const btn = document.createElement("button")
+  btn.classList.add(textColor)
+  body.appendChild(btn)
 });
