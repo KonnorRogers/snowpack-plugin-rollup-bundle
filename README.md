@@ -1,5 +1,7 @@
 # snowpack-plugin-rollup-bundle
 
+A snowpack plugin to build your files for production using Rollup.
+
 ## Issues
 
 Currently, this only generates build files but will not rewrite your
@@ -13,8 +15,6 @@ git clone https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/tree/dev
 cd snowpack-plugin-rollup-bundle
 yarn install
 yarn build
-cd pkg/dist-node
-yarn link
 ```
 
 ### Using in example directory
@@ -22,11 +22,11 @@ yarn link
 ```bash
 cd __tests__/example_dir
 yarn install
-yarn link snowpack-plugin-rollup-bundle
 yarn snowpack build
+yarn servor build
 ```
 
-Then check out the `build/`directory.
+Then navigate to `localhost:8080` to see the final build.
 
 ### Expected input
 
