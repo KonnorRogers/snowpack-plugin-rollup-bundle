@@ -6,7 +6,6 @@ const os = require("os");
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { shellRun, addToManifestData, addToManifestEntrypoint } from "./utils";
-// import { addToManifestData, addToManifestEntrypoint } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
