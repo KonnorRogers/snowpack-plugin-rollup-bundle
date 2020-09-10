@@ -46,18 +46,25 @@ src/
 build/
   chunks/
     chunk1.hash.js
+
   entrypoints/
     entrypoint1.hash.js
     entrypoint2.hash.js
+
   css/
+    # 1 css file per entrypoint
     entrypoint1.hash.css
     entrypoint2.hash.css
+
   assets/
     asset1.hash.png
     asset2.hash.jpg
+
+  manifest.json # A manifest of all file locations
 ```
 
 Note: CSS files with correspond with an entrypoint file and will not maintain your naming from a stylesheets directory.
+
 ## Testing
 
 ```bash
@@ -68,3 +75,8 @@ yarn test
 ```
 
 You can then view the generated build in the `__tests__/example_dir/build` directory.
+
+## Roadmap
+
+[ ] Change hashing from `x.hash.ext` to `x-hash.ext`
+[ ] Support emitting HTML files
