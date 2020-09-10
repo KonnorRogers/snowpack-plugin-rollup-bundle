@@ -13,7 +13,7 @@ export function defaultInputOptions({ tmpDir }) {
       styles({
         mode: ["extract"],
         modules: true,
-        autoModules: id => id.includes(".module.css"),
+        autoModules: (id) => id.includes(".module.css"),
         sourceMap: true,
         minimize: true,
       }),

@@ -4,7 +4,9 @@ import "../stylesheets/index.css";
 import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
-import { textColor } from "../stylesheets/button.module.css"
+
+// WIP
+// import { textColor } from "../stylesheets/button.css"
 
 // Stimulus
 import { parseControllerName } from "../javascript/parseControllerName"
