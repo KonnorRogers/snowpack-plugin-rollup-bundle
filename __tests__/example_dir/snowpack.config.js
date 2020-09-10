@@ -8,6 +8,9 @@ const mount = {
   src: "/",
 };
 
+// const install = ["import-all.macro"]
+
+
 const proxy = {
   /* ... */
 };

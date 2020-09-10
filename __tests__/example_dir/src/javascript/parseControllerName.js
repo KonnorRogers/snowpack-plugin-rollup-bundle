@@ -7,7 +7,7 @@
 *  console.log(name) // => hello_world
 */
 export function parseControllerName(fileName) {
-  const regexp = /(\w+) _controller\.js/
-  // fileName.match(regexp)[0] returns ${x}_controller.js
-  return fileName.match(regexp)[1]
+  const regexp = /(\w+)_controller\.js$/
+  const controllerName = fileName.match(regexp)[1]
+  return controllerName.split("_").map((name) => name[0].toUpperCase() + name.substring(1)).join("")
 }

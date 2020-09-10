@@ -14,7 +14,8 @@ const application = Application.start();
 const imports = importAll.sync("../controllers/*_controller.js")
 for (const [fileName, importedModule] of Object.entries(imports)) {
   const controllerName = parseControllerName(fileName)
-  application.register(controllerName, importedModule.default())
+  console.log(controllerName)
+  application.register(controllerName, importedModule.default)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
