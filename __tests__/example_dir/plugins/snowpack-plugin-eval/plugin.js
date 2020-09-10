@@ -6,11 +6,8 @@ module.exports = function staticFsPlugin(snowpackConfig, pluginOptions) {
     async transform({fileExt, contents}) {
       if (fileExt !== ".js") return;
 
-      return contents.replace(/staticFs.readdirSync\((.*)\)/, (fullMatch, captureGroup) => {
-        console.log(fullMatch)
-        console.log(captureGroup)
-        return fs.readdirSync(captureGroup)
-      })
+      const regex = /snowpackEval\(([\S\s]*)\)/gm
+      const valueToReplace = contents.match(regex)
     }
   }
 }
