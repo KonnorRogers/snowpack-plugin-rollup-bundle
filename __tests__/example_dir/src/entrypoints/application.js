@@ -7,8 +7,8 @@ import SmallHouse from "../assets/small-house.png"
 
 // WIP
 // import styles from "../stylesheets/button.module.css"
-import { greenButton } from "../stylesheets/button.module.css"
-console.log(greenButton)
+// import { greenButton } from "../stylesheets/button.module.css"
+// console.log(greenButton)
 
 // Stimulus
 import { parseControllerName } from "../javascript/parseControllerName"
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   smallHouse.width = 200
   body.appendChild(smallHouse)
 
-  const btn = document.createElement("button")
-  btn.className = greenButton
-  body.appendChild(btn)
+  // const btn = document.createElement("button")
+  // btn.className = greenButton
+  // body.appendChild(btn)
 });
