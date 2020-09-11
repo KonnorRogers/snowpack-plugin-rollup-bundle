@@ -9,5 +9,5 @@
 export function parseControllerName(fileName) {
   const regexp = /(\w+)_controller\.js$/
   const controllerName = fileName.match(regexp)[1]
-  return controllerName.split("_").map((name) => name[0].toUpperCase() + name.substring(1)).join("")
+  return controllerName.split("_").join("-")
 }

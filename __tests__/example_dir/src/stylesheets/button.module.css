@@ -5,5 +5,5 @@
 
 .greenButton {
   composes: button;
-  color: green;
+  background: lightgreen;
 }

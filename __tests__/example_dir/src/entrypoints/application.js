@@ -6,9 +6,7 @@ import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 
 // WIP
-// import styles from "../stylesheets/button.module.css"
-// import { greenButton } from "../stylesheets/button.module.css"
-// console.log(greenButton)
+import styles from "../stylesheets/button.module.css"
 
 // Stimulus
 import { parseControllerName } from "../javascript/parseControllerName"
@@ -17,13 +15,17 @@ import { Application } from "stimulus";
 
 const application = Application.start();
 
-const imports = importAll.sync("../controllers/*_controller.js")
+const imports = importAll.sync("../controllers/**/*_controller.js")
 for (const [fileName, importedModule] of Object.entries(imports)) {
   const controllerName = parseControllerName(fileName)
   application.register(controllerName, importedModule.default)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const helloWorld = document.createElement("div")
+  helloWorld.dataset.controller = "hello-world"
+  document.body.appendChild(helloWorld)
+
   const img = document.createElement("img")
   img.src = logo
   img.alt = "logo"
@@ -49,7 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
   smallHouse.width = 200
   body.appendChild(smallHouse)
 
-  // const btn = document.createElement("button")
-  // btn.className = greenButton
-  // body.appendChild(btn)
+  const btn = document.createElement("button")
+  btn.className = styles.greenButton
+  btn.innerText = "I'm a Button"
+  body.appendChild(btn)
 });
