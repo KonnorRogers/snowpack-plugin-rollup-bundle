@@ -31,7 +31,7 @@ describe("generates proper files", () => {
 
   test("Should produce css files, including module.css files", () => {
     const entryFiles = fs.readdirSync(path.join(buildDir, "entrypoints"));
-    const cssFiles = fs.readdirSync(path.resolve(buildDir, "css"));
+    const cssFiles = fs.readdirSync(path.join(buildDir, "css"));
     expect(cssFiles).toHaveLength(entryFiles.length);
 
     const entryFileNames = entryFiles.map((file) => file.split(".")[0]);
@@ -48,5 +48,3 @@ describe("generates proper files", () => {
     expect(files).not.toHaveLength(0);
   });
 });
-
-// describe("Properly displays in the HTML file", () => {});
