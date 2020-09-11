@@ -7,6 +7,7 @@ import SmallHouse from "../assets/small-house.png"
 
 // WIP
 import styles from "../stylesheets/button.module.css"
+console.log(styles)
 
 // Stimulus
 import { parseControllerName } from "../javascript/parseControllerName"
