@@ -6,7 +6,9 @@ import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 
 // WIP
-// import { textColor } from "../stylesheets/button.css"
+// import styles from "../stylesheets/button.module.css"
+import { greenButton } from "../stylesheets/button.module.css"
+console.log(greenButton)
 
 // Stimulus
 import { parseControllerName } from "../javascript/parseControllerName"
@@ -18,7 +20,6 @@ const application = Application.start();
 const imports = importAll.sync("../controllers/*_controller.js")
 for (const [fileName, importedModule] of Object.entries(imports)) {
   const controllerName = parseControllerName(fileName)
-  console.log(controllerName)
   application.register(controllerName, importedModule.default)
 }
 
@@ -49,6 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
   body.appendChild(smallHouse)
 
   const btn = document.createElement("button")
-  btn.classList.add(textColor)
+  btn.className = greenButton
   body.appendChild(btn)
 });
