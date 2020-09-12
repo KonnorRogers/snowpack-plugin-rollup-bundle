@@ -7,16 +7,14 @@ import { shellRun } from "../src/utils";
 const exampleDir = path.resolve("__tests__", "example_dir");
 const buildDir = path.join(exampleDir, "build");
 
-beforeAll(() => {
-  // Remove and Rebuild the build directory
-  shellRun(`rm -rf ${buildDir}`);
+// Remove and Rebuild the build directory
+// shellRun(`rm -rf ${buildDir}`);
 
-  process.chdir(exampleDir);
+process.chdir(exampleDir);
 
-  const { status } = shellRun("yarn install --force && yarn build");
+const { status } = shellRun("yarn install --force && yarn build");
 
-  if (status !== 0) throw "An error occurred building the test directory";
-});
+if (status !== 0) throw "An error occurred building the test directory";
 
 describe("generates proper files", () => {
   test("Should produce entrypoints and manifest.json", () => {
@@ -44,7 +42,6 @@ describe("generates proper files", () => {
 
   test("Should create an assets directory for all non-css and non-js files", () => {
     const files = fs.readdirSync(path.join(buildDir, "assets"));
-
     expect(files).not.toHaveLength(0);
   });
 });
