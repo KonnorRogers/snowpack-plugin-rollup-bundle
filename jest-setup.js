@@ -1,5 +1,3 @@
-const path = require("path");
-
 import { shellRun } from "./src/utils";
 
 export default async function globalSetup() {
