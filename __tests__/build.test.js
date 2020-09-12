@@ -8,7 +8,7 @@ const exampleDir = path.resolve("__tests__", "example_dir");
 const buildDir = path.join(exampleDir, "build");
 
 // Remove and Rebuild the build directory
-// shellRun(`rm -rf ${buildDir}`);
+shellRun(`rm -rf ${buildDir}`);
 
 process.chdir(exampleDir);
 
