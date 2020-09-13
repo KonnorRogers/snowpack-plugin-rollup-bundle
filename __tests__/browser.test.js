@@ -1,31 +1,10 @@
-/**
- * @jest-environment jsdom
- */
+import { suite } from "uvu"
+import * as assert from "uvu/assert"
 
-// const path = require("path");
+const Browser = suite("Browser")
 
-// import {
-//   getByLabelText,
-//   getByText,
-//   getByTestId,
-//   queryByTestId,
-//   waitFor,
-// } from '@testing-library/dom'
-// import "@testing-library/jest-dom/extend-expect";
-
-// const exampleDir = path.resolve("__tests__", "example_dir");
-// const buildDir = path.join(exampleDir, "build");
-
-// const jsdom = require("jsdom");
-// const { JSDOM } = jsdom;
-
-// const page = JSDOM.fromFile(path.join(buildDir, "index.html"), {
-//     resources: "usable",
-//     runScripts: "dangerously",
-//   }).then((dom) => {
-//     return dom
-//   });
-
-test("Should properly load the page with no console errors", async () => {
-  expect(true).toBe(true);
+Browser("Should properly load the page with no console errors", () => {
+  assert.is(true, true)
 });
+
+Browser.run()

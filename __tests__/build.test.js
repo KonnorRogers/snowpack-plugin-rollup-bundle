@@ -1,3 +1,6 @@
+import { suite } from 'uvu';
+import * as assert from 'uvu/assert';
+
 const path = require("path");
 const process = require("process");
 const fs = require("fs");
@@ -7,18 +10,19 @@ import { shellRun } from "../src/utils";
 const exampleDir = path.resolve("__tests__", "example_dir");
 const buildDir = path.resolve(exampleDir, "build");
 
+const Build = suite("Build")
+
 process.chdir(exampleDir);
 shellRun("yarn install --force");
 shellRun("yarn snowpack build");
 
-// describe("generates proper files", () => {
-test("Should produce entrypoints and manifest.json", () => {
+Build("Should produce entrypoints and manifest.json", () => {
   const buildFiles = ["entrypoints", "manifest.json"].map((file) =>
     path.resolve(buildDir, file)
   );
 
   buildFiles.forEach((file) => {
-    expect(fs.existsSync(file)).toBe(true);
+    assert.is(fs.existsSync(file), true);
   });
 });
 
@@ -40,3 +44,5 @@ test("Should produce entrypoints and manifest.json", () => {
 //     expect(files).not.toHaveLength(0);
 //   });
 // });
+
+Build.run()
