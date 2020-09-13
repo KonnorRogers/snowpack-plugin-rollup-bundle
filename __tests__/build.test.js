@@ -1,16 +1,16 @@
-import { suite } from 'uvu';
-import * as assert from 'uvu/assert';
+import { suite } from "uvu";
+import * as assert from "uvu/assert";
 
-const path = require("path");
-const process = require("process");
-const fs = require("fs");
+import path from "path";
+import process from "process";
+import fs from "fs";
 
 import { shellRun } from "../src/utils";
 
 const exampleDir = path.resolve("__tests__", "example_dir");
 const buildDir = path.resolve(exampleDir, "build");
 
-const Build = suite("Build")
+const Build = suite("Build");
 
 process.chdir(exampleDir);
 shellRun("yarn install --force");
@@ -45,4 +45,4 @@ Build("Should produce entrypoints and manifest.json", () => {
 //   });
 // });
 
-Build.run()
+Build.run();

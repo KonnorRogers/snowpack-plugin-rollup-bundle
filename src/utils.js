@@ -1,5 +1,5 @@
-const path = require("path");
-const childProcess = require("child_process");
+import path from "path";
+import { spawnSync } from "child_process";
 
 export function parseHashFileName(filePath) {
   const { dir, base } = path.parse(filePath);
@@ -13,7 +13,7 @@ export function shellRun(cmd, options = {}) {
   options.shell = options.shell || true;
   options.encoding = options.encoding || "utf8";
 
-  return childProcess.spawnSync(cmd, options);
+  return spawnSync(cmd, options);
 }
 
 export function addToManifestData({ manifestData, fileName }) {

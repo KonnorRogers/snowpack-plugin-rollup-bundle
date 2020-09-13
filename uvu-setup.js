@@ -1,5 +1,7 @@
 import { shellRun } from "./src/utils"
 
-shellRun("yarn install && yarn build")
+const { status } = shellRun("yarn install && yarn build")
+
+if (status) throw "Unable to build your package."
 
 

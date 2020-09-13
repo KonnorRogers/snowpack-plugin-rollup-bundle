@@ -1,4 +1,4 @@
-const path = require("path");
+import path from "path";
 
 // plugins
 import resolve from "@rollup/plugin-node-resolve";

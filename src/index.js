@@ -1,8 +1,8 @@
-const rollup = require("rollup");
-const fs = require("fs");
-const path = require("path");
-const glob = require("glob");
-const os = require("os");
+import rollup from "rollup";
+import fs from "fs";
+import path from "path";
+import glob from "glob";
+import os from "os";
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { shellRun, addToManifestData, addToManifestEntrypoint } from "./utils";
