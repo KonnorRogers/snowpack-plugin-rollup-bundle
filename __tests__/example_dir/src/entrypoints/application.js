@@ -5,9 +5,7 @@ import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
 
-// WIP
 import styles from "../stylesheets/button.module.css"
-console.log(styles)
 
 // Stimulus
 import { parseControllerName } from "../javascript/parseControllerName"
