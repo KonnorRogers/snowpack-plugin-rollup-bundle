@@ -50,4 +50,14 @@ Build(
   }
 );
 
+Build("Should appropriately format a manifest.json", () => {
+  const manifestData = JSON.parse(
+    fs.readFileSync(path.join(buildDir, "manifest.json"), { encoding: "utf8" })
+  );
+
+  const entrypointFiles = fs.readdirSync(path.join(buildDir, "entrypoints"));
+
+  assert.is(manifestData.entrypoints.length, entrypointFiles.length);
+});
+
 Build.run();
