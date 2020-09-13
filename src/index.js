@@ -19,9 +19,15 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   const manifestData = {};
 
   for (const chunkOrAsset of output) {
-    const fileName = chunkOrAsset.fileName;
+    let fileName = chunkOrAsset.fileName;
     addToManifestData({ manifestData, fileName });
     addToManifestEntrypoint({ manifestData, fileName });
+
+    if (chunkOrAsset !== "asset") {
+      fileName += ".map";
+      addToManifestData({ manifestData, fileName });
+      addToManifestEntrypoint({ manifestData, fileName });
+    }
   }
 
   await bundle.write(outputOptions);
@@ -69,16 +75,13 @@ const plugin = (snowpackConfig, pluginOptions) => {
       });
 
       // Rewrite "proxy.js" imports prior to building
-      const resolveImport = () => {
-        glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
-          const resolvedImports = proxyImportResolver(
-            fs.readFileSync(file, "utf8")
-          );
-          fs.writeFileSync(file, resolvedImports, "utf8");
-        });
-      };
+      glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
+        const resolvedImports = proxyImportResolver(
+          fs.readFileSync(file, "utf8")
+        );
+        fs.writeFileSync(file, resolvedImports, "utf8");
+      });
 
-      resolveImport();
       await rollupBuild(extendedConfig);
     },
   };

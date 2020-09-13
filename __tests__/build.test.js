@@ -57,7 +57,17 @@ Build("Should appropriately format a manifest.json", () => {
 
   const entrypointFiles = fs.readdirSync(path.join(buildDir, "entrypoints"));
 
-  assert.is(manifestData.entrypoints.length, entrypointFiles.length);
+  const manifestEntrypoints = Object.keys(manifestData.entrypoints);
+
+  // Divide by 2 to exclude map files
+  // { application, pack-2 }
+  assert.is(manifestEntrypoints.length, entrypointFiles.length / 2);
+
+  // { js, js.map, css, css.map }
+  const manifestEntrypointKeys = Object.keys(
+    manifestData.entrypoints[manifestEntrypoints[0]]
+  );
+  assert.is(manifestEntrypointKeys.length, 4);
 });
 
 Build.run();
