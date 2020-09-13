@@ -24,7 +24,7 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
         destDir: path.resolve(tmpDir, "assets"),
         publicPath: path.resolve(tmpDir, "assets"),
         limit: 0, // extract all files
-        fileName: "[dirname][name].[hash][extname]",
+        fileName: "[dirname][name]-[hash][extname]",
       }),
     ],
   };
@@ -39,11 +39,11 @@ export function defaultOutputOptions(buildDirectory) {
         return "vendor";
       }
     },
-    assetFileNames: "css/[name].[hash].[ext]",
-    chunkFileNames: "chunks/[name].[hash].js",
+    assetFileNames: "css/[name]-[hash].[ext]",
+    chunkFileNames: "chunks/[name]-[hash].js",
     compact: true,
     sourcemap: true,
-    entryFileNames: "entrypoints/[name].[hash].js",
+    entryFileNames: "entrypoints/[name]-[hash].js",
     dir: buildDirectory,
   };
 }

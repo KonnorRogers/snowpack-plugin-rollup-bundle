@@ -4,7 +4,8 @@ import { spawnSync } from "child_process";
 export function parseHashFileName(filePath) {
   const { dir, base } = path.parse(filePath);
 
-  const fileWithoutHash = base.replace(/(^[^.]*)\.[^.]*\./, "$1.");
+  // const fileWithoutHash = base.replace(/(^[^.]*)\.[^.]*\./, "$1.");
+  const fileWithoutHash = base.replace(/(.*)-\w+(\.\w+)/g, "$1$2");
   return path.join(dir, fileWithoutHash);
 }
 

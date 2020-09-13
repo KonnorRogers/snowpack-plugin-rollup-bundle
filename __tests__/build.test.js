@@ -5,7 +5,7 @@ import path from "path";
 import process from "process";
 import fs from "fs";
 
-import { shellRun } from "../src/utils";
+import { parseHashFileName, shellRun } from "../src/utils";
 
 const exampleDir = path.resolve("__tests__", "example_dir");
 const buildDir = path.resolve(exampleDir, "build");
@@ -31,8 +31,12 @@ Build("Should produce css files, including module.css files", () => {
   const cssFiles = fs.readdirSync(path.resolve(buildDir, "css"));
   assert.is(cssFiles.length, entryFiles.length);
 
-  const entryFileNames = entryFiles.map((file) => file.split(".")[0]);
-  const cssFileNames = cssFiles.map((file) => file.split(".")[0]);
+  const entryFileNames = entryFiles.map(
+    (file) => parseHashFileName(file).split(".")[0]
+  );
+  const cssFileNames = cssFiles.map(
+    (file) => parseHashFileName(file).split(".")[0]
+  );
   cssFileNames.forEach((name) => {
     assert.ok(entryFileNames.includes(name));
   });
