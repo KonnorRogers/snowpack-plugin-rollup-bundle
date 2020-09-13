@@ -12,7 +12,7 @@ export function defaultInputOptions({ tmpDir }) {
       resolve({ browser: true }),
       styles({
         mode: ["extract"],
-        // modules: true,
+        modules: true,
         autoModules: (id) => id.includes(".module.css"),
         sourceMap: true,
         minimize: true,
@@ -20,7 +20,6 @@ export function defaultInputOptions({ tmpDir }) {
       url({
         include: "**/*",
         exclude: "**/*.(js|json|css)",
-        // destDir: path.resolve(tmpDir, "assets"),
         destDir: path.resolve(tmpDir),
         limit: 0, // extract all files
         fileName: "[dirname][name].[hash][extname]",

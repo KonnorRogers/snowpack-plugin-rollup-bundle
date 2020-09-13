@@ -47,7 +47,7 @@ const plugin = (snowpackConfig, pluginOptions) => {
     async optimize({ buildDirectory }) {
       const inputOptions = defaultInputOptions({
         buildDirectory,
-        tmpDir: TMP_BUILD_DIRECTORY,
+        tmpDir: buildDirectory,
       });
       const outputOptions = defaultOutputOptions(buildDirectory);
 
@@ -69,13 +69,16 @@ const plugin = (snowpackConfig, pluginOptions) => {
       });
 
       // Rewrite "proxy.js" imports prior to building
-      glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
-        const resolvedImports = proxyImportResolver(
-          fs.readFileSync(file, "utf8")
-        );
-        fs.writeFileSync(file, resolvedImports, "utf8");
-      });
+      const resolveImport = () => {
+        glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
+          const resolvedImports = proxyImportResolver(
+            fs.readFileSync(file, "utf8")
+          );
+          fs.writeFileSync(file, resolvedImports, "utf8");
+        });
+      };
 
+      resolveImport();
       await rollupBuild(extendedConfig);
     },
   };

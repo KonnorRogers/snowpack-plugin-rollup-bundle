@@ -11,6 +11,7 @@ export function parseHashFileName(filePath) {
 export function shellRun(cmd, options = {}) {
   options.stdio = options.stdio || "inherit";
   options.shell = options.shell || true;
+  options.encoding = options.encoding || "utf8";
 
   return childProcess.spawnSync(cmd, options);
 }
