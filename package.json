@@ -19,7 +19,7 @@
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*.js",
     "build": "yarn format && pika build",
     "test": "uvu -r esm -r ./uvu-setup __tests__ -i example_dir",
-    "test:watch": "watclist src __tests__ -- yarn test",
+    "test:watch": "watchlist src __tests__ -- yarn test",
     "deploy": "yarn format && yrn test && pika build && pika publish",
     "version": "yarn run build"
   },
