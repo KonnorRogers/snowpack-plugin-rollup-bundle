@@ -4,6 +4,7 @@ import "../stylesheets/index.css";
 import jsonFile from "../assets/x.json"
 import logo from "../assets/logo.svg"
 import SmallHouse from "../assets/small-house.png"
+import "../assets/other-images/further-nested/nested-image.jpg"
 
 import styles from "../stylesheets/button.module.css"
 

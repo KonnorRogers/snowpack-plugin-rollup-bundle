@@ -40,7 +40,3 @@ export function addToManifestEntrypoint({ manifestData, fileName }) {
     assignToEntrypoint("js");
   }
 }
-
-// export function findInManifestObject({manifest, }) {
-//   manifestObject
-// }

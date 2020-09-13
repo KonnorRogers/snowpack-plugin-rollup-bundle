@@ -26,23 +26,24 @@ Build("Should produce entrypoints and manifest.json", () => {
   });
 });
 
-//   test("Should produce css files, including module.css files", () => {
-//     const entryFiles = fs.readdirSync(path.resolve(buildDir, "entrypoints"));
-//     const cssFiles = fs.readdirSync(path.resolve(buildDir, "css"));
-//     expect(cssFiles).toHaveLength(entryFiles.length);
+Build("Should produce css files, including module.css files", () => {
+  const entryFiles = fs.readdirSync(path.resolve(buildDir, "entrypoints"));
+  const cssFiles = fs.readdirSync(path.resolve(buildDir, "css"));
+  assert.is(cssFiles.length, entryFiles.length);
 
-//     const entryFileNames = entryFiles.map((file) => file.split(".")[0]);
-//     const cssFileNames = cssFiles.map((file) => file.split(".")[0]);
+  const entryFileNames = entryFiles.map((file) => file.split(".")[0]);
+  const cssFileNames = cssFiles.map((file) => file.split(".")[0]);
+  cssFileNames.forEach((name) => {
+    assert.ok(entryFileNames.includes(name));
+  });
+});
 
-//     cssFileNames.forEach((name) => {
-//       expect(entryFileNames).toContain(name);
-//     });
-//   });
-
-//   test("Should create an assets directory for all non-css and non-js files", () => {
-//     const files = fs.readdirSync(path.resolve(buildDir, "assets"));
-//     expect(files).not.toHaveLength(0);
-//   });
-// });
+Build(
+  "Should create an assets directory for all non-css and non-js files",
+  () => {
+    const files = fs.readdirSync(path.resolve(buildDir, "assets"));
+    assert.is.not(files.length, 0);
+  }
+);
 
 Build.run();

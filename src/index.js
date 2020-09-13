@@ -30,7 +30,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
   shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
 
   // Add assets to manifest, use path.relative to fix minor issues
-  glob.sync(`${buildDirectory}/assets/**/*`).forEach((fileName) => {
+  glob.sync(`${buildDirectory}/assets/**/*.*`).forEach((fileName) => {
     fileName = path.relative(buildDirectory, fileName);
     addToManifestData({ manifestData, fileName });
   });
@@ -47,7 +47,7 @@ const plugin = (snowpackConfig, pluginOptions) => {
     async optimize({ buildDirectory }) {
       const inputOptions = defaultInputOptions({
         buildDirectory,
-        tmpDir: buildDirectory,
+        tmpDir: TMP_BUILD_DIRECTORY,
       });
       const outputOptions = defaultOutputOptions(buildDirectory);
 

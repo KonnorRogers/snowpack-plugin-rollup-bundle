@@ -11,6 +11,8 @@ module.exports = {
   ignorePatterns: [
     "__tests__/example_dir"
   ],
-  rules: {},
+  rules: {
+    "no-useless-escape": 0
+  },
   plugins: []
 };
