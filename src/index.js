@@ -23,6 +23,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
     addToManifestData({ manifestData, fileName });
     addToManifestEntrypoint({ manifestData, fileName });
 
+    // Emit js.map files
     if (chunkOrAsset !== "asset") {
       fileName += ".map";
       addToManifestData({ manifestData, fileName });
@@ -32,6 +33,7 @@ async function rollupBuild({ inputOptions, outputOptions }) {
 
   await bundle.write(outputOptions);
 
+  // Remove the initial buildDirectory and replace it with the built assets.
   shellRun(`rm -rf ${buildDirectory}`);
   shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
 
