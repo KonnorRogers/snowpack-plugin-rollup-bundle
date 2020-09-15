@@ -23,6 +23,14 @@ yarn build
 cd __tests__/example_dir
 yarn install
 yarn snowpack build
+```
+
+Then you must manually copy the HTML file from the `src/` directory
+and then fix the entrypoint route to the hashed version.
+
+Then you can run:
+
+```bash
 yarn servor build
 ```
 
@@ -48,17 +56,17 @@ build/
     chunk1.hash.js
 
   entrypoints/
-    entrypoint1.hash.js
-    entrypoint2.hash.js
+    entrypoint1-hash.js
+    entrypoint2-hash.js
 
   css/
     # 1 css file per entrypoint
-    entrypoint1.hash.css
-    entrypoint2.hash.css
+    entrypoint1-hash.css
+    entrypoint2-hash.css
 
   assets/
-    asset1.hash.png
-    asset2.hash.jpg
+    asset1-hash.png
+    asset2-hash.jpg
 
   manifest.json # A manifest of all file locations
 ```
@@ -78,5 +86,5 @@ You can then view the generated build in the `__tests__/example_dir/build` direc
 
 ## Roadmap
 
-[ ] Change hashing from `x.hash.ext` to `x-hash.ext`
+[x] Change hashing from `x.hash.ext` to `x-hash.ext`
 [ ] Support emitting HTML files
