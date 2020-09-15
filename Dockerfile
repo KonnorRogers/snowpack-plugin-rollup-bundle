@@ -25,7 +25,7 @@ ENV DOCKER_GROUP_ID=${DOCKER_GROUP_ID:-1000}
 ENV APP_DIR=${APP_DIR:-/home/user/app}
 
 # Create a non-root user
-RUN groupadd --gid $DOCKER_GROUP_ID user
+RUN groupadd --gid $DOCKER_GROUP_ID user || true
 RUN useradd --no-log-init \
             --uid $DOCKER_USER_ID \
             --gid $DOCKER_GROUP_ID \
