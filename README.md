@@ -71,7 +71,8 @@ build/
   manifest.json # A manifest of all file locations
 ```
 
-Note: CSS files with correspond with an entrypoint file and will not maintain your naming from a stylesheets directory.
+Note: CSS files with correspond with an entrypoint file and will not
+maintain your naming from a stylesheets directory.
 
 ## Testing
 
