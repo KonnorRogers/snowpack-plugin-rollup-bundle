@@ -1,6 +1,6 @@
 FROM node:12-slim as builder
 
-RUN apt update && apt install \
+RUN apt update && apt install -y \
     libgtk2.0-0 \
     libgtk-3-0 \
     libgbm-dev \
@@ -13,7 +13,6 @@ RUN apt update && apt install \
     xauth \
     xvfb && \
     rm -rf /var/lib/apt/lists/*
-
 
 FROM builder as app
 
@@ -30,7 +29,7 @@ RUN groupadd --gid $DOCKER_GROUP_ID user
 RUN useradd --no-log-init \
             --uid $DOCKER_USER_ID \
             --gid $DOCKER_GROUP_ID \
-            user --create-home
+            user --create-home || useradd --no-log-init user --create-home
 
 # Permissions crap
 RUN mkdir -p $APP_DIR
