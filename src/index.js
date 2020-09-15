@@ -1,50 +1,63 @@
-const rollup = require("rollup")
-const fs = require("fs")
+import rollup from "rollup";
+import fs from "fs";
+import path from "path";
+import glob from "glob";
+import os from "os";
 
-const inputOptions = {
-  index: "index.js"
-}
+import { defaultInputOptions, defaultOutputOptions } from "./options";
+import { shellRun, addToManifestData, addToManifestEntrypoint } from "./utils";
+import { proxyImportResolver } from "./proxyImportResolver";
 
-const outputOptions = {
-  format: "es",
-  plugins: [],
-  assetFileNames: "assets/[name]-[hash][extname]",
-  chunkFileNames: "[name]-[hash].js",
-  compact: true,
-  entryFileNames: "[name].js",
-}
+const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
-async function rollupBuild({inputOptions, outputOptions}) {
-  const bundle = await rollup.rollup(inputOptions)
-  const { output } = await bundle.generate(outputOptions)
+async function rollupBuild({ inputOptions, outputOptions }) {
+  const buildDirectory = outputOptions.dir;
+  outputOptions.dir = TMP_BUILD_DIRECTORY;
 
+  const bundle = await rollup.rollup(inputOptions);
+  const { output } = await bundle.generate(outputOptions);
   const manifestData = {};
+
   for (const chunkOrAsset of output) {
-    const fileName = chunkOrAsset.fileName;
-    let name;
+    let fileName = chunkOrAsset.fileName;
+    addToManifestData({ manifestData, fileName });
+    addToManifestEntrypoint({ manifestData, fileName });
 
-    if (chunkOrAsset.type === "asset") {
-      name = chunkOrAsset.source;
-    } else {
-      name = chunkOrAsset.name
+    // Emit js.map files
+    if (chunkOrAsset !== "asset") {
+      fileName += ".map";
+      addToManifestData({ manifestData, fileName });
+      addToManifestEntrypoint({ manifestData, fileName });
     }
-
-    manifestData[name] = fileName;
   }
 
-  await bundle.write(outputOptions)
-  const manifestJSON = JSON.stringify(manifestData);
-  await fs.write(manifestJSON)
+  await bundle.write(outputOptions);
+
+  // Remove the initial buildDirectory and replace it with the built assets.
+  shellRun(`rm -rf ${buildDirectory}`);
+  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
+
+  // Add assets to manifest, use path.relative to fix minor issues
+  glob.sync(`${buildDirectory}/assets/**/*.*`).forEach((fileName) => {
+    fileName = path.relative(buildDirectory, fileName);
+    addToManifestData({ manifestData, fileName });
+  });
+
+  const manifestJSON = JSON.stringify(manifestData, null, 2);
+  fs.writeFileSync(path.join(buildDirectory, "manifest.json"), manifestJSON);
 }
 
 const plugin = (snowpackConfig, pluginOptions) => {
-  snowpackConfig.buildOptions.minify = false // Rollup will handle this
-
+  snowpackConfig.buildOptions.minify = false; // Let rollup handle this
+  snowpackConfig.buildOptions.clean = true;
   return {
     name: "snowpack-plugin-rollup-bundle",
-    input: ["*"],
     async optimize({ buildDirectory }) {
-      const buildOptions = snowpackConfig.buildOptions || {};
+      const inputOptions = defaultInputOptions({
+        buildDirectory,
+        tmpDir: TMP_BUILD_DIRECTORY,
+      });
+      const outputOptions = defaultOutputOptions(buildDirectory);
 
       let extendConfig = (cfg) => cfg;
       if (typeof pluginOptions.extendConfig === "function") {
@@ -53,20 +66,27 @@ const plugin = (snowpackConfig, pluginOptions) => {
         extendConfig = (cfg) => ({ ...cfg, ...pluginOptions.extendConfig });
       }
 
-      const extendedConfig = extendConfig({
-        outputOptions: {
-          ...outputOptions,
-          dir: buildDirectory
-        },
-
+      const extendedConfig = await extendConfig({
+        ...snowpackConfig,
         inputOptions: {
           ...inputOptions,
-        }
-      })
+        },
+        outputOptions: {
+          ...outputOptions,
+        },
+      });
 
-      await rollupBuild(extendedConfig)
-    }
-  }
+      // Rewrite "proxy.js" imports prior to building
+      glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
+        const resolvedImports = proxyImportResolver(
+          fs.readFileSync(file, "utf8")
+        );
+        fs.writeFileSync(file, resolvedImports, "utf8");
+      });
+
+      await rollupBuild(extendedConfig);
+    },
+  };
 };
 
 export default plugin;

@@ -1,3 +1,6 @@
-node_modules
+**/*node_modules
 pkg
 yarn-error.log
+examples/**/*dist
+examples/**/*build
+__tests__/example_dir/build
