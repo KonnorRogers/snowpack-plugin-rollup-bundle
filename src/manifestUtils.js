@@ -7,16 +7,14 @@ export function addToManifestData({ manifestData, fileName }) {
 }
 
 export function addToManifestEntrypoint({ manifestData, fileName }) {
-  const baseFileName = path
-    .parse(parseHashFileName(fileName))
-    .base.split(".")[0];
+  const baseFileName = baseFileName(fileName)
   manifestData.entrypoints = manifestData.entrypoints || {};
   manifestData.entrypoints[baseFileName] =
     manifestData.entrypoints[baseFileName] || {};
 
   const assignToEntrypoint = (type) => {
     manifestData.entrypoints[baseFileName][type] = path.join("/", fileName);
-  };
+  }
 
   if (fileName.endsWith(".css.map")) {
     assignToEntrypoint("css.map");
@@ -27,4 +25,15 @@ export function addToManifestEntrypoint({ manifestData, fileName }) {
   } else if (fileName.endsWith(".js")) {
     assignToEntrypoint("js");
   }
+}
+
+export function addToManifestChunks({ manifestData, fileName }) {
+  return
+}
+
+// function assign({ to, baseFileName, type }) {
+// }
+
+function baseFileName(fileName) {
+  return path.parse(parseHashFileName(fileName)).base.split(".")[0];
 }

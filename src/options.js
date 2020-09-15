@@ -35,8 +35,8 @@ export function defaultOutputOptions(buildDirectory) {
     format: "es",
     plugins: [terser()],
     manualChunks: (id) => {
-      if (id.includes("node_modules")) {
-        return "vendor";
+      if (id.includes("web_modules")) {
+        return path.parse(id).name;
       }
     },
     assetFileNames: "css/[name]-[hash].[ext]",
