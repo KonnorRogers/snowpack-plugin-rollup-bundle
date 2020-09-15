@@ -18,10 +18,16 @@
   "scripts": {
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*.js",
     "build": "yarn format && pika build",
-    "test": "uvu -r esm -r ./uvu-setup __tests__ -i example_dir",
+    "test": "yarn build && yarn test:unit",
+    "test:unit": "uvu -r esm __tests__ -i example_dir",
     "test:watch": "watchlist src __tests__ -- yarn test",
-    "deploy": "yarn format && yrn test && pika build && pika publish",
-    "version": "yarn run build"
+    "test:ci": "yarn build && yarn cy:test && yarn cy:test:ci",
+    "cy:open": "yarn build && cypress open",
+    "cy:test:": "start-server-and-test 'yarn start' http-get://localhost:4001 'yarn cy:open'",
+    "cy:run": "cypress run",
+    "cy:run:test": "yarn build && yarn:test:ci",
+    "cy:test:ci": "start-server-and-test 'yarn start' http-get://localhost:4001 'yarn cy:run'",
+    "deploy": "yarn format && yarn test && pika build && pika publish"
   },
   "@pika/pack": {
     "pipeline": [
@@ -53,6 +59,7 @@
     "@pika/plugin-build-node": "^0.9.2",
     "@pika/plugin-standard-pkg": "^0.9.2",
     "babel-jest": "^26.3.0",
+    "cypress": "^5.1.0",
     "eslint": "^7.7.0",
     "esm": "^3.2.25",
     "prettier": "^2.0.5",
