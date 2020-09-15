@@ -56,17 +56,17 @@ build/
     chunk1.hash.js
 
   entrypoints/
-    entrypoint1.hash.js
-    entrypoint2.hash.js
+    entrypoint1-hash.js
+    entrypoint2-hash.js
 
   css/
     # 1 css file per entrypoint
-    entrypoint1.hash.css
-    entrypoint2.hash.css
+    entrypoint1-hash.css
+    entrypoint2-hash.css
 
   assets/
-    asset1.hash.png
-    asset2.hash.jpg
+    asset1-hash.png
+    asset2-hash.jpg
 
   manifest.json # A manifest of all file locations
 ```
