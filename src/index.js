@@ -5,8 +5,9 @@ import glob from "glob";
 import os from "os";
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { shellRun, addToManifestData, addToManifestEntrypoint } from "./utils";
+import { shellRun } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
+import { addToManifestData, addToManifestEntrypoint } from "./manifestUtils";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
