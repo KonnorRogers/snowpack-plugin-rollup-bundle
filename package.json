@@ -18,16 +18,21 @@
   "scripts": {
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*.js",
     "build": "yarn format && pika build",
-    "test": "yarn build && yarn test:unit",
-    "test:unit": "uvu -r esm __tests__ -i example_dir",
+    "test": "yarn build && yarn test:ci",
+    "test:ci": "uvu -r esm __tests__ -i example_dir",
     "test:watch": "watchlist src __tests__ -- yarn test",
-    "test:ci": "yarn build && yarn cy:test && yarn cy:test:ci",
-    "cy:open": "yarn build && cypress open",
-    "cy:test:": "start-server-and-test 'yarn start' http-get://localhost:4001 'yarn cy:open'",
+    "test:all": "yarn build && yarn test:ci && yarn cy:test:ci",
+    "dev": "cd __tests__/example_dir && yarn snowpack dev --port 4000",
+    "serve": "cd __tests__/example_dir && yarn build && yarn servor build index.html 4000",
+    "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:test": "yarn build && yarn:test:ci",
-    "cy:test:ci": "start-server-and-test 'yarn start' http-get://localhost:4001 'yarn cy:run'",
-    "deploy": "yarn format && yarn test && pika build && pika publish"
+    "cy:test:dev:ci": "start-server-and-test 'yarn dev' http-get://localhost:4000 'yarn cy:open'",
+    "cy:test:dev": "yarn build && yarn:test:dev:ci",
+    "cy:test:build:ci": "start-server-and-test 'yarn serve' http-get://localhost:4000 'yarn cy:open'",
+    "cy:test:build": "yarn build && yarn:test:build:ci",
+    "cy:test:ci": "yarn test:dev:ci && yarn test:build:ci",
+    "deploy": "yarn format && yarn test:ci && pika build && pika publish"
   },
   "@pika/pack": {
     "pipeline": [
@@ -64,6 +69,7 @@
     "eslint": "^7.7.0",
     "esm": "^3.2.25",
     "prettier": "^2.0.5",
+    "start-server-and-test": "^1.11.3",
     "uvu": "^0.3.3",
     "watchlist": "^0.2.3"
   },
