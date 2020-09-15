@@ -34,6 +34,7 @@ RUN useradd --no-log-init \
 # Permissions crap
 RUN mkdir -p $APP_DIR
 RUN chown -R $DOCKER_USER_ID:$DOCKER_GROUP_ID $APP_DIR
+WORKDIR $APP_DIR
 
 # Define the user running the container
 USER $DOCKER_USER_ID:$DOCKER_GROUP_ID
@@ -45,6 +46,6 @@ COPY --chown=$DOCKER_USER_ID:$DOCKER_GROUP_ID yarn.lock $APP_DIR
 RUN yarn install
 
 # Copy over all files
-COPY --chown=$DOCKER_USER_ID:$DOCKER_GROUP_ID . .
+COPY --chown=$DOCKER_USER_ID:$DOCKER_GROUP_ID . $APP_DIR
 
 CMD ["yarn", "test"]
