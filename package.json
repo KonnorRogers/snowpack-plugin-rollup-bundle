@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./{__tests__,src}/**/* && prettier ./{__tests__,src}/**/*",
+    "lint": "eslint ./{__tests__,src}/**/* --quiet && prettier ./{__tests__,src}/**/* --check",
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*",
     "build": "yarn format && pika build",
     "test": "yarn build && yarn test:ci",
