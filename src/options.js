@@ -40,7 +40,7 @@ export function defaultOutputOptions(buildDirectory) {
       }
     },
     assetFileNames: "css/[name]-[hash].[ext]",
-    chunkFileNames: "chunks/[name]-[hash].js",
+    chunkFileNames: "chunks/[name]-[hash].chunk.js",
     compact: true,
     sourcemap: true,
     entryFileNames: "entrypoints/[name]-[hash].js",

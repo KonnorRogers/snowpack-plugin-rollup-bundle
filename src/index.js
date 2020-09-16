@@ -7,7 +7,7 @@ import os from "os";
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { shellRun } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
-import { addToManifestChunks, addToManifestData, addToManifestEntrypoint } from "./manifestUtils";
+import { addToManifestData } from "./manifestUtils";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
@@ -20,28 +20,13 @@ async function rollupBuild({ debug, inputOptions, outputOptions }) {
   const manifestData = {};
 
   for (const chunkOrAsset of output) {
-    let fileName = chunkOrAsset.fileName;
-    const mapFileName = fileName + ".map"
-
-    // Emit .map files
-    if (fs.existsSync(mapFileName)) {
-      addToManifestData({ manifestData, fileName });
-      addToManifestData({ manifestData, mapFileName });
-    }
-
-    if (fileName.includes("chunks")) {
-      addToManifestChunks({manifestData, fileName})
-      continue
-    }
-
-    addToManifestEntrypoint({ manifestData, fileName });
-    addToManifestEntrypoint({ manifestData, mapFileName });
+    addToManifestData({ manifestData, chunkOrAsset });
   }
 
   await bundle.write(outputOptions);
 
-  // Remove the initial buildDirectory and replace it with the built assets.
   if (debug === true) {
+    // Remove the initial buildDirectory and replace it with the built assets.
     const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_debug_");
     const debugDir = `${buildDirectory}/_debug_`;
     shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY} && \
