@@ -102,6 +102,32 @@ docker-compose up --build
 docker-compose run --rm web yarn test
 ```
 
+## Customization
+
+```js
+// snowpack.config.js
+
+const plugins = [
+  // ...
+  [
+    "snowpack-plugin-rollup-bundle",
+    {
+      debug: <boolean>,
+      extendConfig: (config) => {
+        config.outputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
+        config.inputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
+
+        return config
+      }
+    }
+  ]
+]
+
+module.exports = {
+  plugins: plugins
+}
+```
+
 ## Roadmap
 
 [x] Change hashing from `x.hash.ext` to `x-hash.ext`
