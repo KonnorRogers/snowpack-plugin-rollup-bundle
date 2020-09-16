@@ -57,6 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.createElement("button")
   btn.className = styles.greenButton
   btn.innerText = "I'm a Button"
-  btn.datset.testId = "green-button"
+  btn.dataset.testId = "green-button"
   body.appendChild(btn)
 });

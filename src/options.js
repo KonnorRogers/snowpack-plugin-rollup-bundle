@@ -6,7 +6,7 @@ import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
 
-export function defaultInputOptions({ buildDirectory, tmpDir }) {
+export function defaultInputOptions({ tmpDir, buildDirectory }) {
   return {
     plugins: [
       resolve({ browser: true }),
@@ -22,9 +22,9 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
         exclude: "**/*.(js|json|css)",
         sourceDir: path.resolve(buildDirectory, "assets"),
         destDir: path.resolve(tmpDir, "assets"),
-        publicPath: path.resolve(tmpDir, "assets"),
+        publicPath: path.resolve(buildDirectory, "assets"),
         limit: 0, // extract all files
-        fileName: "[dirname][name]-[hash][extname]",
+        fileName: "[dirname]/[name]-[hash][extname]",
       }),
     ],
   };

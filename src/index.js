@@ -12,6 +12,8 @@ import { addToManifestData } from "./manifestUtils";
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
 async function rollupBuild({ debug, inputOptions, outputOptions }) {
+  const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_debug_");
+
   const buildDirectory = outputOptions.dir;
   outputOptions.dir = TMP_BUILD_DIRECTORY;
 
@@ -25,23 +27,19 @@ async function rollupBuild({ debug, inputOptions, outputOptions }) {
 
   await bundle.write(outputOptions);
 
-  if (debug === true) {
-    // Remove the initial buildDirectory and replace it with the built assets.
-    const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_debug_");
-    const debugDir = `${buildDirectory}/_debug_`;
-    shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY} && \
-              mkdir -p ${buildDirectory} && \
-              mv ${TMP_DEBUG_DIRECTORY} ${debugDir}`);
-  } else {
-    shellRun(`rm -rf ${buildDirectory}`);
-  }
+  shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY}`);
+  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
 
-  shellRun(`mv ${TMP_BUILD_DIRECTORY}/* ${buildDirectory}`);
+  if (debug === true) {
+    const buildDebugDir = path.join(buildDirectory, "_debug_");
+    shellRun(`mv ${TMP_DEBUG_DIRECTORY}/ ${buildDebugDir}`);
+  }
 
   // Add assets to manifest, use path.relative to fix minor issues
   glob.sync(`${buildDirectory}/assets/**/*.*`).forEach((fileName) => {
     fileName = path.relative(buildDirectory, fileName);
-    addToManifestData({ manifestData, fileName });
+    const asset = { fileName, map: null };
+    addToManifestData({ manifestData, asset });
   });
 
   const manifestJSON = JSON.stringify(manifestData, null, 2);
