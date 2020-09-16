@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "build": "snowpack build",
-    "serve": "yarn build && yarn servor build index.html 4000"
+    "serve": "yarn servor build index.html 4000"
   },
   "dependencies": {
     "rollup": "^2.26.5",

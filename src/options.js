@@ -22,7 +22,7 @@ export function defaultInputOptions({ tmpDir, buildDirectory }) {
         exclude: "**/*.(js|json|css)",
         sourceDir: path.resolve(buildDirectory, "assets"),
         destDir: path.resolve(tmpDir, "assets"),
-        publicPath: path.resolve(buildDirectory, "assets"),
+        publicPath: path.relative(buildDirectory, "assets"),
         limit: 0, // extract all files
         fileName: "[dirname]/[name]-[hash][extname]",
       }),
