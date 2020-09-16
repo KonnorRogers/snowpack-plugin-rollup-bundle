@@ -14,7 +14,7 @@ add your stylesheets into your built HTML files with a stylesheet `<link />` tag
 ## Developing locally
 
 ```bash
-git clone https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/tree/development/
+git clone https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle
 cd snowpack-plugin-rollup-bundle
 yarn install
 yarn build
@@ -29,7 +29,8 @@ yarn snowpack build
 ```
 
 Then you must manually copy the HTML file from the `src/` directory
-and then fix the entrypoint route to the hashed version.
+and then fix the entrypoint route to the hashed version. You must
+also add in the generated CSS file.
 
 Then you can run:
 
