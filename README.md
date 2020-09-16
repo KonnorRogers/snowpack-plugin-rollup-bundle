@@ -8,6 +8,9 @@ Currently, this only generates build files but will not rewrite your
 HTML scripts. If you would like to see this feature, I would be happy to
 add it. For now, this project is purely for the use of Snowpacker.
 
+1 CSS file is generated per entrypoint. In addition, you must manually
+add your stylesheets into your built HTML files with a stylesheet `<link />` tag.
+
 ## Developing locally
 
 ```bash
@@ -102,4 +105,8 @@ docker-compose run --rm web yarn test
 ## Roadmap
 
 [x] Change hashing from `x.hash.ext` to `x-hash.ext`
-[ ] Support emitting HTML files
+
+[ ] Cypress testing to ensure build and dev work the same
+
+[ ] Support emitting HTML files with proper `<script>` and `<link
+rel="stylesheet">` tags.
