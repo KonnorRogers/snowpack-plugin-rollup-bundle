@@ -1,0 +1,19 @@
+name: build
+
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and test with Rake / Docker
+        run: |
+          source docker.env
+          docker-compose up --build --exit-code-from web
