@@ -32,7 +32,7 @@ RUN useradd --no-log-init \
             user --create-home || useradd --no-log-init user --create-home
 
 # Permissions crap
-RUN mkdir -p $APP_DIR
+RUN mkdir -p $APP_DIR/pkg
 RUN chown -R $DOCKER_USER_ID:$DOCKER_GROUP_ID $APP_DIR
 WORKDIR $APP_DIR
 
