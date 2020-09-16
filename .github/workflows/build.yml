@@ -13,7 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build and test with Rake / Docker
+      - name: Build the docker image
         run: |
           source docker.env
-          docker-compose up --build --exit-code-from web
+          docker-compose build
+      - name: Lint files and build pkg
+        run: |
+          docker-compose run --rm web bash -c "yarn lint && yarn build"
+      - name: Test files
+        run: |
+          docker-compose run --rm web yarn test:ci
