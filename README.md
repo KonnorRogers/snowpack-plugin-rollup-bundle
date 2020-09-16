@@ -116,6 +116,7 @@ const plugins = [
       debug: <boolean>,
       extendConfig: (config) => {
         config.outputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
+
         config.inputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
 
         return config
