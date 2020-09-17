@@ -4436,7 +4436,7 @@ snapdragon@^0.8.1:
     use "^3.1.0"
 
 "snowpack-plugin-rollup-bundle@file:../../pkg":
-  version "0.0.2"
+  version "0.0.3"
   dependencies:
     "@rollup/plugin-image" "^2.0.5"
     "@rollup/plugin-node-resolve" "^9.0.0"
