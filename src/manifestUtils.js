@@ -37,6 +37,11 @@ export function addToManifestChunks({ manifestData, chunkOrAsset }) {
   });
 }
 
+export function findInManifest({ manifestData, assetType, fileName }) {
+  const baseName = baseFileName(fileName);
+  manifestData[assetType][baseName];
+}
+
 function assignTypeToFile({ obj, chunkOrAsset }) {
   if (chunkOrAsset == undefined) {
     return;
