@@ -2,9 +2,6 @@
   "name": "snowpack-plugin-rollup-bundle",
   "description": "A snowpack plugin to use Rollup as a bundler",
   "homepage": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle",
-  "source": "src/index.js",
-  "main": "pkg/index.js",
-  "module": "pkg/index.module.js",
   "bugs": {
     "url": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/issues",
     "email": "konnor7414@gmail.com"
@@ -21,7 +18,7 @@
   "scripts": {
     "lint": "eslint ./{__tests__,src}/**/* --quiet && prettier ./{__tests__,src}/**/* --check",
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*",
-    "build": "yarn format && microbundle --target=node --format cjs",
+    "build": "yarn format && yarn pika build",
     "test": "yarn build && yarn test:ci",
     "test:ci": "uvu -r esm __tests__ -i example_dir -i cypress",
     "test:watch": "watchlist src __tests__ -- yarn test",
@@ -37,6 +34,17 @@
     "cy:test:build": "yarn build && yarn:test:build:ci",
     "cy:test:ci": "yarn test:dev:ci && yarn test:build:ci",
     "deploy": "yarn build && yarn test:ci && yarn publish"
+  },
+  "@pika/pack": {
+  "pipeline": [
+    [
+      "@pika/plugin-standard-pkg",
+      {"exclude": ["__tests__/**/*"]}
+    ],
+    [
+      "@pika/plugin-build-node"
+    ]
+  ]
   },
   "peerDependencies": {
     "glob": "^7.0.0",
@@ -62,7 +70,7 @@
     "cypress": "^5.1.0",
     "eslint": "^7.7.0",
     "esm": "^3.2.25",
-    "microbundle": "^0.12.3",
+    "np": "^6.5.0",
     "prettier": "^2.0.5",
     "start-server-and-test": "^1.11.3",
     "uvu": "^0.3.3",
