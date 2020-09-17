@@ -36,15 +36,19 @@
     "deploy": "yarn build && yarn test:ci && yarn publish"
   },
   "@pika/pack": {
-  "pipeline": [
-    [
-      "@pika/plugin-standard-pkg",
-      {"exclude": ["__tests__/**/*"]}
-    ],
-    [
-      "@pika/plugin-build-node"
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg",
+        {
+          "exclude": [
+            "__tests__/**/*"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-node"
+      ]
     ]
-  ]
   },
   "peerDependencies": {
     "glob": "^7.0.0",
@@ -76,5 +80,5 @@
     "uvu": "^0.3.3",
     "watchlist": "^0.2.3"
   },
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
