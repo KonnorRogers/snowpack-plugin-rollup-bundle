@@ -16,8 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the docker image
         run: |
-          source docker.env
-          docker-compose build
+          docker-compose build -f docker-compose.github-actions.yml
       - name: Lint files and build pkg
         run: |
           docker-compose run --rm web bash -c "yarn lint && yarn build"
