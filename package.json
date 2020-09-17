@@ -36,19 +36,9 @@
     "deploy": "pika publish",
     "version": "yarn run build"
   },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg"
-      ],
-      [
-        "@pika/plugin-build-node"
-      ]
-    ]
-  },
   "peerDependencies": {
-    "glob": "^7.1.4",
-    "rollup": "^2.26.4",
+    "glob": "^7.0.0",
+    "rollup": "^2.0.0",
     "snowpack": "^2.8.0"
   },
   "dependencies": {
