@@ -2,64 +2,52 @@ import path from "path";
 
 import { parseHashFileName } from "./utils";
 
-export function addToManifestData({ manifestData, chunkOrAsset }) {
-  if (chunkOrAsset == undefined) {
-    return;
-  }
+export function addToManifest({
+  manifest,
+  chunkOrAsset,
+  assignTo,
+  useFileType = true,
+}) {
+  const { fileName } = chunkOrAsset;
+  const asset = chunkOrAsset;
+  const assignment = assignTo;
 
-  const { fileName, isEntry, type } = chunkOrAsset;
-  manifestData[parseHashFileName(fileName)] = path.join("/", fileName);
+  manifest[parseHashFileName(fileName)] = path.join("/", fileName);
 
-  // Add entryfiles for CSS files and entrypoint js files
-  if (isEntry || type === "asset") {
-    addToManifestEntrypoints({ manifestData, chunkOrAsset });
-    return;
-  }
+  manifest[assignment] = manifest[assignment] || {};
 
-  // It must now be a chunk and non-entrypoint
-  addToManifestChunks({ manifestData, chunkOrAsset });
-}
-
-export function addToManifestEntrypoints({ manifestData, chunkOrAsset }) {
-  manifestData.entrypoints = manifestData.entrypoints || {};
-
-  assignTypeToFile({
-    obj: manifestData.entrypoints,
-    chunkOrAsset,
+  assignAsset({
+    obj: manifest[assignment],
+    asset,
+    useFileType,
   });
 }
 
-export function addToManifestChunks({ manifestData, chunkOrAsset }) {
-  manifestData.chunks = manifestData.chunks || {};
-  assignTypeToFile({
-    obj: manifestData.chunks,
-    chunkOrAsset,
-  });
-}
-
-export function findInManifest({ manifestData, assetType, fileName }) {
+export function findInManifest({ manifest, assetType, fileName }) {
   const baseName = baseFileName(fileName);
-  manifestData[assetType][baseName];
+  manifest[assetType][baseName];
 }
 
-function assignTypeToFile({ obj, chunkOrAsset }) {
-  if (chunkOrAsset == undefined) {
-    return;
-  }
-
-  const { map, fileName } = chunkOrAsset;
+function assignAsset({ obj, asset, useFileType }) {
+  const { map, fileName } = asset;
 
   let fileType = extType(fileName);
   const baseName = baseFileName(fileName);
+  const adjustedFileName = path.join("/", fileName);
 
   obj[baseName] = obj[baseName] || {};
 
-  obj[baseName][fileType] = path.join("/", fileName);
+  if (useFileType === false) {
+    obj[baseName] = adjustedFileName;
+    return;
+  }
+
+  obj[baseName][fileType] = adjustedFileName;
 
   if (map) {
-    const mapFile = fileName + ".map";
+    const mapFile = adjustedFileName + ".map";
     fileType = extType(mapFile);
-    obj[baseName][fileType] = path.join("/", mapFile);
+    obj[baseName][fileType] = mapFile;
   }
 }
 
@@ -73,6 +61,8 @@ function extType(fileName) {
   } else if (fileName.endsWith(".js")) {
     return "js";
   }
+
+  return "";
 }
 
 function baseFileName(fileName) {

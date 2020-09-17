@@ -7,7 +7,7 @@ import os from "os";
 import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { shellRun } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
-import { addToManifestData } from "./manifestUtils";
+import { addToManifest } from "./manifestUtils";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
@@ -19,10 +19,16 @@ async function rollupBuild({ debug, inputOptions, outputOptions }) {
 
   const bundle = await rollup.rollup(inputOptions);
   const { output } = await bundle.generate(outputOptions);
-  const manifestData = {};
+
+  const manifest = {};
 
   for (const chunkOrAsset of output) {
-    addToManifestData({ manifestData, chunkOrAsset });
+    if (chunkOrAsset.isEntry || chunkOrAsset.type === "asset") {
+      addToManifest({ manifest, chunkOrAsset, assignTo: "entrypoints" });
+      continue;
+    }
+
+    addToManifest({ manifest, chunkOrAsset, assignTo: "chunks" });
   }
 
   await bundle.write(outputOptions);
@@ -38,11 +44,16 @@ async function rollupBuild({ debug, inputOptions, outputOptions }) {
   // Add assets to manifest, use path.relative to fix minor issues
   glob.sync(`${buildDirectory}/assets/**/*.*`).forEach((fileName) => {
     fileName = path.relative(buildDirectory, fileName);
-    const asset = { fileName, map: null };
-    addToManifestData({ manifestData, asset });
+    const chunkOrAsset = { fileName, map: null };
+    addToManifest({
+      manifest,
+      chunkOrAsset,
+      assignTo: "assets",
+      useFileType: false,
+    });
   });
 
-  const manifestJSON = JSON.stringify(manifestData, null, 2);
+  const manifestJSON = JSON.stringify(manifest, null, 2);
   fs.writeFileSync(path.join(buildDirectory, "manifest.json"), manifestJSON);
 }
 
