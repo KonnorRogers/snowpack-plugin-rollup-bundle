@@ -33,7 +33,8 @@
     "cy:test:build:ci": "start-server-and-test 'yarn serve' http-get://localhost:4000 'yarn cy:open'",
     "cy:test:build": "yarn build && yarn:test:build:ci",
     "cy:test:ci": "yarn test:dev:ci && yarn test:build:ci",
-    "deploy": "yarn build && yarn test:ci && yarn publish"
+    "deploy": "pika publish",
+    "version": "yarn build"
   },
   "@pika/pack": {
     "pipeline": [
