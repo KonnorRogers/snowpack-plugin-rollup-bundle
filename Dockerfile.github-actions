@@ -19,6 +19,6 @@ FROM builder as app
 EXPOSE 8080
 EXPOSE 4000
 
-COPY yarn.lock package.json .
+COPY yarn.lock package.json ./
 RUN yarn install
 COPY . .
