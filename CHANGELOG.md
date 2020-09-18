@@ -1,3 +1,12 @@
+## [0.0.9](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.0.7...v0.0.9) (2020-09-18)
+
+
+### Bug Fixes
+
+* **manifest:** generation of assets ([96b802c](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/96b802cdcca1e7b53628ffdbfaf03d10f70c1684))
+
+
+
 ## [0.0.7](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.0.6...v0.0.7) (2020-09-17)
 
 
