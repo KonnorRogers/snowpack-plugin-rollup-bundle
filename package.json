@@ -34,8 +34,8 @@
     "cy:test:build": "yarn build && yarn:test:build:ci",
     "cy:test:ci": "yarn test:dev:ci && yarn test:build:ci",
     "deploy": "pika publish",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "version": "yarn changelog yarn build"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && commit -m 'docs: update CHANGELOG.md'",
+    "version": "yarn changelog && yarn build"
   },
   "@pika/pack": {
     "pipeline": [
