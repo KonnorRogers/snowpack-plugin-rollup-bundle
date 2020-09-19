@@ -23,11 +23,6 @@ export function addToManifest({
   });
 }
 
-export function findInManifest({ manifest, assetType, fileName }) {
-  const baseName = baseFileName(fileName);
-  manifest[assetType][baseName];
-}
-
 function assignAsset({ obj, asset, useFileType }) {
   const { map, fileName } = asset;
 
