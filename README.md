@@ -113,10 +113,10 @@ const plugins = [
   [
     "snowpack-plugin-rollup-bundle",
     {
-      debug: <boolean>,
+      emitHtmlFiles: <boolean>,
+      preserveSourceFiles: <boolean>,
       extendConfig: (config) => {
         config.outputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
-
         config.inputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
 
         return config
@@ -130,11 +130,31 @@ module.exports = {
 }
 ```
 
+### Plugin Options
+
+#### `emitHtmlFiles`
+
+`type: Boolean`
+<br />
+`default: false`
+
+If your source directory contains HTML files, this will rewrite your
+script tags.
+
+#### `preserveSourceFiles`
+
+`type: Boolean`
+<br />
+`default: false`
+
+This is meant as a debugging tool. This will put the original build
+files from Snowpack into a `_source_` directory.
+
 ## Roadmap
 
-[x] Change hashing from `x.hash.ext` to `x-hash.ext`
+- [x] Change hashing from `x.hash.ext` to `x-hash.ext`
 
-[ ] Cypress testing to ensure build and dev work the same
+- [ ] Cypress testing to ensure build and dev work the same
 
-[ ] Support emitting HTML files with proper `<script>` and `<link
+- [x] Support emitting HTML files with proper `<script>` and `<link
 rel="stylesheet">` tags.
