@@ -26,7 +26,7 @@ export function emitHtmlFile({ file, manifest, destFile }) {
   );
 
   scripts.forEach((script) => {
-    if (!isEntrypoint(script)) {
+    if (!isEntrypoint({ entrypoints: unhashedEntrypoints, script })) {
       return;
     }
 
@@ -48,17 +48,17 @@ function insertBefore(existingNode, newNode) {
 
 function isEntrypoint({ entrypoints, script }) {
   // Remove trailing slashes
-  script.src.replace(/\/$/, "")
+  script.src.replace(/\/$/, "");
 
   if (entrypoints.includes(script.src)) {
-    return true
+    return true;
   }
 
   // Account for src="entrypoints/blah"
-  if (entrypoints.includes("/" + script.src )) {
-    script.src = "/" + script.src
-    return true
+  if (entrypoints.includes("/" + script.src)) {
+    script.src = "/" + script.src;
+    return true;
   }
 
-  return false
+  return false;
 }

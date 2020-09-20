@@ -12,13 +12,8 @@ import { emitHtmlFile } from "./emitHtmlFile";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
-async function rollupBuild({
-  emitHtml,
-  preserveSourceFiles,
-  inputOptions,
-  outputOptions,
-}) {
-  const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_preserveSourceFiles_");
+async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
+  const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
   const buildDirectory = outputOptions.dir;
   outputOptions.dir = TMP_BUILD_DIRECTORY;
@@ -57,7 +52,7 @@ async function rollupBuild({
     manifestJSON
   );
 
-  if (emitHtml === true) {
+  if (pluginOptions.emitHtml === true) {
     glob.sync(buildDirectory + "**/*.html").forEach((file) => {
       let destFile = path.relative(buildDirectory, file);
       destFile = path.join(TMP_BUILD_DIRECTORY, destFile);
@@ -66,11 +61,12 @@ async function rollupBuild({
     });
   }
 
+  shellRun(`rm -rf ${TMP_DEBUG_DIRECTORY} && mkdir -p ${TMP_DEBUG_DIRECTORY}`);
   shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY}`);
   shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
 
-  if (preserveSourceFiles === true) {
-    const buildDebugDir = path.join(buildDirectory, "_preserveSourceFiles_");
+  if (pluginOptions.preserveSourceFiles === true) {
+    const buildDebugDir = path.join(buildDirectory, "_source_");
     shellRun(`mv ${TMP_DEBUG_DIRECTORY}/ ${buildDebugDir}`);
   }
 }
@@ -95,6 +91,9 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       }
 
       const extendedConfig = await extendConfig({
+        pluginOptions: {
+          ...pluginOptions,
+        },
         inputOptions: {
           ...inputOptions,
         },
