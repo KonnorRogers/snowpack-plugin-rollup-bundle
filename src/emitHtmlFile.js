@@ -21,13 +21,12 @@ export function emitHtmlFile({ file, manifest, destFile }) {
 
   const unhashedEntrypoints = Object.keys(manifest.entrypoints).map(
     (fileName) => {
-      console.log(parseHashFileName(manifest.entrypoints[fileName]["js"]));
       return parseHashFileName(manifest.entrypoints[fileName]["js"]);
     }
   );
 
   scripts.forEach((script) => {
-    if (!unhashedEntrypoints.includes(script.src)) {
+    if (!isEntrypoint(script)) {
       return;
     }
 
@@ -45,4 +44,21 @@ export function emitHtmlFile({ file, manifest, destFile }) {
 
 function insertBefore(existingNode, newNode) {
   existingNode.parentNode.insertBefore(newNode, existingNode);
+}
+
+function isEntrypoint({ entrypoints, script }) {
+  // Remove trailing slashes
+  script.src.replace(/\/$/, "")
+
+  if (entrypoints.includes(script.src)) {
+    return true
+  }
+
+  // Account for src="entrypoints/blah"
+  if (entrypoints.includes("/" + script.src )) {
+    script.src = "/" + script.src
+    return true
+  }
+
+  return false
 }
