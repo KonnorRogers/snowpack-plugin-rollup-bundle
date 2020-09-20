@@ -2,14 +2,14 @@
 
 A snowpack plugin to build your files for production using Rollup.
 
-## Issues
+This plugin was developed as a way of integrating Snowpack with Rails.
+I'm more than happy to support any issues you may have. Currently, this
+package was built with my gem called `Snowpacker` in mind. Feel free to
+file issues, submit PR's, etc.
 
-Currently, this only generates build files but will not rewrite your
-HTML scripts. If you would like to see this feature, I would be happy to
-add it. For now, this project is purely for the use of Snowpacker.
+## Requirements
 
-1 CSS file is generated per entrypoint. In addition, you must manually
-add your stylesheets into your built HTML files with a stylesheet `<link />` tag.
+- Node >= 10
 
 ## Developing locally
 
@@ -40,7 +40,7 @@ yarn servor build
 
 Then navigate to `localhost:8080` to see the final build.
 
-### Expected input
+### input
 
 ```bash
 src/
@@ -52,7 +52,7 @@ src/
   javascript/
 ```
 
-### Expected output
+### output
 
 ```bash
 build/
