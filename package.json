@@ -20,6 +20,7 @@
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*",
     "build": "yarn format && yarn pika build",
     "test": "yarn build && yarn test:ci",
+    "test:file": "yarn build && node -r esm",
     "test:ci": "uvu -r esm __tests__ -i example_dir -i cypress",
     "test:watch": "watchlist src __tests__ -- yarn test",
     "test:all": "yarn build && yarn test:ci && yarn cy:test:ci",

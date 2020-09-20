@@ -8,7 +8,7 @@ import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { shellRun } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 import { addToManifest } from "./manifestUtils";
-import { emitHtmlFile } from "./emitHtmlFile";
+import { emitHtmlFiles } from "./emitHtmlFiles";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
@@ -57,7 +57,7 @@ async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
       let destFile = path.relative(buildDirectory, file);
       destFile = path.join(TMP_BUILD_DIRECTORY, destFile);
       console.log(destFile);
-      emitHtmlFile({ file, manifest, destFile });
+      emitHtmlFiles({ file, manifest, destFile });
     });
   }
 
