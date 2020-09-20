@@ -27,15 +27,22 @@ export function emitHtmlFile({ file, manifest, destFile }) {
   );
 
   scripts.forEach((script) => {
-    console.log(script.src);
     if (!unhashedEntrypoints.includes(script.src)) {
       return;
     }
 
     const baseFile = baseFileName(script.src);
-    console.log("make it here?");
     script.src = manifest.entrypoints[baseFile].js;
+
+    const stylesheet = domDocument.createElement("link");
+    stylesheet.href = manifest.entrypoints[baseFile].css;
+    stylesheet.rel = "stylesheet";
+    insertBefore(script, stylesheet);
   });
 
   fs.writeFileSync(destFile, dom.serialize(), "utf8");
+}
+
+function insertBefore(existingNode, newNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode);
 }
