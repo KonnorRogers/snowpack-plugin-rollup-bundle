@@ -14,7 +14,7 @@ const Build = suite("Build");
 
 process.chdir(exampleDir);
 shellRun("yarn install --force");
-shellRun("yarn snowpack build");
+shellRun("yarn snowpack build --verbose");
 
 Build("Should produce entrypoints and manifest.json", () => {
   const buildFiles = ["entrypoints", "manifest.json"].map((file) =>

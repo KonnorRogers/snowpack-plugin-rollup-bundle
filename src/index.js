@@ -8,6 +8,7 @@ import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { shellRun } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 import { addToManifest } from "./manifestUtils";
+import { emitHtmlFile } from "./emitHtmlFile";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
@@ -95,6 +96,19 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       });
 
       await rollupBuild(extendedConfig);
+
+      // *****
+      // THIS IS PURELY FOR TESTING PURPOSES
+      const manifest = JSON.parse(
+        fs.readFileSync(path.join(buildDirectory, "manifest.json"))
+      );
+
+      const file = path.join("src", "index.html");
+
+      if (extendedConfig.testing === true) {
+        emitHtmlFile({ manifest, file });
+      }
+      // ****
     },
   };
 };

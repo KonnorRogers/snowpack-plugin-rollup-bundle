@@ -17,6 +17,7 @@ const plugins = [
   [
     "snowpack-plugin-rollup-bundle",
     {
+      testing: true,
       debug: true,
       extendConfig: (config) => {
         config.outputOptions.dir = "build";

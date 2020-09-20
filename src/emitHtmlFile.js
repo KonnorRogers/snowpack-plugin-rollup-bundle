@@ -1,42 +1,41 @@
-import fs from "fs"
-import path from "path"
+import fs from "fs";
+// import path from "path"
 
-import { parseHashFileName } from "./utils"
-import * as manifestUtils from "./manifestUtils"
+import { parseHashFileName } from "./utils";
+import * as manifestUtils from "./manifestUtils";
 
-import { JSDOM } from "jsdom"
+import { JSDOM } from "jsdom";
 
-export function emitHtmlFile({file, manifest}) {
-  const fileContents = fs.readFileSync(file, {encoding: "utf8"})
-  const dom = new JSDOM(fs.readFileSync(fileContents, {
-    includeNodeLocations: true
-  }))
+/**
+ * Currently this exists for testing purposes only
+ */
+export function emitHtmlFile({ file, manifest }) {
+  const fileContents = fs.readFileSync(file, { encoding: "utf8" });
+  const dom = new JSDOM(
+    fs.readFileSync(fileContents, {
+      includeNodeLocations: true,
+    })
+  );
 
-  const domDocument = dom.window.document
+  const domDocument = dom.window.document;
 
   const scripts = domDocument.querySelectorAll("script");
 
-  const entrypoints = scripts.filter((script) => {
-    let scriptSrc = script.src
+  const unhashedEntrypoints = Object.keys(manifest.entrypoints).map(
+    (fileName) => {
+      return parseHashFileName(fileName["js"]);
+    }
+  );
 
-    if (entrypointExists({file: scriptSrc, manifest})) {
-      return script
+  scripts.forEach((script) => {
+    if (!unhashedEntrypoints.includes(script.src)) {
+      return;
     }
 
-    return
-  })
+    const baseFile = manifestUtils.baseFileName(script.src);
+    script.src = manifest.entrypoints[baseFile].js;
+  });
 
-  return dom.serialize()
-}
-
-function entrypointExists({file, manifest}) {
-  const { name } = path.parse(file)
-  const hashedFile = manifest.entrypoints[name].js
-  const unhashedFile = parseHashFileName(hashedFile)
-
-  if (unhashedFile === name || unhashedFile === "/" + name) {
-    return true
-  }
-
-  return false
+  console.log(dom.serialize());
+  fs.writeFileSync(file, dom.serialize());
 }

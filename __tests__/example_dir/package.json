@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "snowpack build",
+    "build": "snowpack build --verbose",
     "serve": "yarn servor build index.html 4000"
   },
   "dependencies": {
