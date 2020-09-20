@@ -23,6 +23,10 @@ export function addToManifest({
   });
 }
 
+export function baseFileName(fileName) {
+  return path.parse(parseHashFileName(fileName)).base.split(".")[0];
+}
+
 function assignAsset({ obj, asset, useFileType }) {
   const { map, fileName } = asset;
 
@@ -58,8 +62,4 @@ function extType(fileName) {
   }
 
   return "";
-}
-
-function baseFileName(fileName) {
-  return path.parse(parseHashFileName(fileName)).base.split(".")[0];
 }

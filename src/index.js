@@ -12,7 +12,7 @@ import { emitHtmlFile } from "./emitHtmlFile";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
-async function rollupBuild({ debug, inputOptions, outputOptions }) {
+async function rollupBuild({ testing, debug, inputOptions, outputOptions }) {
   const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_debug_");
 
   const buildDirectory = outputOptions.dir;
@@ -34,17 +34,9 @@ async function rollupBuild({ debug, inputOptions, outputOptions }) {
 
   await bundle.write(outputOptions);
 
-  shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY}`);
-  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
-
-  if (debug === true) {
-    const buildDebugDir = path.join(buildDirectory, "_debug_");
-    shellRun(`mv ${TMP_DEBUG_DIRECTORY}/ ${buildDebugDir}`);
-  }
-
   // Add assets to manifest, use path.relative to fix minor issues
-  glob.sync(`${buildDirectory}/assets/**/*.*`).forEach((fileName) => {
-    fileName = path.relative(buildDirectory, fileName);
+  glob.sync(`${TMP_BUILD_DIRECTORY}/assets/**/*.*`).forEach((fileName) => {
+    fileName = path.relative(TMP_BUILD_DIRECTORY, fileName);
     const chunkOrAsset = { fileName, map: null };
     addToManifest({
       manifest,
@@ -55,7 +47,30 @@ async function rollupBuild({ debug, inputOptions, outputOptions }) {
   });
 
   const manifestJSON = JSON.stringify(manifest, null, 2);
-  fs.writeFileSync(path.join(buildDirectory, "manifest.json"), manifestJSON);
+  fs.writeFileSync(
+    path.join(TMP_BUILD_DIRECTORY, "manifest.json"),
+    manifestJSON
+  );
+
+  if (testing === true) {
+    //
+  }
+  console.log("WE TESTING");
+  glob.sync(buildDirectory + "**/*.html").forEach((file) => {
+    let destFile = path.relative(buildDirectory, file);
+    destFile = path.join(TMP_BUILD_DIRECTORY, destFile);
+    console.log(destFile);
+    emitHtmlFile({ file, manifest, destFile });
+    console.log("hi");
+  });
+
+  shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY}`);
+  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
+
+  if (debug === true) {
+    const buildDebugDir = path.join(buildDirectory, "_debug_");
+    shellRun(`mv ${TMP_DEBUG_DIRECTORY}/ ${buildDebugDir}`);
+  }
 }
 
 const plugin = (snowpackConfig, pluginOptions = {}) => {
@@ -96,19 +111,6 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       });
 
       await rollupBuild(extendedConfig);
-
-      // *****
-      // THIS IS PURELY FOR TESTING PURPOSES
-      const manifest = JSON.parse(
-        fs.readFileSync(path.join(buildDirectory, "manifest.json"))
-      );
-
-      const file = path.join("src", "index.html");
-
-      if (extendedConfig.testing === true) {
-        emitHtmlFile({ manifest, file });
-      }
-      // ****
     },
   };
 };
