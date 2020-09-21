@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.github-actions
 
-    command: bash -c "yarn test"
+    command: bash -c "yarn build && yarn test"
 
     volumes:
       # make sure these line up with $APP_DIR
