@@ -4867,7 +4867,7 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-"snowpack-plugin-rollup-bundle@file:../..":
+"snowpack-plugin-rollup-bundle@file:../../pkg":
   version "0.0.9"
   dependencies:
     "@rollup/plugin-image" "^2.0.5"
