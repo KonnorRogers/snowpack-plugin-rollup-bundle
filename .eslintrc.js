@@ -2,8 +2,9 @@ module.exports = {
   env: {
     browser: true,
     es2020: true,
+    "cypress/globals": true
   },
-  extends: ["eslint:recommended"],
+  extends: ["eslint:recommended", "plugin:cypress/recommended"],
   parserOptions: {
     ecmaVersion: 11,
     sourceType: "module",
@@ -14,5 +15,5 @@ module.exports = {
   rules: {
     "no-useless-escape": 0
   },
-  plugins: []
+  plugins: ["cypress"]
 };
