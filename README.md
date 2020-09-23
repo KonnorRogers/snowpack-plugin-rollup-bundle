@@ -100,7 +100,7 @@ docker-compose up --build
 
 # OR
 
-docker-compose run --rm web yarn test
+docker-compose run --rm web bash -c "yarn build && yarn test"
 ```
 
 ## Customization
@@ -116,8 +116,11 @@ const plugins = [
       emitHtmlFiles: <boolean>,
       preserveSourceFiles: <boolean>,
       extendConfig: (config) => {
-        config.outputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
-        config.inputOptions = { ... } // https://rollupjs.org/guide/en/#outputoptions-object
+        // https://rollupjs.org/guide/en/#outputoptions-object
+        config.outputOptions = { ... }
+
+        // https://rollupjs.org/guide/en/#outputoptions-object
+        config.inputOptions = { ... }
 
         return config
       }
@@ -139,7 +142,8 @@ module.exports = {
 `default: false`
 
 If your source directory contains HTML files, this will rewrite your
-script tags.
+script tags. This will not rewrite stylesheet tags (this actually
+injects stylesheets into your head) and will not rewrite asset paths.
 
 #### `preserveSourceFiles`
 
