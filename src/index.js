@@ -15,6 +15,8 @@ const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
   const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
+  inputOptions.dir = inputOptions.dir || pluginOptions.entrypoints
+
   const buildDirectory = outputOptions.dir;
   outputOptions.dir = TMP_BUILD_DIRECTORY;
 
@@ -56,7 +58,6 @@ async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
     glob.sync(buildDirectory + "**/*.html").forEach((file) => {
       let destFile = path.relative(buildDirectory, file);
       destFile = path.join(TMP_BUILD_DIRECTORY, destFile);
-      console.log(destFile);
       emitHtmlFiles({ file, manifest, destFile });
     });
   }
@@ -74,6 +75,7 @@ async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
 const plugin = (snowpackConfig, pluginOptions = {}) => {
   snowpackConfig.buildOptions.minify = false; // Let rollup handle this
   snowpackConfig.buildOptions.clean = true;
+
   return {
     name: "snowpack-plugin-rollup-bundle",
     async optimize({ buildDirectory }) {
@@ -96,6 +98,7 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
         },
         inputOptions: {
           ...inputOptions,
+
         },
         outputOptions: {
           ...outputOptions,

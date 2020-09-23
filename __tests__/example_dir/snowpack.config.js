@@ -19,11 +19,7 @@ const plugins = [
     {
       emitHtml: true,
       preserveSourceFiles: true,
-      extendConfig: (config) => {
-        config.outputOptions.dir = "build";
-        config.inputOptions.input = glob.sync(path.join("build", "entrypoints", "**", "*"));
-        return config;
-      },
+      entrypoints: glob.sync("build/entrypoints/**/*.js")
     },
   ],
 ];
