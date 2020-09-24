@@ -19,7 +19,7 @@ jobs:
           docker-compose -f docker-compose.github-actions.yml build
       - name: Lint files and build pkg
         run: |
-          docker-compose -f docker-compose.github-actions.yml run --rm web bash -c "yarn lint && yarn build"
+          docker-compose -f docker-compose.github-actions.yml run --rm web bash -c "yarn lint && yarn build && yarn install --force"
       - name: Test files
         run: |
           docker-compose -f docker-compose.github-actions.yml run --rm web yarn test
