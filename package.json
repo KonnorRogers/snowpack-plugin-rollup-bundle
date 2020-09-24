@@ -50,9 +50,9 @@
     ]
   },
   "peerDependencies": {
-    "glob": "^7.0.0",
-    "rollup": "^2.0.0",
-    "snowpack": "^2.8.0"
+    "glob": ">= 7.0.0",
+    "rollup": ">= 2.0.0",
+    "snowpack": ">= 2.7.0"
   },
   "dependencies": {
     "@rollup/plugin-image": "^2.0.5",
@@ -76,8 +76,11 @@
     "eslint": "^7.7.0",
     "eslint-plugin-cypress": "^2.11.1",
     "esm": "^3.2.25",
+    "glob": "^7.1.6",
     "np": "^6.5.0",
     "prettier": "^2.0.5",
+    "rollup": "^2.28.1",
+    "snowpack": "^2.11.1",
     "start-server-and-test": "^1.11.3",
     "uvu": "^0.3.3"
   },
