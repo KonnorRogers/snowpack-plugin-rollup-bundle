@@ -115,6 +115,7 @@ const plugins = [
     {
       emitHtmlFiles: <boolean>,
       preserveSourceFiles: <boolean>,
+      entrypoints: <string> | <string[]> | { [<string>]: <string> }
       extendConfig: (config) => {
         // https://rollupjs.org/guide/en/#outputoptions-object
         config.outputOptions = { ... }
@@ -164,7 +165,7 @@ files from Snowpack into a `_source_` directory.
 
 - [x] Change hashing from `x.hash.ext` to `x-hash.ext`
 
-- [ ] Cypress testing to ensure build and dev work the same
+- [x] Cypress testing to ensure build and dev work the same
 
 - [x] Support emitting HTML files with proper `<script>` and `<link
 rel="stylesheet">` tags.

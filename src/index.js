@@ -14,19 +14,18 @@ const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
 function getEntrypoints(entrypoints) {
   if (typeof entrypoints === "string") {
-    return glob.sync(entrypoints)
+    return glob.sync(entrypoints);
   }
 
-  return entrypoints
+  return entrypoints;
 }
 
 async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
   const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
-  const entrypoints = getEntrypoints(pluginOptions.entrypoints)
+  const entrypoints = getEntrypoints(pluginOptions.entrypoints);
 
-  inputOptions.input =
-    inputOptions.input || entrypoints;
+  inputOptions.input = inputOptions.input || entrypoints;
 
   const buildDirectory = outputOptions.dir;
   outputOptions.dir = TMP_BUILD_DIRECTORY;
