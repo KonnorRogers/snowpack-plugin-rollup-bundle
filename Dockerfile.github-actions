@@ -1,19 +1,4 @@
-FROM node:12-slim as builder
-
-RUN apt update && apt install -y \
-    libnotify-dev \
-    build-essential
-
-FROM builder as app
-
-EXPOSE 8080
-EXPOSE 4000
-
-# avoid million NPM install messages
-ENV npm_config_loglevel warn
-# allow installing when the main user is root
-ENV npm_config_unsafe_perm true
-ENV TERM xterm
+FROM cypress/base:10
 
 RUN mkdir -p /app
 WORKDIR /app
