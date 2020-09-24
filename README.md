@@ -165,7 +165,7 @@ files from Snowpack into a `_source_` directory.
 
 #### `extendConfig`
 
-`type: (): object | object`
+`type: function(): object | object`
 
 ## Roadmap
 
