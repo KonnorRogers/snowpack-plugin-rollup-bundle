@@ -113,9 +113,11 @@ const plugins = [
   [
     "snowpack-plugin-rollup-bundle",
     {
-      emitHtmlFiles: <boolean>,
-      preserveSourceFiles: <boolean>,
-      entrypoints: <string> | <string[]> | { [<string>]: <string> }
+      emitHtmlFiles: boolean,
+      preserveSourceFiles: boolean,
+
+      // equivalent to inputOptions.input from Rollup
+      entrypoints: string | string [] | { [entryName: string]: string }
       extendConfig: (config) => {
         // https://rollupjs.org/guide/en/#outputoptions-object
         config.outputOptions = { ... }
