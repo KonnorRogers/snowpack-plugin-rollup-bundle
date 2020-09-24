@@ -10,7 +10,6 @@ services:
     command: bash -c "yarn build && yarn test"
 
     volumes:
-      # make sure these line up with $APP_DIR
       - .:/app
       - node_modules:/app/node_modules
 
