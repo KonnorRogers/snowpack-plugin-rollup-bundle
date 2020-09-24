@@ -14,7 +14,7 @@ const Build = suite("Build");
 
 process.chdir(exampleDir);
 shellRun("yarn install --force");
-shellRun("yarn snowpack build");
+shellRun("yarn snowpack build --verbose");
 
 Build("Should produce entrypoints and manifest.json", () => {
   const buildFiles = ["entrypoints", "manifest.json"].map((file) =>
@@ -69,5 +69,25 @@ Build("Should appropriately format a manifest.json", () => {
   );
   assert.is(manifestEntrypointKeys.length, 4);
 });
+
+// DOM Assertions
+import { JSDOM } from "jsdom";
+import { baseFileName } from "../src/manifestUtils";
+
+const jsdom = new JSDOM(fs.readFileSync(path.join(buildDir, "index.html")));
+const jsdocument = jsdom.window.document;
+const scripts = jsdocument.querySelectorAll("script");
+const manifest = JSON.parse(
+  fs.readFileSync(path.join(buildDir, "manifest.json"))
+);
+
+Build("Should rewrite to a hashed script for index.html", () => {
+  scripts.forEach((script) => {
+    const baseName = baseFileName(script.src);
+    assert.is(manifest.entrypoints[baseName]["js"], script.src);
+  });
+});
+
+Build("Should inject an 'application.css' stylesheet", () => {});
 
 Build.run();

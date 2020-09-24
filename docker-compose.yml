@@ -2,15 +2,17 @@ version: "3"
 
 services:
   web:
+    environment:
+      - CYPRESS_VIDEO=false
     build:
       context: .
-
-    command: bash -c "yarn test"
+      dockerfile: Dockerfile.github-actions
+    command: bash -c "yarn build && yarn test"
 
     volumes:
       # make sure these line up with $APP_DIR
-      - node_modules:${APP_DIR:-/home/user/app}/node_modules
-      - .:${APP_DIR:-/home/user/app}
+      - .:/app
+      - node_modules:/app/node_modules
 
     ports:
       - "4000:4000"

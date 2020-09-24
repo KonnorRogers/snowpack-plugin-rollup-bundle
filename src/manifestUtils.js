@@ -23,9 +23,8 @@ export function addToManifest({
   });
 }
 
-export function findInManifest({ manifest, assetType, fileName }) {
-  const baseName = baseFileName(fileName);
-  manifest[assetType][baseName];
+export function baseFileName(fileName) {
+  return path.parse(parseHashFileName(fileName)).base.split(".")[0];
 }
 
 function assignAsset({ obj, asset, useFileType }) {
@@ -63,8 +62,4 @@ function extType(fileName) {
   }
 
   return "";
-}
-
-function baseFileName(fileName) {
-  return path.parse(parseHashFileName(fileName)).base.split(".")[0];
 }

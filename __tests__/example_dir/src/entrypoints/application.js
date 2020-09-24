@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
   img.src = logo
   img.alt = "logo"
   img.className = "logo"
-  img.dataset.testId = "logo"
+  img.dataset.testid = "logo"
   img.height = 200
   img.width = 200
 
   const div = document.createElement("div");
-  div.dataset.testId = "json-file"
+  div.dataset.testid = "json-file"
   div.innerText = jsonFile.y;
 
   const body = document.querySelector("body")
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   smallHouse.src = SmallHouse
   smallHouse.alt = "A picture of a small house"
   smallHouse.className = "small-house"
-  smallHouse.dataset.testId = "small-house"
+  smallHouse.dataset.testid = "small-house"
   smallHouse.height = 200
   smallHouse.width = 200
   body.appendChild(smallHouse)
@@ -57,6 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.createElement("button")
   btn.className = styles.greenButton
   btn.innerText = "I'm a Button"
-  btn.dataset.testId = "green-button"
+  btn.dataset.testid = "green-button"
   body.appendChild(btn)
 });

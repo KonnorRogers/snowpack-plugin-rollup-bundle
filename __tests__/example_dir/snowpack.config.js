@@ -17,12 +17,9 @@ const plugins = [
   [
     "snowpack-plugin-rollup-bundle",
     {
-      debug: true,
-      extendConfig: (config) => {
-        config.outputOptions.dir = "build";
-        config.inputOptions.input = glob.sync(path.join("build", "entrypoints", "**", "*"));
-        return config;
-      },
+      emitHtml: true,
+      preserveSourceFiles: true,
+      entrypoints: "build/entrypoints/**/*.js"
     },
   ],
 ];
