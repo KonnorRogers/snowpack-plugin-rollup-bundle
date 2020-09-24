@@ -6,7 +6,7 @@ services:
       - CYPRESS_VIDEO=false
     build:
       context: .
-      dockerfile: Dockerfile.github-actions
+      dockerfile: Dockerfile
     command: bash -c "yarn build && yarn test"
 
     volumes:
