@@ -141,7 +141,7 @@ module.exports = {
 #### `emitHtmlFiles`
 
 `type: boolean`
-<br />
+
 `default: false`
 
 If your source directory contains HTML files, this will rewrite your
@@ -151,7 +151,7 @@ injects stylesheets into your head) and will not rewrite asset paths.
 #### `preserveSourceFiles`
 
 `type: boolean`
-<br />
+
 `default: false`
 
 This is meant as a debugging tool. This will put the original build
@@ -160,8 +160,12 @@ files from Snowpack into a `_source_` directory.
 #### `entrypoints`
 
 `type: string | string [] | { [entryName: string]: string }`
-<br />
+
 `this is required`
+
+#### `extendConfig`
+
+`type: (): object | object`
 
 ## Roadmap
 
