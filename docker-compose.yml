@@ -2,6 +2,8 @@ version: "3"
 
 services:
   web:
+    environment:
+      - CYPRESS_VIDEO=false
     build:
       context: .
 
@@ -10,6 +12,7 @@ services:
     volumes:
       # make sure these line up with $APP_DIR
       - node_modules:${APP_DIR:-/home/user/app}/node_modules
+      - cypress:/home/node/.cache/Cypress
       - .:${APP_DIR:-/home/user/app}
 
     ports:
@@ -17,3 +20,4 @@ services:
       - "8080:8080"
 volumes:
   node_modules:
+  cypress:

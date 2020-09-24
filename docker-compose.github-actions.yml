@@ -2,6 +2,8 @@ version: "3"
 
 services:
   web:
+    environment:
+      - CYPRESS_VIDEO=false
     build:
       context: .
       dockerfile: Dockerfile.github-actions
