@@ -6,18 +6,41 @@ services:
       - CYPRESS_VIDEO=false
     build:
       context: .
-
+      dockerfile: Dockerfile.github-actions
     command: bash -c "yarn build && yarn test"
 
     volumes:
       # make sure these line up with $APP_DIR
-      - node_modules:${APP_DIR:-/home/user/app}/node_modules
-      - cypress:/home/node/.cache/Cypress
-      - .:${APP_DIR:-/home/user/app}
+      - .:/app
+      - node_modules:/app/node_modules
+
+    depends_on:
+      - e2e
 
     ports:
       - "4000:4000"
       - "8080:8080"
+  e2e:
+    image: cypress
+    container_name: cypress
+    # note: inside e2e container, the network allows accessing
+    # "web" host under name "web"
+    # so "curl http://web" would return whatever the webserver
+    # in the "web" container is cooking
+    # see https://docs.docker.com/compose/networking/
+    environment:
+      - CYPRESS_baseUrl=http://web
+    command: npx cypress run
+    # mount the host directory e2e/cypress and the file e2e/cypress.json as
+    # volumes within the container
+    # this means that:
+    #  1. anything that Cypress writes to these folders (e.g., screenshots,
+    #     videos) appears also on the Docker host's filesystem
+    #  2. any change that the developer applies to Cypress files on the host
+    #     machine immediately takes effect within the e2e container (no docker
+    #     rebuild required).
+    volumes:
+      - ./cypress:/app/cypress
+      - ./cypress.json:/app/cypress.json
 volumes:
   node_modules:
-  cypress:
