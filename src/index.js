@@ -15,7 +15,8 @@ const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
   const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
-  inputOptions.dir = inputOptions.dir || pluginOptions.entrypoints
+  inputOptions.input =
+    inputOptions.input || glob.sync(pluginOptions.entrypoints);
 
   const buildDirectory = outputOptions.dir;
   outputOptions.dir = TMP_BUILD_DIRECTORY;
@@ -98,7 +99,6 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
         },
         inputOptions: {
           ...inputOptions,
-
         },
         outputOptions: {
           ...outputOptions,

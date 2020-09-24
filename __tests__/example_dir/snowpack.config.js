@@ -19,7 +19,7 @@ const plugins = [
     {
       emitHtml: true,
       preserveSourceFiles: true,
-      entrypoints: glob.sync("build/entrypoints/**/*.js")
+      entrypoints: "build/entrypoints/**/*.js"
     },
   ],
 ];
