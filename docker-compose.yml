@@ -14,9 +14,6 @@ services:
       - .:/app
       - node_modules:/app/node_modules
 
-    depends_on:
-      - e2e
-
     ports:
       - "4000:4000"
       - "8080:8080"
