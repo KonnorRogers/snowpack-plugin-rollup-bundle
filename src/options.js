@@ -5,6 +5,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
+import filesize from "rollup-plugin-filesize";
 
 export function defaultInputOptions({ tmpDir, buildDirectory }) {
   return {
@@ -26,6 +27,7 @@ export function defaultInputOptions({ tmpDir, buildDirectory }) {
         limit: 0, // extract all files
         fileName: "[dirname]/[name]-[hash][extname]",
       }),
+      filesize({ showBrotliSize: true }),
     ],
   };
 }
