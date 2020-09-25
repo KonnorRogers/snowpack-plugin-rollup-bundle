@@ -7,9 +7,13 @@ I'm more than happy to support any issues you may have. Currently, this
 package was built with my gem called `Snowpacker` in mind. Feel free to
 file issues, submit PR's, etc.
 
+## Requirements
+
+- Node >= 10
+
 ## Usage
 
-### Installation 
+### Installation
 
 ```bash
 yarn add snowpack-plugin-rollup-bundle [--dev]
@@ -31,7 +35,7 @@ const plugins = [
       preserveSourceFiles: boolean,
 
       // equivalent to inputOptions.input from Rollup
-      entrypoints: string | string [] | { [entryName: string]: string }
+      entrypoints: string | string [] | { [entryName: string]: string },
 
       extendConfig: (config) => {
         // https://rollupjs.org/guide/en/#outputoptions-object
@@ -76,23 +80,42 @@ files from Snowpack into a `_source_` directory.
 
 `type: string | string [] | { [entryName: string]: string }`
 
-`this is required`
+`required`
+
+Entrypoints should be entrypoints found in your `build/` directory and
+not your source files.
 
 arrays and objects will be parsed normally.
 
 A string will be passed as a parameter to glob.sync()
 
 [https://github.com/isaacs/node-glob](https://github.com/isaacs/node-glob)
-for more info on glob
+for more info on glob.
 
 #### `extendConfig`
 
 `type: function(): object | object`
 
+the `extendConfig` hook allows you to directly modify the rollup config.
+For example, if you would like to add a rollup plugin to the build
+process you would do:
 
-## Requirements
+```js
+const awesomeRollupPlugin = require("awesome-rollup-plugin")
 
-- Node >= 10
+const plugins = {
+  [
+    "snowpack-plugin-rollup-bundle",
+    {
+      extendConfig: (config) => {
+        config.inputOptions.plugins.push(awesomeRollupPlugin())
+        return config
+      }
+    }
+  ]
+}
+```
+
 
 ## What it does
 
