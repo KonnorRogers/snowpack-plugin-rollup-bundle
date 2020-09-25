@@ -1,3 +1,22 @@
+# [0.1.0](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.0.9...v0.1.0) (2020-09-25)
+
+
+### Bug Fixes
+
+* change how globbing works for entrypoints ([53d7664](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/53d7664cc89bd9f0eec0fbf25f5449f646a5df80))
+* emitHtml and preserveSourceFiles options added ([606239b](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/606239bb99ebc9cdcfdc33fb6fd9310760523f52))
+* minor tweaks to script replacements ([aa09099](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/aa09099299c39432f01224ebd649c6576e77582c))
+* peerDependencies ([00340a5](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/00340a583457e184ad5afd95d17e0b6e173bd097))
+
+
+### Features
+
+* add a filesize analyzer ([1665762](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/16657621145d756b0cf2c821f83dc6ad00a1643f))
+* add jsdom as a dependency ([43990c7](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/43990c7f06bd8b66c3ec25ee331a00f2cae373f1))
+* remove generalized debug / testing. Minor change to the API ([2681e6e](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/2681e6e52587b5b24c4fc44e088e8a4b84b00d9c))
+
+
+
 ## [0.0.9](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.0.7...v0.0.9) (2020-09-18)
 
 

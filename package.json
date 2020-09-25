@@ -31,7 +31,7 @@
     "test:dev:ci": "start-server-and-test 'yarn dev' http-get://localhost:4000 'yarn cy:run'",
     "test:prod:ci": "start-server-and-test 'yarn serve' http-get://localhost:4000 'yarn cy:run'",
     "deploy": "pika publish",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && commit -m 'docs: update CHANGELOG.md'",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && git commit -m 'docs: update CHANGELOG.md'",
     "version": "yarn changelog && yarn build"
   },
   "@pika/pack": {
@@ -85,5 +85,5 @@
     "start-server-and-test": "^1.11.3",
     "uvu": "^0.3.3"
   },
-  "version": "0.0.9"
+  "version": "0.1.0"
 }
