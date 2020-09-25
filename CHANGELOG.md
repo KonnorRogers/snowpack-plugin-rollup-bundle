@@ -1,3 +1,7 @@
+## [0.1.2](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.1.1...v0.1.2) (2020-09-25)
+
+
+
 ## [0.1.1](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.0.9...v0.1.1) (2020-09-25)
 
 
