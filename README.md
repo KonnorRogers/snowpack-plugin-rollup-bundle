@@ -9,11 +9,15 @@ file issues, submit PR's, etc.
 
 ## Usage
 
+### Installation 
+
 ```bash
 yarn add snowpack-plugin-rollup-bundle [--dev]
 # OR
 npm install snowpack-plugin-rollup-bundle [--save-dev]
 ```
+
+### Snowpack Config
 
 ```js
 // snowpack.config.js
