@@ -1,3 +1,12 @@
+## [0.1.3](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.1.2...v0.1.3) (2020-09-26)
+
+
+### Bug Fixes
+
+* removed unused dependencies, add file-size to normal dependencies ([eac4a0a](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/eac4a0a693e01106549776ecdf078cc5b3bfa816))
+
+
+
 ## [0.1.2](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.1.1...v0.1.2) (2020-09-25)
 
 
