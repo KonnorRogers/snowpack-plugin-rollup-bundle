@@ -29,7 +29,6 @@
     "@snowpack/plugin-babel": "^2.1.0",
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-plugin-macros": "^2.8.0",
-    "browserify-fs": "^1.0.0",
     "import-all.macro": "^3.1.0",
     "servor": "^4.0.2",
     "stimulus": "^1.1.1"
