@@ -1,3 +1,12 @@
+## [0.1.4](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.1.3...v0.1.4) (2020-10-01)
+
+
+### Bug Fixes
+
+* remove bundle size reporting, will roll my own ([b07d36d](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/b07d36db0678df0363b5cdbd1b73f852fd98672e))
+
+
+
 ## [0.1.3](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.1.2...v0.1.3) (2020-09-26)
 
 
