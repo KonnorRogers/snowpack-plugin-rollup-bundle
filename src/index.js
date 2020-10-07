@@ -47,13 +47,13 @@ async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
   await bundle.write(outputOptions);
 
   // Add assets to manifest, use path.relative to fix minor issues
-  glob.sync(`${TMP_BUILD_DIRECTORY}/assets/**/*.*`).forEach((fileName) => {
+  glob.sync(`${TMP_BUILD_DIRECTORY}/images/**/*.*`).forEach((fileName) => {
     fileName = path.relative(TMP_BUILD_DIRECTORY, fileName);
     const chunkOrAsset = { fileName, map: null };
     addToManifest({
       manifest,
       chunkOrAsset,
-      assignTo: "assets",
+      assignTo: "images",
       useFileType: false,
     });
   });
