@@ -14,10 +14,10 @@ import * as _controllersHello_world_controllerHello_world_controllerJs from "../
 import JS from "../javascript/index.js";
 import * as channels from "../channels/index.js";
 import "../stylesheets/index.css";
-import jsonFile from "../assets/x.json.proxy.js";
-import logo from "../assets/logo.svg";
-import SmallHouse from "../assets/small-house.png";
-import "../assets/other-images/further-nested/nested-image.jpg";
+import jsonFile from "../data/x.json.proxy.js";
+import logo from "../images/logo.svg";
+import SmallHouse from "../images/small-house.png";
+import "../images/other-images/further-nested/nested-image.jpg";
 import styles from "../stylesheets/button.module.css"; // Stimulus
 
 import { parseControllerName } from "../javascript/parseControllerName.js";
