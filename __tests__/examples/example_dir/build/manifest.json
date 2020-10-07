@@ -1,9 +1,9 @@
 {
-  "entrypoints/application.js": "/entrypoints/application-e33cef62.js",
+  "entrypoints/application.js": "/entrypoints/application-ba13ddb2.js",
   "entrypoints": {
     "application": {
-      "js": "/entrypoints/application-e33cef62.js",
-      "js.map": "/entrypoints/application-e33cef62.js.map",
+      "js": "/entrypoints/application-ba13ddb2.js",
+      "js.map": "/entrypoints/application-ba13ddb2.js.map",
       "css": "/css/application-f5ebf47f.css",
       "css.map": "/css/application-f5ebf47f.css.map"
     },
