@@ -19,7 +19,10 @@ const plugins = [
     {
       emitHtml: true,
       preserveSourceFiles: true,
-      entrypoints: "build/entrypoints/**/*.js"
+      entrypoints: "build/snowpacker/entrypoints/**/*.js",
+      // extendConfig: (config) => {
+      //   return config
+      // }
     },
   ],
 ];
