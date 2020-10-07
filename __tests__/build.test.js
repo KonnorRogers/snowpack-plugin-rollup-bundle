@@ -7,7 +7,7 @@ import fs from "fs";
 
 import { parseHashFileName, shellRun } from "../src/utils";
 
-const exampleDir = path.resolve("__tests__", "example_dir");
+const exampleDir = path.resolve("__tests__", "examples", "example_dir");
 const buildDir = path.resolve(exampleDir, "build");
 
 const Build = suite("Build");

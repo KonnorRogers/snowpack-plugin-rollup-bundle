@@ -200,7 +200,7 @@ Then navigate to `localhost:8080` to see the final build.
 git clone https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/tree/development/
 cd snowpack-plugin-rollup-bundle
 yarn install
-yarn test
+yarn build && yarn test
 ```
 
 You can then view the generated build in the `__tests__/example_dir/build` directory.
