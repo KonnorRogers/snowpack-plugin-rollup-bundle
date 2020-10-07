@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.1.4...v0.2.0) (2020-10-07)
+
+
+### Bug Fixes
+
+* now properly output with nested paths ([8d07a08](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/8d07a08552da2297474578f2cdef46726116c95c))
+
+
+
 ## [0.1.4](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.1.3...v0.1.4) (2020-10-01)
 
 
