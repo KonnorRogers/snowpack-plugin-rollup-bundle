@@ -7,7 +7,6 @@ import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
 
 export function defaultInputOptions({ buildDirectory, tmpDir }) {
-  console.log({ buildDirectory, tmpDir });
   return {
     plugins: [
       resolve({ browser: true }),
