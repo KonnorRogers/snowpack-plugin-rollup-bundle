@@ -10,7 +10,7 @@ module.exports = {
     sourceType: "module",
   },
   ignorePatterns: [
-    "__tests__/example_dir",
+    "__tests__/examples",
   ],
   rules: {
     "no-useless-escape": 0
