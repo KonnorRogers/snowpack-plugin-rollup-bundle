@@ -5,7 +5,7 @@ const resolve = require('@rollup/plugin-node-resolve').default
 const commonjs = require('@rollup/plugin-commonjs')
 
 const mount = {
-  src: "/",
+  src: "/snowpacker",
 };
 
 const proxy = {
