@@ -36,6 +36,7 @@ async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
   const manifest = {};
 
   for (const chunkOrAsset of output) {
+    console.log(chunkOrAsset);
     if (chunkOrAsset.isEntry || chunkOrAsset.type === "asset") {
       addToManifest({ manifest, chunkOrAsset, assignTo: "entrypoints" });
       continue;

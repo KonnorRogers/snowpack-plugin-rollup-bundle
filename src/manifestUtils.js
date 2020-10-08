@@ -1,6 +1,5 @@
-import path from "path";
-
 import { parseHashFileName } from "./utils";
+import path from "path";
 
 export function addToManifest({
   manifest,
@@ -12,7 +11,7 @@ export function addToManifest({
   const asset = chunkOrAsset;
   const assignment = assignTo;
 
-  manifest[parseHashFileName(fileName)] = path.join("/", fileName);
+  manifest[parseHashFileName(fileName)] = prependSlash(fileName);
 
   manifest[assignment] = manifest[assignment] || {};
 
@@ -23,16 +22,29 @@ export function addToManifest({
   });
 }
 
-export function baseFileName(fileName) {
-  return path.parse(parseHashFileName(fileName)).base.split(".")[0];
+export function prependSlash(fileName) {
+  if (fileName[0] === "/") {
+    return fileName;
+  }
+
+  return "/" + fileName;
 }
 
 function assignAsset({ obj, asset, useFileType }) {
   const { map, fileName } = asset;
 
   let fileType = extType(fileName);
-  const baseName = baseFileName(fileName);
-  const adjustedFileName = path.join("/", fileName);
+
+  let baseName;
+
+  // Non js / js.map / css / css.map files retain their extension
+  if (fileType === null) {
+    baseName = parseHashFileName(fileName);
+  } else {
+    baseName = path.parse(parseHashFileName(fileName)).name.split(".")[0];
+  }
+
+  const adjustedFileName = prependSlash(fileName);
 
   obj[baseName] = obj[baseName] || {};
 
@@ -61,5 +73,5 @@ function extType(fileName) {
     return "js";
   }
 
-  return "";
+  return null;
 }

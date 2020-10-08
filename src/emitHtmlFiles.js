@@ -1,9 +1,6 @@
 import fs from "fs";
-// import path from "path"
-
+import path from "path";
 import { parseHashFileName } from "./utils";
-import { baseFileName } from "./manifestUtils";
-
 import { JSDOM } from "jsdom";
 
 /**
@@ -50,7 +47,10 @@ export function rewriteScripts({ dom, manifest }) {
   const scripts = domDocument.querySelectorAll("script");
   const unhashedEntrypoints = Object.keys(manifest.entrypoints).map(
     (fileName) => {
-      return parseHashFileName(manifest.entrypoints[fileName]["js"]);
+      if (fileName.ext === ".js") {
+        fileName.split("/").slice(1, -1).join("/");
+        return parseHashFileName(manifest.entrypoints[fileName]["js"]);
+      }
     }
   );
 
@@ -58,8 +58,7 @@ export function rewriteScripts({ dom, manifest }) {
     if (!isEntrypoint({ entrypoints: unhashedEntrypoints, script })) {
       return;
     }
-
-    const baseFile = baseFileName(script.src);
+    const baseFile = path.parse(script.src).name;
     script.src = manifest.entrypoints[baseFile].js;
 
     const stylesheet = domDocument.createElement("link");
