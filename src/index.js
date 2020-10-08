@@ -20,7 +20,13 @@ function getEntrypoints(entrypoints) {
   return entrypoints;
 }
 
-async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
+async function rollupBuild({
+  snowpackConfig,
+  pluginOptions,
+  inputOptions,
+  outputOptions,
+}) {
+  const baseUrl = snowpackConfig.baseUrl || "/";
   const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
   const entrypoints = getEntrypoints(pluginOptions.entrypoints);
@@ -68,7 +74,7 @@ async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
     glob.sync(buildDirectory + "**/*.html").forEach((file) => {
       let destFile = path.relative(buildDirectory, file);
       destFile = path.join(TMP_BUILD_DIRECTORY, destFile);
-      emitHtmlFiles({ file, manifest, destFile, buildDirectory });
+      emitHtmlFiles({ file, manifest, destFile, baseUrl });
     });
   }
 
@@ -103,6 +109,9 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       }
 
       const extendedConfig = await extendConfig({
+        snowpackConfig: {
+          ...snowpackConfig,
+        },
         pluginOptions: {
           ...pluginOptions,
         },

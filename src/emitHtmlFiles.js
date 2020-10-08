@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { parseHashFileName } from "./utils";
 import { JSDOM } from "jsdom";
+import url from "url";
 
 /**
  * An instance of JSDOM
@@ -23,14 +24,14 @@ import { JSDOM } from "jsdom";
  * @param {string} params.destFile - Path to the new file
  * @returns {undefined}
  */
-export function emitHtmlFiles({ file, manifest, destFile, buildDirectory }) {
+export function emitHtmlFiles({ file, manifest, destFile, baseUrl }) {
   const fileContents = fs.readFileSync(file, { encoding: "utf8" });
 
   const dom = new JSDOM(fileContents, {
     includeNodeLocations: true,
   });
 
-  const newDom = rewriteScripts({ dom, manifest, buildDirectory });
+  const newDom = rewriteScripts({ dom, manifest, baseUrl });
 
   fs.writeFileSync(destFile, newDom.serialize(), "utf8");
 }
@@ -42,7 +43,7 @@ export function emitHtmlFiles({ file, manifest, destFile, buildDirectory }) {
  * @param {ManifestObject} params.manifest - Manifest file parsed to Object
  * @returns {string} Returns a string from serializing JSDOM
  */
-export function rewriteScripts({ dom, manifest, buildDirectory }) {
+export function rewriteScripts({ dom, manifest, baseUrl }) {
   const domDocument = dom.window.document;
   const scripts = domDocument.querySelectorAll("script");
   const unhashedEntrypoints = Object.keys(manifest.entrypoints).map(
@@ -55,16 +56,27 @@ export function rewriteScripts({ dom, manifest, buildDirectory }) {
     if (!isEntrypoint({ entrypoints: unhashedEntrypoints, script })) {
       return;
     }
-    const baseFile = path.parse(script.src).name;
-    script.src = manifest.entrypoints[baseFile].js
 
+    const baseFile = path.parse(script.src).name;
+    const jsFile = manifest.entrypoints[baseFile].js;
+    console.log(fixUrl({ baseUrl, file: jsFile }));
+    script.src = fixUrl({ baseUrl, file: jsFile });
+
+    const cssFile = manifest.entrypoints[baseFile].css;
     const stylesheet = domDocument.createElement("link");
-    stylesheet.href = manifest.entrypoints[baseFile].css;
     stylesheet.rel = "stylesheet";
+    stylesheet.href = fixUrl({ baseUrl, file: cssFile });
     insertBefore(script, stylesheet);
   });
 
   return dom;
+}
+
+function fixUrl({ baseUrl, file }) {
+  baseUrl = baseUrl || "/";
+  return url.parse(baseUrl).protocol
+    ? url.resolve(baseUrl, file)
+    : path.posix.join(baseUrl, file);
 }
 
 function insertBefore(existingNode, newNode) {

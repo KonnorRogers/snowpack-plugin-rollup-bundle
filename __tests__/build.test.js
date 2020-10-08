@@ -72,7 +72,6 @@ Build("Should appropriately format a manifest.json", () => {
 
 // DOM Assertions
 import { JSDOM } from "jsdom";
-import { baseFileName } from "../src/manifestUtils";
 
 const jsdom = new JSDOM(fs.readFileSync(path.join(buildDir, "index.html")));
 const jsdocument = jsdom.window.document;
@@ -83,7 +82,10 @@ const manifest = JSON.parse(
 
 Build("Should rewrite to a hashed script for index.html", () => {
   scripts.forEach((script) => {
-    const baseName = baseFileName(script.src);
+    const baseName = path
+      .parse(parseHashFileName(script.src))
+      .name.split(".")[0];
+
     assert.is(manifest.entrypoints[baseName]["js"], script.src);
   });
 });
