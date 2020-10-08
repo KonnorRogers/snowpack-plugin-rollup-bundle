@@ -68,7 +68,7 @@ async function rollupBuild({ pluginOptions, inputOptions, outputOptions }) {
     glob.sync(buildDirectory + "**/*.html").forEach((file) => {
       let destFile = path.relative(buildDirectory, file);
       destFile = path.join(TMP_BUILD_DIRECTORY, destFile);
-      emitHtmlFiles({ file, manifest, destFile });
+      emitHtmlFiles({ file, manifest, destFile, buildDirectory });
     });
   }
 

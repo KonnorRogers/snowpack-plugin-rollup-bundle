@@ -23,14 +23,14 @@ import { JSDOM } from "jsdom";
  * @param {string} params.destFile - Path to the new file
  * @returns {undefined}
  */
-export function emitHtmlFiles({ file, manifest, destFile }) {
+export function emitHtmlFiles({ file, manifest, destFile, buildDirectory }) {
   const fileContents = fs.readFileSync(file, { encoding: "utf8" });
 
   const dom = new JSDOM(fileContents, {
     includeNodeLocations: true,
   });
 
-  const newDom = rewriteScripts({ dom, manifest });
+  const newDom = rewriteScripts({ dom, manifest, buildDirectory });
 
   fs.writeFileSync(destFile, newDom.serialize(), "utf8");
 }
@@ -42,15 +42,12 @@ export function emitHtmlFiles({ file, manifest, destFile }) {
  * @param {ManifestObject} params.manifest - Manifest file parsed to Object
  * @returns {string} Returns a string from serializing JSDOM
  */
-export function rewriteScripts({ dom, manifest }) {
+export function rewriteScripts({ dom, manifest, buildDirectory }) {
   const domDocument = dom.window.document;
   const scripts = domDocument.querySelectorAll("script");
   const unhashedEntrypoints = Object.keys(manifest.entrypoints).map(
     (fileName) => {
-      if (fileName.ext === ".js") {
-        fileName.split("/").slice(1, -1).join("/");
-        return parseHashFileName(manifest.entrypoints[fileName]["js"]);
-      }
+      return parseHashFileName(manifest.entrypoints[fileName]["js"]);
     }
   );
 
@@ -59,7 +56,7 @@ export function rewriteScripts({ dom, manifest }) {
       return;
     }
     const baseFile = path.parse(script.src).name;
-    script.src = manifest.entrypoints[baseFile].js;
+    script.src = manifest.entrypoints[baseFile].js
 
     const stylesheet = domDocument.createElement("link");
     stylesheet.href = manifest.entrypoints[baseFile].css;
