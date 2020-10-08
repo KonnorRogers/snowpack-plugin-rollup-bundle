@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-// import { prependSlash, parseHashFileName } from "./utils";
 import { parseHashFileName } from "./utils";
 import { JSDOM } from "jsdom";
 import url from "url";
@@ -65,6 +64,8 @@ export function rewriteScripts({ dom, manifest, baseUrl }) {
     const cssFile = manifest.entrypoints[baseFile].css;
     const stylesheet = domDocument.createElement("link");
     stylesheet.rel = "stylesheet";
+    console.log("HERE?");
+    console.log(fixUrl({ baseUrl, file: cssFile }));
     stylesheet.href = fixUrl({ baseUrl, file: cssFile });
     insertBefore(script, stylesheet);
   });
@@ -73,12 +74,11 @@ export function rewriteScripts({ dom, manifest, baseUrl }) {
 }
 
 function fixUrl({ baseUrl, file }) {
-  baseUrl = baseUrl || "/";
-  const newUrl = url.parse(baseUrl).protocol
-    ? url.resolve(baseUrl, file)
-    : path.posix.join(baseUrl, file);
-  console.log(newUrl);
-  return newUrl;
+  if (url.parse(baseUrl).protocol == null) {
+    return path.join(baseUrl, file);
+  } else {
+    return url.resolve(baseUrl, file);
+  }
 }
 
 function insertBefore(existingNode, newNode) {
