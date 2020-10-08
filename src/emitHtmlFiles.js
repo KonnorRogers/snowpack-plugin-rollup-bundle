@@ -62,10 +62,13 @@ export function rewriteScripts({ dom, manifest, baseUrl }) {
     script.src = fixUrl({ baseUrl, file: jsFile });
 
     const cssFile = manifest.entrypoints[baseFile].css;
+
+    if (cssFile == undefined) {
+      return;
+    }
+
     const stylesheet = domDocument.createElement("link");
     stylesheet.rel = "stylesheet";
-    console.log("HERE?");
-    console.log(fixUrl({ baseUrl, file: cssFile }));
     stylesheet.href = fixUrl({ baseUrl, file: cssFile });
     insertBefore(script, stylesheet);
   });
