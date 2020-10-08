@@ -1,10 +1,10 @@
 import JS from "../javascript";
 import * as channels from "../channels";
 import "../stylesheets/index.css";
-import jsonFile from "../data/x.json"
-import logo from "../images/logo.svg"
-import SmallHouse from "../images/small-house.png"
-import "../images/other-images/further-nested/nested-image.jpg"
+import jsonFile from "../assets/x.json"
+import logo from "../assets/logo.svg"
+import SmallHouse from "../assets/small-house.png"
+import "../assets/other-images/further-nested/nested-image.jpg"
 
 import styles from "../stylesheets/button.module.css"
 
