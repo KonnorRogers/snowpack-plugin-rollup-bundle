@@ -26,7 +26,7 @@ async function rollupBuild({
   inputOptions,
   outputOptions,
 }) {
-  const baseUrl = snowpackConfig.baseUrl || "/";
+  const baseUrl = snowpackConfig.devOptions.baseUrl || "/";
   const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
   const entrypoints = getEntrypoints(pluginOptions.entrypoints);
