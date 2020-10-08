@@ -1,3 +1,15 @@
+## [0.2.2](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.2.1...v0.2.2) (2020-10-08)
+
+
+### Bug Fixes
+
+* change assets to images ([424cdc5](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/424cdc5f263fdda4f1792b6b2f3016e02a8d352c))
+* manifest.json fixing ([e8cd34d](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/e8cd34db54ce3ffb848d72ac9a7bee610224c179))
+* reload manifest ([99a21b3](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/99a21b3e9521af13875e09ec7c421c8e71e45e55))
+* rename assets to images ([f106fa9](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/f106fa9b585379812b3f513821c92a3d001a0d8f))
+
+
+
 ## [0.2.1](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.2.0...v0.2.1) (2020-10-07)
 
 
