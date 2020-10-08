@@ -59,7 +59,6 @@ export function rewriteScripts({ dom, manifest, baseUrl }) {
 
     const baseFile = path.parse(script.src).name;
     const jsFile = manifest.entrypoints[baseFile].js;
-    console.log(fixUrl({ baseUrl, file: jsFile }));
     script.src = fixUrl({ baseUrl, file: jsFile });
 
     const cssFile = manifest.entrypoints[baseFile].css;
