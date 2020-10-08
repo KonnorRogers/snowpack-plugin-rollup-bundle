@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+// import { prependSlash, parseHashFileName } from "./utils";
 import { parseHashFileName } from "./utils";
 import { JSDOM } from "jsdom";
 import url from "url";
@@ -73,9 +74,11 @@ export function rewriteScripts({ dom, manifest, baseUrl }) {
 
 function fixUrl({ baseUrl, file }) {
   baseUrl = baseUrl || "/";
-  return url.parse(baseUrl).protocol
+  const newUrl = url.parse(baseUrl).protocol
     ? url.resolve(baseUrl, file)
     : path.posix.join(baseUrl, file);
+  console.log(newUrl);
+  return newUrl;
 }
 
 function insertBefore(existingNode, newNode) {

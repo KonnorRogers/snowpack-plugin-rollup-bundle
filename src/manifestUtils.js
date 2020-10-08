@@ -1,4 +1,4 @@
-import { parseHashFileName } from "./utils";
+import { prependSlash, parseHashFileName } from "./utils";
 import path from "path";
 
 export function addToManifest({
@@ -20,14 +20,6 @@ export function addToManifest({
     asset,
     useFileType,
   });
-}
-
-export function prependSlash(fileName) {
-  if (fileName[0] === "/") {
-    return fileName;
-  }
-
-  return "/" + fileName;
 }
 
 function assignAsset({ obj, asset, useFileType }) {

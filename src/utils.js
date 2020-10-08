@@ -15,3 +15,11 @@ export function shellRun(cmd, options = {}) {
 
   return spawnSync(cmd, options);
 }
+
+export function prependSlash(fileName) {
+  if (fileName[0] === "/") {
+    return fileName;
+  }
+
+  return "/" + fileName;
+}

@@ -20,7 +20,7 @@
     "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*",
     "build": "yarn format && yarn pika build",
     "test": "yarn test:unit && yarn test:dev:ci && yarn test:prod:ci",
-    "test:unit": "uvu -r esm __tests__ -i example_dir -i cypress",
+    "test:unit": "uvu -r esm __tests__ -i examples -i cypress",
     "test:file": "node -r esm",
     "dev": "cd __tests__/examples/example_dir && yarn snowpack dev --port 4000",
     "serve": "cd __tests__/examples/example_dir && yarn build && yarn servor build index.html 4000",
