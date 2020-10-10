@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.2.2...v0.2.3) (2020-10-10)
+
+
+### Bug Fixes
+
+* regression with asset files ([0e80c79](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/0e80c79b1fe3fa7212eb6138ce1c8053baa17c45))
+
+
+
 ## [0.2.2](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.2.1...v0.2.2) (2020-10-08)
 
 
