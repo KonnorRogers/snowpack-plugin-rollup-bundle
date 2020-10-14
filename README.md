@@ -41,7 +41,7 @@ const plugins = [
         // https://rollupjs.org/guide/en/#outputoptions-object
         config.outputOptions = { ... }
 
-        // https://rollupjs.org/guide/en/#outputoptions-object
+        // https://rollupjs.org/guide/en/#inputoptions-object
         config.inputOptions = { ... }
 
         return config
