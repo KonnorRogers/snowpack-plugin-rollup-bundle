@@ -219,6 +219,18 @@ docker-compose up --build
 docker-compose run --rm web bash -c "yarn build && yarn test"
 ```
 
+### Limitations
+
+Currently, as far as I can tell, Rollup does not support nested entrypoints. For example:
+
+`build/entrypoints/nested/index.js` 
+
+Will just be emitted to
+
+`build/entrypoints/index.js` 
+
+via Rollup. I'm not aware of any workarounds currently.
+
 
 
 ## Roadmap
