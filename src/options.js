@@ -11,7 +11,7 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
     plugins: [
       resolve({ browser: true }),
       styles({
-        mode: ["extract"],
+        mode: ["extract", "css"],
         modules: true,
         autoModules: (id) => id.includes(".module.css"),
         sourceMap: true,
@@ -43,6 +43,6 @@ export function defaultOutputOptions(buildDirectory) {
     compact: true,
     sourcemap: true,
     entryFileNames: "[name]-[hash].js",
-    // dir: buildDirectory,
+    dir: buildDirectory,
   };
 }

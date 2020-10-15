@@ -12,11 +12,17 @@ import { emitHtmlFiles } from "./emitHtmlFiles";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
-function getEntrypoints(entrypoints) {
+function getEntrypoints({ entrypoints, buildDirectory }) {
   if (typeof entrypoints === "string") {
-    return glob.sync(entrypoints).map((file) => {
-      return { [file]: file };
+    const obj = {};
+
+    glob.sync(entrypoints).forEach((file) => {
+      console.log(buildDirectory);
+      const buildFile = path.relative(buildDirectory, file);
+      obj[buildFile] = file;
     });
+
+    return obj;
   }
 
   return entrypoints;
@@ -31,12 +37,15 @@ async function rollupBuild({
   const baseUrl = snowpackConfig.devOptions.baseUrl || "/";
   const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
-  const entrypoints = getEntrypoints(pluginOptions.entrypoints);
-
-  inputOptions.input = inputOptions.input || entrypoints;
-
   const buildDirectory = outputOptions.dir;
   outputOptions.dir = TMP_BUILD_DIRECTORY;
+
+  const entrypoints = getEntrypoints({
+    entrypoints: pluginOptions.entrypoints,
+    buildDirectory,
+  });
+
+  inputOptions.input = inputOptions.input || entrypoints;
 
   const bundle = await rollup.rollup(inputOptions);
   const { output } = await bundle.generate(outputOptions);

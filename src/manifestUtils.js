@@ -33,7 +33,13 @@ function assignAsset({ obj, asset, useFileType }) {
   if (fileType === null) {
     baseName = parseHashFileName(fileName);
   } else {
-    baseName = path.parse(parseHashFileName(fileName)).name.split(".")[0];
+    // Split at the first . just in case it has multiple extensions IE: .css.map
+    let { dir, name } = path.parse(parseHashFileName(fileName));
+    console.log(dir);
+    baseName = name = name.split(".")[0];
+    // name = name.split(".")[0];
+    // console.log(path.posix.join(dir, name));
+    // baseName = path.posix.join(dir, name);
   }
 
   const adjustedFileName = prependSlash(fileName);
