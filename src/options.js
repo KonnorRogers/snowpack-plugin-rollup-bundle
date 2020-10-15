@@ -42,7 +42,7 @@ export function defaultOutputOptions(buildDirectory) {
     chunkFileNames: "chunks/[name]-[hash].chunk.js",
     compact: true,
     sourcemap: true,
-    entryFileNames: "entrypoints/[name]-[hash].js",
+    entryFileNames: "[name]-[hash].js",
     dir: buildDirectory,
   };
 }
