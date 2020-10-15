@@ -17,7 +17,6 @@ function getEntrypoints({ entrypoints, buildDirectory }) {
     const obj = {};
 
     glob.sync(entrypoints).forEach((file) => {
-      console.log(buildDirectory);
       const buildFile = path.join(buildDirectory, 
 file));
       obj[buildFile] = file;
