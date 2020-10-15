@@ -11,7 +11,7 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
     plugins: [
       resolve({ browser: true }),
       styles({
-        mode: ["extract", "css"],
+        mode: ["extract"],
         modules: true,
         autoModules: (id) => id.includes(".module.css"),
         sourceMap: true,
@@ -38,11 +38,11 @@ export function defaultOutputOptions(buildDirectory) {
         return path.parse(id).name;
       }
     },
-    assetFileNames: "css/[name]-[hash].[ext]",
+    assetFileNames: "css/[name]-[hash][extname]",
     chunkFileNames: "chunks/[name]-[hash].chunk.js",
     compact: true,
     sourcemap: true,
-    entryFileNames: "[name]-[hash].js",
+    entryFileNames: "entrypoints/[name]-[hash].js",
     dir: buildDirectory,
   };
 }
