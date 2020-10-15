@@ -14,7 +14,9 @@ const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
 function getEntrypoints(entrypoints) {
   if (typeof entrypoints === "string") {
-    return glob.sync(entrypoints);
+    return glob.sync(entrypoints).map((file) => {
+      return { [file]: file };
+    });
   }
 
   return entrypoints;
