@@ -1,3 +1,18 @@
+# [0.3.0](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.2.3...v0.3.0) (2020-10-16)
+
+
+### Bug Fixes
+
+* only emit stylesheets if they exist ([07a7946](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/07a7946d14b09bb9773307a4c34b8d77752e22cf))
+
+
+### Features
+
+* nesting is now supported ([fa3bd62](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/fa3bd62d12a4596a01d2345a681cbb9db80633c5))
+* now handles nested entrypoints more gracefully ([13c2142](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/13c21424e08f90c263cd8ef51e22d47ef4fa238c))
+
+
+
 ## [0.2.3](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.2.2...v0.2.3) (2020-10-10)
 
 
