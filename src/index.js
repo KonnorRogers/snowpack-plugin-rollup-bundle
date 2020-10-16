@@ -25,8 +25,6 @@ function getEntrypoints({ entrypoints, buildDirectory }) {
 
       obj[buildFile] = file;
     });
-
-    console.log(obj);
     return obj;
   }
 

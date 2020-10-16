@@ -133,6 +133,8 @@ src/
   entrypoints/
     entrypoint1.js
     entrypoint2.js
+    nested/
+      nested-entrypoint.js
   javascript/
   web_modules/
     |- react
@@ -148,11 +150,15 @@ build/
   entrypoints/
     entrypoint1-hash.js
     entrypoint2-hash.js
+    nested/
+      nested-entrypoint-hash.js
 
   css/
     # 1 css file per entrypoint
     entrypoint1-hash.css
     entrypoint2-hash.css
+    nested/
+      nested-entrypoint-hash.css
 
   assets/
     asset1-hash.png
@@ -219,20 +225,6 @@ docker-compose up --build
 docker-compose run --rm web bash -c "yarn build && yarn test"
 ```
 
-### Limitations
-
-Currently, as far as I can tell, Rollup does not support nested entrypoints. For example:
-
-`build/entrypoints/nested/index.js` 
-
-Will just be emitted to
-
-`build/entrypoints/index.js` 
-
-via Rollup. I'm not aware of any workarounds currently.
-
-
-
 ## Roadmap
 
 - [x] Change hashing from `x.hash.ext` to `x-hash.ext`
@@ -241,3 +233,5 @@ via Rollup. I'm not aware of any workarounds currently.
 
 - [x] Support emitting HTML files with proper `<script>` and `<link
 rel="stylesheet">` tags.
+
+- [x] Support nested entrypoints

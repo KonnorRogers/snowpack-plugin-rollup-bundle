@@ -29,15 +29,23 @@ function assignAsset({ obj, asset, useFileType }) {
 
   let baseName;
 
-  // Non js / js.map / css / css.map files retain their extension
-  if (fileType === null) {
-    baseName = parseHashFileName(fileName);
-  } else {
-    // Split at the first . just in case it has multiple extensions IE: .css.map
-    let { name } = path.parse(parseHashFileName(fileName));
+  baseName = parseHashFileName(fileName);
 
-    baseName = name = name.split(".")[0];
-    // baseName = path.posix.join(dir, name);
+  if (baseName === undefined) {
+    return;
+  }
+  // js / js.map / css / css.map files do not use an extension.
+  if (fileType !== null) {
+    // Split at the first . just in case it has multiple extensions IE: .css.map
+    let { dir, name } = path.parse(baseName);
+
+    if (fileType.startsWith("css")) {
+      dir = dir.split("/").slice(2).join("");
+    } else if (fileType.startsWith("js")) {
+      dir = dir.split("/").slice(1).join("");
+    }
+
+    baseName = path.posix.join(dir, name.split(".")[0]);
   }
 
   const adjustedFileName = prependSlash(fileName);
