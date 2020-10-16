@@ -38,7 +38,7 @@ export function defaultOutputOptions(buildDirectory) {
         return path.parse(id).name;
       }
     },
-    assetFileNames: "css/[name]-[hash][extname]",
+    assetFileNames: "[name]-[hash][extname]",
     chunkFileNames: "chunks/[name]-[hash].chunk.js",
     compact: true,
     sourcemap: true,
