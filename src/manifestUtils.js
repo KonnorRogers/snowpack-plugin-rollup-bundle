@@ -34,11 +34,9 @@ function assignAsset({ obj, asset, useFileType }) {
     baseName = parseHashFileName(fileName);
   } else {
     // Split at the first . just in case it has multiple extensions IE: .css.map
-    let { dir, name } = path.parse(parseHashFileName(fileName));
-    console.log(dir);
+    let { name } = path.parse(parseHashFileName(fileName));
+
     baseName = name = name.split(".")[0];
-    // name = name.split(".")[0];
-    // console.log(path.posix.join(dir, name));
     // baseName = path.posix.join(dir, name);
   }
 

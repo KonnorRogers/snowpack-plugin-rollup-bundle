@@ -17,10 +17,16 @@ function getEntrypoints({ entrypoints, buildDirectory }) {
     const obj = {};
 
     glob.sync(entrypoints).forEach((file) => {
-      const buildFile = path.relative(buildDirectory, file);
+      const { dir, name } = path.parse(file);
+
+      // This fixes issues that were causing x.js-[hash].js
+      const fileWithoutExt = path.join(dir, name);
+      const buildFile = path.relative(buildDirectory, fileWithoutExt);
+
       obj[buildFile] = file;
     });
 
+    console.log(obj);
     return obj;
   }
 

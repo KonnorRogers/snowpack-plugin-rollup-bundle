@@ -28,7 +28,7 @@ Build("Should produce entrypoints and manifest.json", () => {
 
 Build("Should produce css files, including module.css files", () => {
   const entryFiles = fs.readdirSync(path.resolve(buildDir, "entrypoints"));
-  const cssFiles = fs.readdirSync(path.resolve(buildDir, "css"));
+  const cssFiles = fs.readdirSync(path.resolve(buildDir, "css", "entrypoints"));
   assert.is(cssFiles.length, entryFiles.length);
 
   const entryFileNames = entryFiles.map(

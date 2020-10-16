@@ -20,8 +20,8 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
       url({
         include: "**/*",
         exclude: "**/*.(js|json|css)",
-        destDir: path.resolve(tmpDir, "assets"),
-        sourceDir: path.resolve(buildDirectory, "assets"),
+        destDir: path.resolve(tmpDir),
+        sourceDir: path.resolve(buildDirectory),
         limit: 0, // extract all files
         fileName: "[dirname]/[name]-[hash][extname]",
       }),
@@ -38,7 +38,7 @@ export function defaultOutputOptions(buildDirectory) {
         return path.parse(id).name;
       }
     },
-    assetFileNames: "[name]-[hash][extname]",
+    assetFileNames: "css/[name]-[hash].[ext]",
     chunkFileNames: "chunks/[name]-[hash].chunk.js",
     compact: true,
     sourcemap: true,
