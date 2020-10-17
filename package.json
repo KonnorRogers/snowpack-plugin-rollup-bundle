@@ -59,7 +59,6 @@
     "@rollup/plugin-url": "^5.0.1",
     "glob": "^7.1.6",
     "jsdom": "^16.4.0",
-    "rollup-plugin-postcss": "^3.1.8",
     "rollup-plugin-styles": "^3.10.0",
     "rollup-plugin-terser": "^7.0.0"
   },

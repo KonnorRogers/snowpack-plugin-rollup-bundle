@@ -14,7 +14,7 @@ const plugins = [
   [
     "snowpack-plugin-rollup-bundle",
     {
-      // emitHtml: true,
+      emitHtmlFiles: true,
       preserveSourceFiles: true,
       entrypoints: "build/snowpacker/entrypoints/**/*.js",
     },

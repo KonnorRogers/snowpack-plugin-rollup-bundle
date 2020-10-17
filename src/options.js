@@ -13,10 +13,9 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
       resolve({ browser: true }),
       styles({
         mode: ["extract"],
-        modules: true,
         autoModules: (id) => id.includes(".module.css"),
-        sourceMap: true,
         minimize: true,
+        sourceMap: true,
       }),
       url({
         include: "**/*",

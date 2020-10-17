@@ -68,6 +68,7 @@ async function rollupBuild({
 
   // Add assets to manifest, use path.relative to fix minor issues
   glob.sync(`${TMP_BUILD_DIRECTORY}/**/*.*`).forEach((fileName) => {
+    console.log(fileName);
     fileName = path.relative(TMP_BUILD_DIRECTORY, fileName);
     const chunkOrAsset = { fileName, map: null };
     addToManifest({
@@ -84,10 +85,18 @@ async function rollupBuild({
     manifestJSON
   );
 
-  if (pluginOptions.emitHtml === true) {
-    glob.sync(buildDirectory + "**/*.html").forEach((file) => {
+  // HTML files will not be pulled in by rollup, its up to us
+  // to manually pull them in.
+  if (pluginOptions.emitHtmlFiles === true) {
+    glob.sync(buildDirectory + "/**/*.html").forEach((file) => {
       let destFile = path.relative(buildDirectory, file);
-      destFile = path.join(TMP_BUILD_DIRECTORY, destFile);
+      destFile = path.resolve(TMP_BUILD_DIRECTORY, destFile);
+      const destDir = path.parse(destFile).dir;
+
+      if (!fs.existsSync(destDir)) {
+        fs.mkdirSync(destDir, { recursive: true });
+      }
+
       emitHtmlFiles({ file, manifest, destFile, baseUrl });
     });
   }
