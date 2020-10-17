@@ -50,12 +50,14 @@
     ]
   },
   "peerDependencies": {
+    "rollup": ">= 2.0.0",
     "snowpack": ">= 2.7.0"
   },
   "dependencies": {
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-url": "^5.0.1",
+    "glob": "^7.1.6",
     "jsdom": "^16.4.0",
     "rollup-plugin-postcss": "^3.1.8",
     "rollup-plugin-styles": "^3.10.0",
@@ -74,7 +76,6 @@
     "eslint": "^7.7.0",
     "eslint-plugin-cypress": "^2.11.1",
     "esm": "^3.2.25",
-    "glob": "^7.1.6",
     "np": "^6.5.0",
     "prettier": "^2.0.5",
     "rollup": "^2.32.0",

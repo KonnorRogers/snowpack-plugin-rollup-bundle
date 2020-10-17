@@ -16,9 +16,9 @@ file issues, submit PR's, etc.
 ### Installation
 
 ```bash
-yarn add snowpack-plugin-rollup-bundle [--dev]
+yarn add rollup snowpack-plugin-rollup-bundle [--dev]
 # OR
-npm install snowpack-plugin-rollup-bundle [--save-dev]
+npm install rollup snowpack-plugin-rollup-bundle [--save-dev]
 ```
 
 ### Snowpack Config
