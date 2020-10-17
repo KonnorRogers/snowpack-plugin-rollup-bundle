@@ -87,7 +87,7 @@ async function rollupBuild({
 
   // HTML files will not be pulled in by rollup, its up to us
   // to manually pull them in.
-  if (pluginOptions.emitHtml === true) {
+  if (pluginOptions.emitHtmlFiles === true) {
     glob.sync(buildDirectory + "/**/*.html").forEach((file) => {
       let destFile = path.relative(buildDirectory, file);
       destFile = path.resolve(TMP_BUILD_DIRECTORY, destFile);
