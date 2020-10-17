@@ -1,3 +1,16 @@
+## [0.3.3](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.3.2...v0.3.3) (2020-10-17)
+
+
+### Bug Fixes
+
+* emitHtml renamed to emitHtmlFiles ([af4c9ba](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/af4c9ba81c14e077642fc4dafb0af4b9b93f5902))
+* emitHtml renamed to emitHtmlFiles ([d5b55cb](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/d5b55cb744919f74213ab6d7883a13641d70606b))
+* emitHtml renamed to emitHtmlFiles ([46bb839](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/46bb839263b634a8e6d7b6880aebe81da45c4b4d))
+* minification now works properly ([62ee24e](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/62ee24e4946af748bd7e8ed64a8f836a6541e0a7))
+* now properly emits HTML files ([f01c1dd](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/f01c1dd365247860149985881035eb4c1acff2aa))
+
+
+
 ## [0.3.2](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.3.1...v0.3.2) (2020-10-17)
 
 
