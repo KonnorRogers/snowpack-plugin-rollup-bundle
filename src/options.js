@@ -4,6 +4,7 @@ import path from "path";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import styles from "rollup-plugin-styles";
+// import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
 
@@ -13,10 +14,9 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
       resolve({ browser: true }),
       styles({
         mode: ["extract"],
-        modules: true,
         autoModules: (id) => id.includes(".module.css"),
-        sourceMap: true,
         minimize: true,
+        sourceMap: true,
       }),
       url({
         include: "**/*",
