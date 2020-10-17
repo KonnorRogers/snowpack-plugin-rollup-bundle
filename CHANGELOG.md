@@ -1,3 +1,12 @@
+## [0.3.2](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.3.1...v0.3.2) (2020-10-17)
+
+
+### Bug Fixes
+
+* move rollup to peerDep, make Glob a dependency ([acf61eb](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/acf61eb0ccea2614a364d677c4f083e932da27fe))
+
+
+
 ## [0.3.1](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.3.0...v0.3.1) (2020-10-17)
 
 
