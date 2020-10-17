@@ -154,11 +154,12 @@ build/
       nested-entrypoint-hash.js
 
   css/
-    # 1 css file per entrypoint
-    entrypoint1-hash.css
-    entrypoint2-hash.css
-    nested/
-      nested-entrypoint-hash.css
+    entrypoints/
+      # 1 css file per entrypoint
+      entrypoint1-hash.css
+      entrypoint2-hash.css
+      nested/
+        nested-entrypoint-hash.css
 
   assets/
     asset1-hash.png
