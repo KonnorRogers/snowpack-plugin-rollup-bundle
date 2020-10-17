@@ -90,6 +90,14 @@ Build("Should rewrite to a hashed script for index.html", () => {
   });
 });
 
-Build("Should inject an 'application.css' stylesheet", () => {});
+Build("Should create HTML files", () => {
+  const HTMLFiles = ["index.html", "html/index.html"];
+
+  HTMLFiles.forEach((file) => {
+    file = path.resolve(buildDir, file);
+
+    assert.is(fs.existsSync(file), true);
+  });
+});
 
 Build.run();

@@ -2,7 +2,7 @@ import path from "path";
 
 // plugins
 import resolve from "@rollup/plugin-node-resolve";
-import commonjs from '@rollup/plugin-commonjs';
+import commonjs from "@rollup/plugin-commonjs";
 import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
@@ -26,7 +26,7 @@ export function defaultInputOptions({ buildDirectory, tmpDir }) {
         limit: 0, // extract all files
         fileName: "[dirname]/[name]-[hash][extname]",
       }),
-      commonjs()
+      commonjs(),
     ],
   };
 }

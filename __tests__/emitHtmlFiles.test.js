@@ -35,14 +35,12 @@ EmitHtmlFiles("Rewrite relative import to absolute", () => {
   const firstScript = domDoc.querySelector("script");
   firstScript.src = "entrypoints/application.js";
 
-  console.log("HI");
   const newDom = rewriteScripts({
     dom,
     manifest: mockManifest,
     baseUrl: "/",
   });
 
-  console.log("HI");
   const newScript = newDom.window.document.querySelector("script");
   assert.is(newScript.src, mockManifest.entrypoints.application.js);
 });
