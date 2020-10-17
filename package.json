@@ -50,8 +50,6 @@
     ]
   },
   "peerDependencies": {
-    "glob": ">= 7.0.0",
-    "rollup": ">= 2.0.0",
     "snowpack": ">= 2.7.0"
   },
   "dependencies": {
@@ -79,7 +77,7 @@
     "glob": "^7.1.6",
     "np": "^6.5.0",
     "prettier": "^2.0.5",
-    "rollup": "^2.28.1",
+    "rollup": "^2.32.0",
     "snowpack": "^2.11.1",
     "start-server-and-test": "^1.11.3",
     "uvu": "^0.3.3"
