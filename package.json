@@ -1,5 +1,6 @@
 {
   "name": "snowpack-plugin-rollup-bundle",
+  "main": "src/index.js",
   "description": "A snowpack plugin to use Rollup as a bundler",
   "homepage": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle",
   "bugs": {

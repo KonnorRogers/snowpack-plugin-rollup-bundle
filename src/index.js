@@ -5,7 +5,6 @@ import glob from "glob";
 import os from "os";
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { shellRun } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 import { addToManifest } from "./manifestUtils";
 import { emitHtmlFiles } from "./emitHtmlFiles";
@@ -38,7 +37,6 @@ async function rollupBuild({
   outputOptions,
 }) {
   const baseUrl = snowpackConfig.devOptions.baseUrl || "/";
-  const TMP_DEBUG_DIRECTORY = path.join(os.tmpdir(), "_source_");
 
   const buildDirectory = outputOptions.dir;
   outputOptions.dir = TMP_BUILD_DIRECTORY;
@@ -93,21 +91,15 @@ async function rollupBuild({
       destFile = path.resolve(TMP_BUILD_DIRECTORY, destFile);
       const destDir = path.parse(destFile).dir;
 
+      console.log(path.relative(buildDirectory, file));
+      console.log(destFile);
+
       if (!fs.existsSync(destDir)) {
         fs.mkdirSync(destDir, { recursive: true });
       }
 
       emitHtmlFiles({ file, manifest, destFile, baseUrl });
     });
-  }
-
-  shellRun(`rm -rf ${TMP_DEBUG_DIRECTORY} && mkdir -p ${TMP_DEBUG_DIRECTORY}`);
-  shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY}`);
-  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
-
-  if (pluginOptions.preserveSourceFiles === true) {
-    const buildDebugDir = path.join(buildDirectory, "_source_");
-    shellRun(`mv ${TMP_DEBUG_DIRECTORY}/ ${buildDebugDir}`);
   }
 }
 
