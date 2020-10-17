@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.3.0...v0.3.1) (2020-10-17)
+
+
+### Bug Fixes
+
+* make Rollup and Glob actual dependencies and use commonjs ([e2ea05d](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/e2ea05de95de5d2f681e985baae1891ddc733537))
+
+
+
 # [0.3.0](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.2.3...v0.3.0) (2020-10-16)
 
 
