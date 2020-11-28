@@ -5,3 +5,4 @@ cypress/videos
 __tests__/examples/**/*dist
 __tests__/examples/**/*build/**/*
 __tests__/examples/**/*yarn.lock
+dist/
