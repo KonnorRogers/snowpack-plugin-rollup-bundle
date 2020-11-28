@@ -8,18 +8,23 @@ on:
     branches:
       - "**"
 
-
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Build the docker image
-        run: |
-          docker-compose build
-      - name: Lint files and build pkg
-        run: |
-          docker-compose run --rm web bash -c "yarn lint && yarn build && yarn install --force"
-      - name: Test files
-        run: |
-          docker-compose run --rm web yarn test
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn install
+    - run: yarn run build --if-present
+    - run: npm test
+      env:
+        CI: true
