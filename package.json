@@ -2,6 +2,16 @@
   "name": "snowpack-plugin-rollup-bundle",
   "description": "A snowpack plugin to use Rollup as a bundler",
   "homepage": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle",
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.esm.js"
+    }
+  },
   "bugs": {
     "url": "https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/issues",
     "email": "konnor7414@gmail.com"
