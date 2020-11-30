@@ -12,7 +12,7 @@
     "sourceMap": true,
     "lib": ["ES2017"],
     "types": [
-      "node", "chai", "mocha"
+      "node", "chai", "mocha", "dom"
     ]
   },
   "include": ["./src/**/*"],
