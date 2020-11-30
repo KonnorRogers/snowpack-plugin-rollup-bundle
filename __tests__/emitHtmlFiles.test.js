@@ -1,4 +1,4 @@
-import { assert } from "@esm-bundle/chai"
+import { assert } from "chai";
 
 import { JSDOM } from "jsdom";
 
@@ -40,6 +40,6 @@ describe("EmitHtmlFiles", () => {
     });
 
     const newScript = newDom.window.document.querySelector("script");
-    assert.is(newScript.src, mockManifest.entrypoints.application.js);
+    assert.equal(newScript.src, mockManifest.entrypoints.application.js);
   });
 });

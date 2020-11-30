@@ -3,13 +3,14 @@
     "outDir": "./dist",
     "allowJs": true,
     "target": "es2017",
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
     "sourceMap": true,
+    "lib": ["ES2017"],
     "types": [
       "node", "chai", "mocha"
     ]

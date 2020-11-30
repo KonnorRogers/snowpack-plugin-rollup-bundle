@@ -13,7 +13,7 @@ const proxy = {
 };
 
 const plugins = [
-  ["@snowpack/plugin-babel"],
+  // ["@snowpack/plugin-babel"],
   [
     "snowpack-plugin-rollup-bundle",
     {
@@ -39,13 +39,13 @@ const alias = {
 };
 
 const devOptions = {
-  out: "build",
   open: "none",
   bundle: true,
 };
 
 const buildOptions = {
   clean: true,
+  out: "build",
 };
 
 module.exports = {

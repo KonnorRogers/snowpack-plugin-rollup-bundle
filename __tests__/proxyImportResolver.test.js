@@ -1,8 +1,8 @@
-import { assert } from "@esm-bundle/chai"
+import { assert } from "chai";
 
 import { proxyImportResolver } from "../src/proxyImportResolver";
 
-describe('ProxyImportResolver', () => {
+describe("ProxyImportResolver", () => {
   it("Should rewrite proxy statements", () => {
     const resolvedImport = proxyImportResolver("import 'x.css.proxy.js'");
 
