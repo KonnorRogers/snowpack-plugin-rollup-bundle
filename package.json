@@ -26,10 +26,14 @@
   },
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./{__tests__,src}/**/*.{ts,js} && prettier ./{__tests__,src}/**/*.{ts,js} --check",
-    "format": "eslint --fix ./{__tests__,src}/**/*.{ts,js} && prettier --write ./{__tests__,src}/**/*.{ts,js}",
+    "lint:eslint": "eslint ./{__tests__,src}/**/*.{ts,js}",
+    "format:eslint": "eslint --fix ./{__tests__,src}/**/*.{ts,js}",
+    "lint:prettier": "prettier ./{__tests__,src}/**/*.{ts,js} --check",
+    "format:prettier": "prettier --write ./{__tests__,src}/**/*.{ts,js}",
+    "lint": "yarn lint:prettier && yarn lint:eslint",
+    "format": "yarn format:prettier && yarn format:eslint",
     "build": "yarn format && yarn tsc",
-    "build:watch": "concurrently \"yarn format --watch\" \"yarn tsc --watch\"",
+    "build:watch": "yarn format && yarn tsc --watch",
     "dev": "cd __tests__/examples/example_dir && yarn snowpack dev --port 4000",
     "serve": "cd __tests__/examples/example_dir && yarn build && yarn servor build index.html 4000",
     "deploy": "yarn publish",
@@ -62,6 +66,7 @@
     "prettier": "^2.0.5",
     "rollup": "^2.32.0",
     "snowpack": "^2.11.1",
+    "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
   },
   "version": "0.3.3"
