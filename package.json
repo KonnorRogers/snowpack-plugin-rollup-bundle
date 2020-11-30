@@ -34,7 +34,7 @@
     "format": "yarn format:prettier && yarn format:eslint",
     "build": "yarn format && yarn tsc",
     "build:watch": "yarn format && yarn tsc --watch",
-    "dev": "cd __tests__/examples/example_dir && yarn snowpack dev --port 4000",
+    "dev": "cd __tests__/examples/example_dir && yarn build && yarn snowpack dev --port 4000",
     "serve": "cd __tests__/examples/example_dir && yarn build && yarn servor build index.html 4000",
     "deploy": "yarn publish",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && git commit -m 'docs: update CHANGELOG.md'",

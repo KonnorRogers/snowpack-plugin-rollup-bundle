@@ -1,12 +1,9 @@
-import { suite } from "uvu";
-import * as assert from "uvu/assert";
+import { assert } from "@esm-bundle/chai"
 
 import { JSDOM } from "jsdom";
 
 // import { rewriteScripts, emitHtmlFiles } from "../src/emitHtmlFiles"
 import { rewriteScripts } from "../src/emitHtmlFiles";
-
-const EmitHtmlFiles = suite("EmitHtmlFiles");
 
 const mockManifest = {
   entrypoints: {
@@ -28,21 +25,21 @@ function createMockDom() {
   `);
 }
 
-EmitHtmlFiles("Rewrite relative import to absolute", () => {
-  const dom = createMockDom();
-  const domDoc = dom.window.document;
+describe("EmitHtmlFiles", () => {
+  it("Rewrite relative import to absolute", () => {
+    const dom = createMockDom();
+    const domDoc = dom.window.document;
 
-  const firstScript = domDoc.querySelector("script");
-  firstScript.src = "entrypoints/application.js";
+    const firstScript = domDoc.querySelector("script");
+    firstScript.src = "entrypoints/application.js";
 
-  const newDom = rewriteScripts({
-    dom,
-    manifest: mockManifest,
-    baseUrl: "/",
+    const newDom = rewriteScripts({
+      dom,
+      manifest: mockManifest,
+      baseUrl: "/",
+    });
+
+    const newScript = newDom.window.document.querySelector("script");
+    assert.is(newScript.src, mockManifest.entrypoints.application.js);
   });
-
-  const newScript = newDom.window.document.querySelector("script");
-  assert.is(newScript.src, mockManifest.entrypoints.application.js);
 });
-
-EmitHtmlFiles.run();
