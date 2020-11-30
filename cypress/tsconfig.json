@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
+    "allowJs": true,
     "lib": ["ES2017", "dom"],
     "types": ["cypress"]
   },
