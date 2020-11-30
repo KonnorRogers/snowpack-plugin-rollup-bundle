@@ -1,19 +1,18 @@
 module.exports = {
+  root: true,
+  parser: "@typescript-eslint/parser",
   env: {
     browser: true,
     es2020: true,
-    "cypress/globals": true
   },
-  extends: ["eslint:recommended", "plugin:cypress/recommended"],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   parserOptions: {
     ecmaVersion: 11,
     sourceType: "module",
   },
-  ignorePatterns: [
-    "__tests__/examples",
-  ],
+  ignorePatterns: ["__tests__/examples"],
   rules: {
-    "no-useless-escape": 0
+    "no-useless-escape": 0,
   },
-  plugins: ["cypress"]
+  plugins: ["@typescript-eslint", "prettier", "prettier/@typescript-eslint"],
 };

@@ -2,7 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "allowJs": true,
-    "target": "esnext",
+    "target": "es2017",
+    "module": "ESNext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
@@ -10,9 +11,9 @@
     "noImplicitThis": true,
     "sourceMap": true,
     "types": [
-      "node"
+      "node", "chai", "mocha"
     ]
   },
   "include": ["./src/**/*"],
-  "exclude": ["./node_modules"]
+  "exclude": ["./node_modules", "./dist", "./__tests__"]
 }
