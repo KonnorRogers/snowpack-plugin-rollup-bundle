@@ -1,4 +1,4 @@
-import path from "path";
+import { path } from "path";
 import { spawnSync } from "child_process";
 
 export function parseHashFileName(filePath) {
