@@ -1,4 +1,4 @@
-import { assert } from "chai";
+import { describe, it, expect, beforeAll } from "@jest/globals"
 import path from "path";
 import process from "process";
 import fs from "fs";
@@ -10,12 +10,11 @@ import { parseHashFileName, shellRun } from "../src/utils";
 
 const exampleDir = path.resolve("__tests__", "examples", "example_dir");
 const buildDir = path.resolve(exampleDir, "build");
-process.chdir(exampleDir);
-shellRun("yarn install --force");
-shellRun("yarn snowpack build --verbose");
 
 describe("Build", () => {
-  before(function () {
+  beforeAll(() => {
+    shellRun("yarn install --force");
+    shellRun("yarn snowpack build --verbose");
     process.chdir(exampleDir);
   });
 
@@ -25,7 +24,7 @@ describe("Build", () => {
     );
 
     buildFiles.forEach((file) => {
-      assert.isTrue(fs.existsSync(file));
+      expect(fs.existsSync(file)).toBe(true);
     });
   });
 
@@ -34,7 +33,7 @@ describe("Build", () => {
     const cssFiles = fs.readdirSync(
       path.resolve(buildDir, "css", "entrypoints")
     );
-    assert.equal(cssFiles.length, entryFiles.length);
+    expect(cssFiles.length).toEqual(entryFiles.length);
 
     const entryFileNames = entryFiles.map(
       (file) => parseHashFileName(file).split(".")[0]
@@ -43,13 +42,13 @@ describe("Build", () => {
       (file) => parseHashFileName(file).split(".")[0]
     );
     cssFileNames.forEach((name) => {
-      assert.isTrue(entryFileNames.includes(name));
+      expect(entryFileNames.includes(name)).toBe(true);
     });
   });
 
   it("Should create an assets directory for all non-css and non-js files", () => {
     const files = fs.readdirSync(path.resolve(buildDir, "assets"));
-    assert.notEqual(files.length, 0);
+    expect(files.length).not.toEqual(0);
   });
 
   it("Should appropriately format a manifest.json", () => {
@@ -65,13 +64,13 @@ describe("Build", () => {
 
     // Divide by 2 to exclude map files
     // { application, pack-2 }
-    assert.equal(manifestEntrypoints.length, entrypointFiles.length / 2);
+    expect(manifestEntrypoints.length).toEqual(entrypointFiles.length / 2);
 
     // { js, js.map, css, css.map }
     const manifestEntrypointKeys = Object.keys(
       manifestData.entrypoints[manifestEntrypoints[0]]
     );
-    assert.equal(manifestEntrypointKeys.length, 4);
+    expect(manifestEntrypointKeys.length).toEqual(4);
   });
 
   describe("JSDOM based assertions", () => {
@@ -90,7 +89,7 @@ describe("Build", () => {
           .parse(parseHashFileName(script.src))
           .name.split(".")[0];
 
-        assert.equal(manifest.entrypoints[baseName]["js"], script.src);
+        expect(manifest.entrypoints[baseName]["js"]).toEqual(script.src);
       });
 
       const HTMLFiles = ["index.html", "html/index.html"];
@@ -98,7 +97,7 @@ describe("Build", () => {
       HTMLFiles.forEach((file) => {
         file = path.resolve(buildDir, file);
 
-        assert.isTrue(fs.existsSync(file));
+        expect(fs.existsSync(file)).toEqual(true);
       });
     });
   });

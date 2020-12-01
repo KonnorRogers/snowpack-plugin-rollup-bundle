@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "allowJs": true,
     "target": "es2017",
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
@@ -12,9 +12,9 @@
     "sourceMap": true,
     "lib": ["ES2017"],
     "types": [
-      "node", "chai", "mocha", "dom"
+      "node", "jest"
     ]
   },
   "include": ["./src/**/*"],
-  "exclude": ["./node_modules", "./dist", "./__tests__"]
+  "exclude": ["./node_modules/**/*", "./dist/**/*", "./__tests__/**/*"]
 }

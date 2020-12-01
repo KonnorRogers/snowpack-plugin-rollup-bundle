@@ -14,5 +14,5 @@ module.exports = {
   rules: {
     "no-useless-escape": 0,
   },
-  plugins: ["@typescript-eslint", "prettier", "prettier/@typescript-eslint"],
+  plugins: ["@typescript-eslint", "prettier"]
 };

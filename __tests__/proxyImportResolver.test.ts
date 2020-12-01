@@ -1,5 +1,3 @@
-import { assert } from "chai";
-
 import { proxyImportResolver } from "../src/proxyImportResolver";
 
 describe("ProxyImportResolver", () => {

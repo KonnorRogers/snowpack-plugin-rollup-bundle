@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import { parseHashFileName } from "../src/utils";
 
 describe("Utils", () => {
