@@ -1,4 +1,4 @@
-import { describe, it, expect } from "jest"
+import { describe, it, expect } from "jest";
 import { JSDOM } from "jsdom";
 
 // import { rewriteScripts, emitHtmlFiles } from "../src/emitHtmlFiles"

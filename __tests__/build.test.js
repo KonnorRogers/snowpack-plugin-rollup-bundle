@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from "@jest/globals"
+import { describe, it, expect, beforeAll } from "@jest/globals";
 import path from "path";
 import process from "process";
 import fs from "fs";
@@ -13,9 +13,9 @@ const buildDir = path.resolve(exampleDir, "build");
 
 describe("Build", () => {
   beforeAll(() => {
+    process.chdir(exampleDir);
     shellRun("yarn install --force");
     shellRun("yarn snowpack build --verbose");
-    process.chdir(exampleDir);
   });
 
   it("Should produce entrypoints and manifest.json", () => {

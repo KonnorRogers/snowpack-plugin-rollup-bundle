@@ -6,13 +6,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "snowpack -r esm build --verbose",
+    "build": "snowpack build --verbose",
     "serve": "yarn servor build index.html 4000"
   },
   "dependencies": {
     "rollup": "^2.26.5",
     "snowpack": "^2.9.0",
-    "snowpack-plugin-rollup-bundle": "file:../../.."
+    "snowpack-plugin-rollup-bundle": "file:../../../"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",
