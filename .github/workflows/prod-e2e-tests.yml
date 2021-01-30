@@ -22,15 +22,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node_version }}
-
-      - run: "yarn && yarn build && cd __tests__/examples/example_dir && yarn install"
+      - run: "yarn && yarn build && cd __tests__/examples/example_dir && yarn"
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          command: yarn test:prod:ci
-
-
+          command: "yarn test:prod:ci"
