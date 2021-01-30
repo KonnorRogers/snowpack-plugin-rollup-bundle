@@ -1,11 +1,10 @@
 import rollup from "rollup";
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import glob from "glob";
 import os from "os";
 
 import { defaultInputOptions, defaultOutputOptions } from "./options";
-import { shellRun } from "./utils";
 import { proxyImportResolver } from "./proxyImportResolver";
 import { addToManifest } from "./manifestUtils";
 import { emitHtmlFiles } from "./emitHtmlFiles";
@@ -101,13 +100,16 @@ async function rollupBuild({
     });
   }
 
-  shellRun(`rm -rf ${TMP_DEBUG_DIRECTORY} && mkdir -p ${TMP_DEBUG_DIRECTORY}`);
-  shellRun(`mv ${buildDirectory} ${TMP_DEBUG_DIRECTORY}`);
-  shellRun(`mv ${TMP_BUILD_DIRECTORY} ${buildDirectory}`);
+  await fs.remove(TMP_DEBUG_DIRECTORY);
+  await fs.mkdirp(TMP_DEBUG_DIRECTORY);
+  await fs.move(buildDirectory, TMP_DEBUG_DIRECTORY, { overwrite: true });
+  await fs.move(TMP_BUILD_DIRECTORY, buildDirectory, { overwrite: true });
 
   if (pluginOptions.preserveSourceFiles === true) {
     const buildDebugDir = path.join(buildDirectory, "_source_");
-    shellRun(`mv ${TMP_DEBUG_DIRECTORY}/ ${buildDebugDir}`);
+    await fs.move(TMP_DEBUG_DIRECTORY + "/", buildDebugDir, {
+      overwrite: true,
+    });
   }
 }
 
@@ -121,6 +123,7 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       const inputOptions = defaultInputOptions({
         buildDirectory,
         tmpDir: TMP_BUILD_DIRECTORY,
+        sourcemap: snowpackConfig.buildOptions.sourcemap,
       });
       const outputOptions = defaultOutputOptions(buildDirectory);
 

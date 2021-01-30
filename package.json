@@ -7,7 +7,7 @@
     "email": "konnor7414@gmail.com"
   },
   "engines": {
-    "node": ">= 10"
+    "node": ">= 12"
   },
   "author": "Konnor Rogers <konnor7414@gmail.com>",
   "repository": {
@@ -16,8 +16,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./{__tests__,src}/**/* --quiet && prettier ./{__tests__,src}/**/* --check",
-    "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*",
+    "ci:setup": "yarn install --frozen-lockfile && yarn build && cd __tests__/examples/example_dir && yarn install --frozen-lockfile",
+    "lint": "eslint ./{src,__tests__}/**/*.js --quiet && prettier ./{__tests__,src}/**/* --check",
+    "format": "eslint --fix ./{src,__tests__}/**/*.js && prettier --write ./{__tests__,src}/**/*",
     "build": "yarn format && yarn pika build",
     "test": "yarn test:unit && yarn test:dev:ci && yarn test:prod:ci",
     "test:unit": "uvu -r esm __tests__ -i examples -i cypress",
@@ -54,33 +55,35 @@
     "snowpack": ">= 2.7.0"
   },
   "dependencies": {
-    "@rollup/plugin-commonjs": "^15.1.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-url": "^5.0.1",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.1.1",
+    "@rollup/plugin-url": "^6.0.0",
+    "fs-extra": "^9.1.0",
     "glob": "^7.1.6",
     "jsdom": "^16.4.0",
-    "rollup-plugin-styles": "^3.10.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-styles": "^3.14.1",
     "rollup-plugin-terser": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.9.2",
     "@pika/plugin-standard-pkg": "^0.9.2",
-    "@testing-library/cypress": "^7.0.0",
-    "babel-jest": "^26.3.0",
-    "conventional-changelog-cli": "^2.1.0",
-    "cypress": "^5.2.0",
-    "eslint": "^7.7.0",
-    "eslint-plugin-cypress": "^2.11.1",
+    "@testing-library/cypress": "^7.0.3",
+    "babel-jest": "^26.6.3",
+    "conventional-changelog-cli": "^2.1.1",
+    "cypress": "^6.3.0",
+    "eslint": "^7.18.0",
+    "eslint-plugin-cypress": "^2.11.2",
     "esm": "^3.2.25",
-    "np": "^6.5.0",
-    "prettier": "^2.0.5",
-    "rollup": "^2.32.0",
-    "snowpack": "^2.11.1",
-    "start-server-and-test": "^1.11.3",
-    "uvu": "^0.3.3"
+    "np": "^7.2.0",
+    "prettier": "^2.2.1",
+    "rollup": "^2.38.1",
+    "snowpack": "^3.0.11",
+    "start-server-and-test": "^1.11.7",
+    "uvu": "^0.5.1"
   },
   "version": "0.3.3"
 }
