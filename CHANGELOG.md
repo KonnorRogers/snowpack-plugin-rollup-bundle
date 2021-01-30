@@ -1,3 +1,14 @@
+# [0.4.0](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.3.3...v0.4.0) (2021-01-30)
+
+
+### Features
+
+* add fs-extra for cross-platform support ([78c4c2b](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/78c4c2b5321a3c7393b0d67a1b7c16598f84c7a9))
+* add sourcemaps if sourcemaps are enabled ([5718c62](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/5718c6299b527db02d5568aace01cb789cd13fa6))
+* support windows with fs-extra ([adebc3c](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/commit/adebc3cb9109100436190032c57a32c5df85cbd8))
+
+
+
 ## [0.4.1](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/compare/v0.3.3...v0.4.1) (2021-01-30)
 
 
