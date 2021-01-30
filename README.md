@@ -9,7 +9,8 @@ file issues, submit PR's, etc.
 
 ## Requirements
 
-- Node >= 10
+- Node >= 12
+- Snowpack
 
 ## Usage
 
@@ -211,20 +212,6 @@ yarn build && yarn test
 ```
 
 You can then view the generated build in the `__tests__/example_dir/build` directory.
-
-### Using docker
-
-```bash
-git clone https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle/tree/development/
-cd snowpack-plugin-rollup-bundle
-source docker.env
-
-docker-compose up --build
-
-# OR
-
-docker-compose run --rm web bash -c "yarn build && yarn test"
-```
 
 ## Roadmap
 
