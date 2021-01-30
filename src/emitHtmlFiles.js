@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { parseHashFileName } from "./utils";
+import { pathToUnix, parseHashFileName } from "./utils";
 import { JSDOM } from "jsdom";
-import url from "url";
 
 /**
  * An instance of JSDOM
@@ -77,11 +76,7 @@ export function rewriteScripts({ dom, manifest, baseUrl }) {
 }
 
 function fixUrl({ baseUrl, file }) {
-  if (url.parse(baseUrl).protocol == null) {
-    return path.join(baseUrl, file);
-  } else {
-    return url.resolve(baseUrl, file);
-  }
+  return pathToUnix(path.join(baseUrl, file));
 }
 
 function insertBefore(existingNode, newNode) {

@@ -1,11 +1,23 @@
 import path from "path";
 import { spawnSync } from "child_process";
 
+/**
+ * Normalizes \\ on windows to /
+ * @param {string} filePath - Normalizes \ to / on windows.
+ */
+export function pathToUnix(filePath) {
+  if (path.sep === "//") {
+    return filePath.replace(/\\/g, "/");
+  }
+
+  return filePath;
+}
+
 export function parseHashFileName(filePath) {
   const { dir, base } = path.parse(filePath);
 
   const fileWithoutHash = base.replace(/(.*)-\w+(\.\w+)/g, "$1$2");
-  return path.join(dir, fileWithoutHash);
+  return pathToUnix(path.join(dir, fileWithoutHash));
 }
 
 export function shellRun(cmd, options = {}) {

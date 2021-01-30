@@ -1,4 +1,4 @@
-import { prependSlash, parseHashFileName } from "./utils";
+import { pathToUnix, prependSlash, parseHashFileName } from "./utils";
 import path from "path";
 
 export function addToManifest({
@@ -45,7 +45,7 @@ function assignAsset({ obj, asset, useFileType }) {
       dir = dir.split("/").slice(1).join("");
     }
 
-    baseName = path.posix.join(dir, name.split(".")[0]);
+    baseName = pathToUnix(path.join(dir, name.split(".")[0]));
   }
 
   const adjustedFileName = prependSlash(fileName);

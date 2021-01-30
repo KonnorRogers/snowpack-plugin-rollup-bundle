@@ -8,6 +8,7 @@ import { defaultInputOptions, defaultOutputOptions } from "./options";
 import { proxyImportResolver } from "./proxyImportResolver";
 import { addToManifest } from "./manifestUtils";
 import { emitHtmlFiles } from "./emitHtmlFiles";
+import { pathToUnix } from "./utils";
 
 const TMP_BUILD_DIRECTORY = path.join(os.tmpdir(), "build");
 
@@ -20,7 +21,9 @@ function getEntrypoints({ entrypoints, buildDirectory }) {
 
       // This fixes issues that were causing x.js-[hash].js
       const fileWithoutExt = path.join(dir, name);
-      const buildFile = path.relative(buildDirectory, fileWithoutExt);
+      const buildFile = pathToUnix(
+        path.relative(buildDirectory, fileWithoutExt)
+      );
 
       obj[buildFile] = file;
     });
@@ -67,8 +70,7 @@ async function rollupBuild({
 
   // Add assets to manifest, use path.relative to fix minor issues
   glob.sync(`${TMP_BUILD_DIRECTORY}/**/*.*`).forEach((fileName) => {
-    console.log(fileName);
-    fileName = path.relative(TMP_BUILD_DIRECTORY, fileName);
+    fileName = pathToUnix(path.relative(TMP_BUILD_DIRECTORY, fileName));
     const chunkOrAsset = { fileName, map: null };
     addToManifest({
       manifest,
@@ -150,12 +152,14 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       });
 
       // Rewrite "proxy.js" imports prior to building
-      glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
-        const resolvedImports = proxyImportResolver(
-          fs.readFileSync(file, "utf8")
-        );
-        fs.writeFileSync(file, resolvedImports, "utf8");
-      });
+      glob
+        .sync(buildDirectory + "/**/*.js", { nodir: true })
+        .forEach((file) => {
+          const resolvedImports = proxyImportResolver(
+            fs.readFileSync(file, "utf8")
+          );
+          fs.writeFileSync(file, resolvedImports, "utf8");
+        });
 
       await rollupBuild(extendedConfig);
     },
