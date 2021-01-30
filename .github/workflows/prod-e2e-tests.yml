@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node_version }}
-      - run: "yarn && yarn build && cd __tests__/examples/example_dir && yarn"
+      - run: "yarn setup"
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
