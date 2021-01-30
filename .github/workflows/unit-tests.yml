@@ -50,5 +50,5 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node_version }}
-      - run: "yarn install && cd __tests/examples/example_dir"
+      - run: "yarn install && yarn build && cd __tests/examples/example_dir && yarn install"
       - run: "yarn test:unit"
