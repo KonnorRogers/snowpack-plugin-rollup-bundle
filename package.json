@@ -7,7 +7,7 @@
     "email": "konnor7414@gmail.com"
   },
   "engines": {
-    "node": ">= 10"
+    "node": ">= 12"
   },
   "author": "Konnor Rogers <konnor7414@gmail.com>",
   "repository": {

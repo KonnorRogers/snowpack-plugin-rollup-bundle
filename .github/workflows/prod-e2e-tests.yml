@@ -1,0 +1,35 @@
+name: Production end-to-end tests
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches:
+      - "**"
+jobs:
+  cypress-run:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node_version:
+          - 12
+          - 14
+          - 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          install-command: yarn install --frozen-lockfile
+          command: yarn test:prod:ci
+
+
