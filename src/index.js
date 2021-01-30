@@ -150,7 +150,7 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       });
 
       // Rewrite "proxy.js" imports prior to building
-      glob.sync(buildDirectory + "/**/*.js").forEach((file) => {
+      glob.sync(buildDirectory + "/**/*.js",{nodir: true}).forEach((file) => {
         const resolvedImports = proxyImportResolver(
           fs.readFileSync(file, "utf8")
         );
