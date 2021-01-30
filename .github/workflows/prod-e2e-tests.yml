@@ -29,7 +29,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          install-command: yarn install --frozen-lockfile
+          install-command: "yarn install && cd __tests/examples/example_dir"
           command: yarn test:prod:ci
 
 
