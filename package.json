@@ -17,8 +17,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn && yarn build && cd __tests__/examples/example_dir && yarn",
-    "lint": "eslint ./{__tests__,src}/**/* --quiet && prettier ./{__tests__,src}/**/* --check",
-    "format": "eslint --fix ./{__tests__,src}/**/* && prettier --write ./{__tests__,src}/**/*",
+    "lint": "eslint ./{src,__tests__}/**/*.js --quiet && prettier ./{__tests__,src}/**/* --check",
+    "format": "eslint --fix ./{src,__tests__}/**/*.js && prettier --write ./{__tests__,src}/**/*",
     "build": "yarn format && yarn pika build",
     "test": "yarn test:unit && yarn test:dev:ci && yarn test:prod:ci",
     "test:unit": "uvu -r esm __tests__ -i examples -i cypress",

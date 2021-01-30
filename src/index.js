@@ -107,7 +107,9 @@ async function rollupBuild({
 
   if (pluginOptions.preserveSourceFiles === true) {
     const buildDebugDir = path.join(buildDirectory, "_source_");
-    await fs.move(TMP_DEBUG_DIRECTORY + "/", buildDebugDir, { overwrite: true })
+    await fs.move(TMP_DEBUG_DIRECTORY + "/", buildDebugDir, {
+      overwrite: true,
+    });
   }
 }
 
@@ -121,7 +123,7 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       const inputOptions = defaultInputOptions({
         buildDirectory,
         tmpDir: TMP_BUILD_DIRECTORY,
-        sourcemap: snowpackConfig.buildOptions.sourcemap
+        sourcemap: snowpackConfig.buildOptions.sourcemap,
       });
       const outputOptions = defaultOutputOptions(buildDirectory);
 

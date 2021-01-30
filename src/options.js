@@ -6,7 +6,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
 import url from "@rollup/plugin-url";
-import sourcemaps from 'rollup-plugin-sourcemaps';
+import sourcemaps from "rollup-plugin-sourcemaps";
 
 export function defaultInputOptions({ buildDirectory, tmpDir, sourcemap }) {
   const plugins = [
@@ -26,13 +26,13 @@ export function defaultInputOptions({ buildDirectory, tmpDir, sourcemap }) {
       fileName: "[dirname]/[name]-[hash][extname]",
     }),
     commonjs(),
-  ]
+  ];
 
   if (sourcemap) {
-    plugins.push(sourcemaps())
+    plugins.push(sourcemaps());
   }
 
-  return plugins;
+  return { plugins };
 }
 
 export function defaultOutputOptions(buildDirectory) {
