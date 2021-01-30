@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "setup": "yarn && yarn build && cd __tests__/examples/example_dir && yarn",
+    "ci:setup": "yarn install --frozen-lockfile && yarn build && cd __tests__/examples/example_dir && yarn install --frozen-lockfile",
     "lint": "eslint ./{src,__tests__}/**/*.js --quiet && prettier ./{__tests__,src}/**/* --check",
     "format": "eslint --fix ./{src,__tests__}/**/*.js && prettier --write ./{__tests__,src}/**/*",
     "build": "yarn format && yarn pika build",

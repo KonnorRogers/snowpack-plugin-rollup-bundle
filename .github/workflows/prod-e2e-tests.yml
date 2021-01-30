@@ -37,7 +37,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: "yarn setup"
+      - run: "yarn ci:setup"
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run

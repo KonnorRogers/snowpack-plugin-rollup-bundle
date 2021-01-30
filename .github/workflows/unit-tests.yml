@@ -39,5 +39,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: "yarn setup"
+      - run: "yarn ci:setup"
       - run: "yarn test:unit"
