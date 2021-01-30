@@ -150,12 +150,14 @@ const plugin = (snowpackConfig, pluginOptions = {}) => {
       });
 
       // Rewrite "proxy.js" imports prior to building
-      glob.sync(buildDirectory + "/**/*.js",{nodir: true}).forEach((file) => {
-        const resolvedImports = proxyImportResolver(
-          fs.readFileSync(file, "utf8")
-        );
-        fs.writeFileSync(file, resolvedImports, "utf8");
-      });
+      glob
+        .sync(buildDirectory + "/**/*.js", { nodir: true })
+        .forEach((file) => {
+          const resolvedImports = proxyImportResolver(
+            fs.readFileSync(file, "utf8")
+          );
+          fs.writeFileSync(file, resolvedImports, "utf8");
+        });
 
       await rollupBuild(extendedConfig);
     },
