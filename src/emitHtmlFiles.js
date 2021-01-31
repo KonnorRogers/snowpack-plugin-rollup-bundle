@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { pathToUnix, parseHashFileName } from "./utils";
+import { pathToUnix, parseHashFileName, prependSlash } from "./utils";
 import { JSDOM } from "jsdom";
 
 /**
@@ -76,7 +76,7 @@ export function rewriteScripts({ dom, manifest, baseUrl }) {
 }
 
 function fixUrl({ baseUrl, file }) {
-  return pathToUnix(path.join(baseUrl, file));
+  return prependSlash(pathToUnix(path.join(baseUrl, file)));
 }
 
 function insertBefore(existingNode, newNode) {
