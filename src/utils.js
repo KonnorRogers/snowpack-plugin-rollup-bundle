@@ -5,7 +5,7 @@ export function parseHashFileName(filePath) {
   const { dir, base } = path.parse(filePath);
 
   const fileWithoutHash = base.replace(/(.*)-\w+(\.\w+)/g, "$1$2");
-  return path.join(dir, fileWithoutHash);
+  return path.posix.join(dir, fileWithoutHash);
 }
 
 export function shellRun(cmd, options = {}) {
