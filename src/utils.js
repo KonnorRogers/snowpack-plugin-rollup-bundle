@@ -1,11 +1,15 @@
 import path from "path";
 import { spawnSync } from "child_process";
 
+function forceForwardSlashes(filePath) {
+    return path.sep == "\\" ? filePath.replace(/\\/g, '/') : filePath;
+}
+
 export function parseHashFileName(filePath) {
   const { dir, base } = path.parse(filePath);
 
   const fileWithoutHash = base.replace(/(.*)-\w+(\.\w+)/g, "$1$2");
-  return path.join(dir, fileWithoutHash);
+  return forceForwardSlashes(path.join(dir, fileWithoutHash));
 }
 
 export function shellRun(cmd, options = {}) {
