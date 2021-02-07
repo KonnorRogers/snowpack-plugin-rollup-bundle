@@ -6,7 +6,7 @@ import { spawnSync } from "child_process";
  * @param {string} filePath - Normalizes \ to / on windows.
  */
 export function pathToUnix(filePath) {
-  if (path.sep === "//") {
+  if (path.sep === "\\") {
     return filePath.replace(/\\/g, "/");
   }
 
