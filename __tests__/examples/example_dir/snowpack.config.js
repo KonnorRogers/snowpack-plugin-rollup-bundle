@@ -45,6 +45,7 @@ const devOptions = {
 };
 
 const buildOptions = {
+  sourcemap: true,
   clean: true,
 };
 
