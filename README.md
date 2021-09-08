@@ -7,6 +7,10 @@ I'm more than happy to support any issues you may have. Currently, this
 package was built with my gem called `Snowpacker` in mind. Feel free to
 file issues, submit PR's, etc.
 
+## Projects future
+
+Unfortunately as I have stopped working on Snowpacker and have gotten quite busy with other projects, I consider this project deprecated as it has not had an update since like 2.7 of Snowpack or something ridiculous. If someone else would like ownership, feel free to create an issue.
+
 ## Requirements
 
 - Node >= 12
