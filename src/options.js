@@ -15,7 +15,7 @@ export function defaultInputOptions({ buildDirectory, tmpDir, sourcemap }) {
       mode: ["extract"],
       autoModules: (id) => id.includes(".module.css"),
       minimize: true,
-      sourceMap: true,
+      sourceMap: sourcemap,
     }),
     url({
       include: "**/*",
